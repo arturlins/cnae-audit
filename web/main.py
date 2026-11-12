@@ -8,17 +8,16 @@ import logging
 import uuid
 from pathlib import Path
 
-import markdown
 from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from markupsafe import Markup
 
 from agente.ferramentas.enquadramento import ErroFonte, carregar_base
 from agente.instrucoes import AVISO
 from web.agentos_client import AgentOSError, run_agent
 from web.mensagem import Formulario, ValorInvalido, montar_mensagem
+from web.render import renderizar_markdown
 from web.verificacao import verificar_resposta
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
@@ -30,17 +29,11 @@ app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
 
-def _md(texto: str) -> Markup:
-    # Neutraliza HTML vindo do modelo antes de converter o markdown.
-    seguro = (texto or "").replace("<", "&lt;")
-    return Markup(markdown.markdown(seguro, extensions=["sane_lists"]))
-
-
 def _json(valor) -> str:
     return json.dumps(valor, ensure_ascii=False, indent=2)
 
 
-templates.env.filters["md"] = _md
+templates.env.filters["md"] = renderizar_markdown
 templates.env.filters["tojson_pretty"] = _json
 
 
