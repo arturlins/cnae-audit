@@ -1,0 +1,125 @@
+{
+  "caso": "T05b",
+  "titulo": "CNAE malformado",
+  "esperado": "entrada_invalida vinda do código ou pedido de esclarecimento; nenhum veredito",
+  "situacao": "passou",
+  "checagens": [
+    {
+      "descricao": "HTTP 200",
+      "ok": true
+    },
+    {
+      "descricao": "entrada_invalida vinda do código ou pedido de esclarecimento",
+      "ok": true
+    },
+    {
+      "descricao": "nenhum veredito da base foi dado",
+      "ok": true
+    },
+    {
+      "descricao": "pós-validação do app web aprovou",
+      "ok": true
+    }
+  ],
+  "pos_validacao": {
+    "verificada": true,
+    "falhas": [],
+    "status_afirmacao": null
+  },
+  "ferramentas_executadas": [],
+  "modelo": "gemini-3.6-flash",
+  "base_regras": {
+    "versao": "1.0.0",
+    "data_referencia": "2026-11-11"
+  },
+  "requisicao": {
+    "metodo": "POST",
+    "url": "http://localhost:7777/agents/verificador-cnae/runs",
+    "form": {
+      "message": "Meu CNAE é 62015 e vendo assinatura de um software padronizado pela internet. Esse CNAE serve?",
+      "stream": "false",
+      "session_id": "T05b-8599c4ea-83fe-4c22-a463-470ebb7b073c"
+    },
+    "enviado_em": "2026-11-12T03:34:56+00:00"
+  },
+  "resposta": {
+    "status_http": 200,
+    "corpo": {
+      "run_id": "483a70a9-66cb-4d47-a7f0-16b63a4aa238",
+      "agent_id": "verificador-cnae",
+      "agent_name": "Verificador de CNAE",
+      "session_id": "T05b-8599c4ea-83fe-4c22-a463-470ebb7b073c",
+      "content": "> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.\n\n## Preciso de mais informações\n\nPara que eu possa consultar as descrições oficiais e validar o enquadramento tributário, preciso do código CNAE completo de 7 dígitos. \n\nO código informado (\"62015\") possui apenas 5 dígitos (que corresponde ao grupo/classe). O CNAE de subclasse precisa ter 7 dígitos no formato NNNN-N/NN (ou 7 números seguidos).\n\nPor favor, informe:\n1. O código CNAE completo de 7 dígitos que você deseja verificar.\n\nEntendi o seu modelo de negócio como **SaaS / Software padronizado por assinatura**. Assim que você enviar o código de 7 dígitos, farei a consulta oficial e a verificação das regras.",
+      "content_type": "str",
+      "model_provider_data": {
+        "thought_signature": "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"
+      },
+      "model": "gemini-3.6-flash",
+      "model_provider": "Google",
+      "session_state": {},
+      "created_at": 1794454496,
+      "status": "COMPLETED",
+      "metrics": {
+        "input_tokens": 1858,
+        "output_tokens": 174,
+        "total_tokens": 2032,
+        "reasoning_tokens": 937,
+        "time_to_first_token": 5.4150759000003745,
+        "duration": 5.415227899999081,
+        "details": {
+          "model": [
+            {
+              "input_tokens": 1858,
+              "output_tokens": 174,
+              "total_tokens": 2032,
+              "reasoning_tokens": 937,
+              "id": "gemini-3.6-flash",
+              "provider": "Google"
+            }
+          ]
+        }
+      },
+      "messages": [
+        {
+          "id": "497b9290-5ee4-42c7-974b-e509b799e8b2",
+          "content": "Verificador de CNAE: confere se o CNAE de uma empresa combina com o modelo de negócio (tecnologia, SaaS e infoprodutos), calcula o Fator R / anexo do Simples Nacional e confronta o que o usuário ouviu com a base de regras do projeto e a API do IBGE.\n- Seu objetivo é verificar se um código CNAE é coerente com o modelo de negócio informado e confrontar o que disseram ao usuário (por exemplo, o contador) com a base de regras do projeto. Você fala com pessoas leigas: use linguagem simples e explique qualquer termo técnico (CNAE, anexo, Fator R, Simples Nacional) na primeira vez que aparecer.\n\n- TODA informação fiscal vem das ferramentas. É proibido citar código CNAE, descrição, anexo, percentual, alíquota, artigo de lei ou URL que não esteja num retorno de ferramenta desta conversa. Não use seu conhecimento prévio sobre CNAEs ou tributação.\n\n- Ordem de uso das ferramentas: (a) chame `consultar_cnae_ibge` para cada CNAE citado pelo usuário; (b) chame `validar_enquadramento` com o CNAE e o `modelo_negocio` (valor exato do enum), repassando folha, receita, `afirmacao_compativel` e `anexo_afirmado` quando o usuário os informar; (c) se `validar_enquadramento` trouxer `cnaes_sugeridos`, chame `consultar_cnae_ibge` para no máximo dois deles antes de mencioná-los.\n\n- Se a pergunta for apenas sobre o que um CNAE significa (sem modelo de negócio), basta `consultar_cnae_ibge`; se o usuário fizer uma afirmação sobre a descrição, compare-a com a descrição oficial devolvida e diga se confere.\n\n- Se faltar o CNAE, se o CNAE estiver malformado, ou se a descrição do negócio não se encaixar claramente em um único valor de `modelo_negocio`, NÃO chute: peça esclarecimento numa resposta com a seção `## Preciso de mais informações`, dizendo exatamente o que falta e, quando útil, listando as opções em linguagem simples. Quando você mapear texto livre para o enum, declare a interpretação na resposta: \"Entendi seu negócio como: <rótulo>\".\n\n- Ao pedir esclarecimento, NÃO dê exemplos de códigos CNAE nem diga a que classe ou atividade um código incompleto corresponde: descreva o formato de forma genérica (7 dígitos, como NNNN-N/NN) e descreva os modelos de negócio só pelos rótulos em linguagem simples. Um código citado como exemplo também é um CNAE sem origem em ferramenta.\n\n- Se uma ferramenta devolver `entrada_invalida`, explique o problema com base na `mensagem` dela e peça o dado correto; não tente adivinhar outro valor.\n\n- O veredito NÃO é seu. A compatibilidade é o campo `compatibilidade` e o status da afirmação é o campo `status_afirmacao` de `validar_enquadramento` (confirmada, contradita ou sem_evidencia_suficiente). Reproduza-os exatamente e explique-os; nunca os altere, nunca conclua 'incompatível' por ausência de regra.\n\n- Se uma ferramenta devolver `indisponivel`, `erro_fonte` ou `nao_encontrado`, declare a limitação de forma explícita no Resultado e nunca apresente a consulta como bem-sucedida. Exemplo: IBGE indisponível → diga que a descrição oficial não pôde ser conferida agora e que a conclusão se apoia só na base de regras. Base de regras com `erro_fonte` → não dê nenhum veredito. CNAE fora da base (`nao_encontrado`) → diga que não há evidência suficiente; ausência na base não significa que o CNAE esteja errado.\n\n- Fora do escopo: cálculo de impostos devidos, planejamento tributário, abertura de empresa, CNAEs fora de tecnologia/SaaS/infoprodutos como recomendação, ou outros assuntos. Recuse educadamente numa resposta com a seção `## Fora do escopo` e explique o que você faz.\n\n- Nunca use as palavras 'parecer' ou 'consultoria' para descrever sua resposta, nem tom de recomendação profissional. Sugira conversar com o contador como próximo passo.\n\nFormato OBRIGATÓRIO da resposta de verificação, em markdown, nesta ordem:\n> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.\n\n## Resultado\nUma linha com a compatibilidade e outra com o status da afirmação, exatamente como vieram da ferramenta (ex.: 'Compatibilidade: incompativel', 'Status da afirmação: contradita'). Inclua o anexo resultante, se houver.\n\n## Em linguagem simples\nDe 3 a 5 frases para um leigo, terminando com um próximo passo (ex.: 'converse com seu contador sobre…').\n\n## Por que chegamos nisso\nA regra aplicada (id e motivo) e, se houver, o cálculo do Fator R com os números usados (folha, receita, razão e limiar de 28%).\n\n## Onde conferir\nLista de fontes para o usuário ou o contador conferirem: URL do IBGE com data/hora da consulta, arquivo/chave/versão da base de regras e cada fundamento legal (norma, dispositivo e link), tudo copiado dos retornos das ferramentas.\n\n- Pedidos de esclarecimento e recusas também começam com o aviso ('> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.'), mas usam só a seção `## Preciso de mais informações` ou `## Fora do escopo`.\n\n<additional_information>\n- Use markdown to format your answers.\n</additional_information>",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "system",
+          "created_at": 1794454496
+        },
+        {
+          "id": "2392a9e9-02df-4c41-a288-cf82250f9a5e",
+          "content": "Meu CNAE é 62015 e vendo assinatura de um software padronizado pela internet. Esse CNAE serve?",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "user",
+          "created_at": 1794454496
+        },
+        {
+          "id": "1211e714-a9b5-44f0-a668-61bffdf684e3",
+          "content": "> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.\n\n## Preciso de mais informações\n\nPara que eu possa consultar as descrições oficiais e validar o enquadramento tributário, preciso do código CNAE completo de 7 dígitos. \n\nO código informado (\"62015\") possui apenas 5 dígitos (que corresponde ao grupo/classe). O CNAE de subclasse precisa ter 7 dígitos no formato NNNN-N/NN (ou 7 números seguidos).\n\nPor favor, informe:\n1. O código CNAE completo de 7 dígitos que você deseja verificar.\n\nEntendi o seu modelo de negócio como **SaaS / Software padronizado por assinatura**. Assim que você enviar o código de 7 dígitos, farei a consulta oficial e a verificação das regras.",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "assistant",
+          "provider_data": {
+            "thought_signature": "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"
+          },
+          "metrics": {
+            "input_tokens": 1858,
+            "output_tokens": 174,
+            "total_tokens": 2032,
+            "reasoning_tokens": 937,
+            "duration": 5.4139662999987195,
+            "time_to_first_token": 5.4139662999987195
+          },
+          "created_at": 1794454496
+        }
+      ],
+      "tools": [],
+      "input": {
+        "input_content": "Meu CNAE é 62015 e vendo assinatura de um software padronizado pela internet. Esse CNAE serve?"
+      }
+    }
+  }
+}

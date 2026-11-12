@@ -1,0 +1,15 @@
+╔═══════════════ AgentOS ════════════════╗
+║                                        ║
+║                                        ║
+║          https://os.agno.com/          ║
+║                                        ║
+║                                        ║
+║  OS running on: http://localhost:7777  ║
+║                                        ║
+║                                        ║
+╚════════════════════════════════════════╝
+INFO:     Started server process [36400]
+INFO:     Waiting for application startup.
+INFO    Database ready: SqliteDb id=24bb2a72-78ce-57de-96b3-6dc8f4688f64
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://localhost:7777 (Press CTRL+C to quit)

@@ -1,0 +1,32 @@
+╔═══════════════ AgentOS ════════════════╗
+║                                        ║
+║                                        ║
+║          https://os.agno.com/          ║
+║                                        ║
+║                                        ║
+║  OS running on: http://localhost:7777  ║
+║                                        ║
+║                                        ║
+╚════════════════════════════════════════╝
+INFO:     Started server process [49272]
+INFO:     Waiting for application startup.
+INFO    Database ready: SqliteDb id=24bb2a72-78ce-57de-96b3-6dc8f4688f64
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://localhost:7777 (Press CTRL+C to quit)
+ERROR   Error from Gemini API: 403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'The caller does not have permission', 'status': 'PERMISSION_DENIED'}}
+ERROR   Non-retryable model provider error: {
+  "error": {
+    "code": 403,
+    "message": "The caller does not have permission",
+    "status": "PERMISSION_DENIED"
+  }
+}
+
+ERROR   Error in Agent run: {
+  "error": {
+    "code": 403,
+    "message": "The caller does not have permission",
+    "status": "PERMISSION_DENIED"
+  }
+}
+

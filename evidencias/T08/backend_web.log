@@ -1,0 +1,20 @@
+INFO:     Started server process [42836]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:58693 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57484 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57484 - "GET /static/estilo.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63722 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+2026-11-12 00:37:55,723 INFO web: Verificação solicitada: cnae='6201-5/01' modelo='saas_padronizado'
+2026-11-12 00:37:55,723 INFO web.agentos: POST http://localhost:7777/agents/verificador-cnae/runs session_id=5495c3ab-25e2-437b-a39b-dc3b4f61b59a
+2026-11-12 00:37:56,550 INFO httpx: HTTP Request: POST http://localhost:7777/agents/verificador-cnae/runs "HTTP/1.1 200 OK"
+2026-11-12 00:37:56,551 INFO web.agentos: AgentOS HTTP 200 in 0.8s
+2026-11-12 00:37:56,551 WARNING web: Falha ao chamar o AgentOS: erro_api (A execução do agente terminou com erro.)
+INFO:     127.0.0.1:52271 - "POST /verificar HTTP/1.1" 200 OK
+2026-11-12 00:38:18,988 INFO web: Verificação solicitada: cnae='6201-5/01' modelo='saas_padronizado'
+2026-11-12 00:38:18,988 INFO web.agentos: POST http://localhost:7777/agents/verificador-cnae/runs session_id=5495c3ab-25e2-437b-a39b-dc3b4f61b59a
+2026-11-12 00:38:38,192 INFO httpx: HTTP Request: POST http://localhost:7777/agents/verificador-cnae/runs "HTTP/1.1 200 OK"
+2026-11-12 00:38:38,193 INFO web.agentos: AgentOS HTTP 200 in 19.2s
+2026-11-12 00:38:38,194 INFO web: Resposta do agente: run_id=cb67ac48-c092-4904-b6b6-1b554a4923ab ferramentas=['consultar_cnae_ibge', 'validar_enquadramento', 'consultar_cnae_ibge', 'consultar_cnae_ibge'] verificada=True status_afirmacao=contradita falhas=[]
+INFO:     127.0.0.1:58410 - "POST /verificar HTTP/1.1" 200 OK

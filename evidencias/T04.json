@@ -1,0 +1,274 @@
+{
+  "caso": "T04",
+  "titulo": "CNAE real fora da base",
+  "esperado": "IBGE ok (4711-3/02); base nao_encontrado; sem_evidencia_suficiente; nada inventado",
+  "situacao": "passou",
+  "checagens": [
+    {
+      "descricao": "HTTP 200",
+      "ok": true
+    },
+    {
+      "descricao": "IBGE encontrou 4711-3/02",
+      "ok": true
+    },
+    {
+      "descricao": "base respondeu nao_encontrado",
+      "ok": true
+    },
+    {
+      "descricao": "status_afirmacao = sem_evidencia_suficiente",
+      "ok": true
+    },
+    {
+      "descricao": "resposta não chama o CNAE de incompatível",
+      "ok": true
+    },
+    {
+      "descricao": "pós-validação do app web aprovou",
+      "ok": true
+    }
+  ],
+  "pos_validacao": {
+    "verificada": true,
+    "falhas": [],
+    "status_afirmacao": "sem_evidencia_suficiente"
+  },
+  "ferramentas_executadas": [
+    {
+      "nome": "consultar_cnae_ibge",
+      "argumentos": {
+        "codigo_cnae": "4711-3/02"
+      },
+      "status": "ok"
+    },
+    {
+      "nome": "validar_enquadramento",
+      "argumentos": {
+        "modelo_negocio": "revenda_hardware",
+        "codigo_cnae": "4711-3/02",
+        "afirmacao_compativel": true
+      },
+      "status": "nao_encontrado"
+    }
+  ],
+  "modelo": "gemini-3.6-flash",
+  "base_regras": {
+    "versao": "1.0.0",
+    "data_referencia": "2026-11-11"
+  },
+  "requisicao": {
+    "metodo": "POST",
+    "url": "http://localhost:7777/agents/verificador-cnae/runs",
+    "form": {
+      "message": "Verifique se o CNAE da minha empresa combina com o que ela faz.\n- CNAE: 4711-3/02\n- O que minha empresa faz: Revendo computadores, peças ou equipamentos de informática (modelo_negocio: revenda_hardware)\n- Me disseram que esse CNAE serve para o meu negócio.",
+      "stream": "false",
+      "session_id": "T04-fd938f8f-91c0-424c-b986-040267076a95"
+    },
+    "enviado_em": "2026-11-12T03:34:40+00:00"
+  },
+  "resposta": {
+    "status_http": 200,
+    "corpo": {
+      "run_id": "e55e8602-ea1c-4cf5-8b1a-074c5fc57878",
+      "agent_id": "verificador-cnae",
+      "agent_name": "Verificador de CNAE",
+      "session_id": "T04-fd938f8f-91c0-424c-b986-040267076a95",
+      "content": "Entendi seu negócio como: Revendo computadores, peças ou equipamentos de informática.\n\n> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.\n\n## Resultado\nCompatibilidade: indeterminado  \nStatus da afirmação: sem_evidencia_suficiente\n\n## Em linguagem simples\nO CNAE (Classificação Nacional de Atividades Econômicas, o código que define a atividade oficial de uma empresa) 4711-3/02 refere-se, segundo o IBGE, ao comércio varejista de mercadorias em geral com predominância de produtos alimentícios (supermercados). Como este código não está cadastrado na nossa base de regras para atividades de tecnologia, a compatibilidade permaneceu indeterminada e não há evidência suficiente na ferramenta para validar o que lhe disseram. Isso não significa que o enquadramento esteja obrigatoriamente errado, mas sim que a base de dados utilizada não cobre esse CNAE. Converse com seu contador sobre o enquadramento adequado para o seu negócio de revenda de hardware.\n\n## Por que chegamos nisso\nO CNAE 4711-3/02 não consta na base de regras analisada, gerando o status \"sem_evidencia_suficiente\" e compatibilidade \"indeterminado\". Além disso, a descrição oficial obtida no IBGE define a subclasse 4711-3/02 como \"COMÉRCIO VAREJISTA DE MERCADORIAS EM GERAL, COM PREDOMINÂNCIA DE PRODUTOS ALIMENTÍCIOS - SUPERMERCADOS\".\n\n## Onde conferir\n- **IBGE**: API CNAE do IBGE (`https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/4711302`), consultado em 2026-11-12T03:34:42+00:00.\n- **Base de Regras**: arquivo `data/regras_cnae.json`, chave `cnaes`, versão `1.0.0` (data de referência: 2026-11-11).",
+      "content_type": "str",
+      "model_provider_data": {
+        "thought_signature": "EucqCuQqAWkUfRPTAdrtIj9eeX080eoN8ITAyx8Hc1pczq886DLUkM3KdmX+/cazNq33vQa2G40o2dBvMIU9dhfE2LONrr33gZGPDzi5CYvIdycJqQnZWY4ndZsCxsfE89sBRVTHjKKTFpQLCXe7cdDTdjIKz9vnWwTFhXOhKC9v+JamxY8zQcsY3dWpTfgraG6s8wmvGxsqoDxCuKvVaPaAEpSh97lIYpX4Tqjab8HeAD7ARt4wII/Ma8b0uEPac4L6S6M041f0KDctV1Ib4mnxH+OBKTf/IuD8Gk1DZvNSTB3jofbEonwC1UIK5/cJ7pMfNs0ch9mfCjyv0tUsPMUTY4u4mwUJodGJsFKoHfLx1Iq/Q8yeQZQJnxOzAwSINGfjFhncVJzgyZhtEVf6wFmQpj9ygXRq5DXOnE+4FQB5WfBHhA+YvjohXQILbTZL3LcVDeaQfMl9x5OYw1D8S830G+1LDBu+DY9UdKSLXR94PFviQCkdRmfRqk7C++9+rVHhXuy+sZbxULbYj78QU6Cf98KklzAj2JojAhWdOkdr13vuMeT7qCqPuGzaVUfHhQCxuBrs4xn+764dZYMh2kDnDuKrKu5B+8UsdOyQwUrK4fc2FnrWd/e7YopShewh5f8riDiIt4aLvzVRFeNoLlqkjlCBHaj3TUJ/DG2vDcKkqZS3cC+GofMTLm1gP9zOLOfoRNA1eAuMkOl2S2vIYcPuaObulXItVhITYVDjJERvVBaLYxIeSo2Z0zpTWLAQyqt8S4ze+zjjT7MiLcqjKePX/MCILyIy5/FUwRxn6UT5h5mw3xXODzNgaQ/MgzjW/kwBYas261OkXUO2W2WOeezGZghWzOTFQeIo21bivR+Q2P18SEVujgJDShwqh/P21k+tGFigCIcWR1pRT05g2Gnplul958rThP14WFIKz5u5Uu70ZGvMSDJCZkkaWbiiI6vPNaK5mAeRD1G+7kcdr3tYO2wcXRGO3afGfO0qR9buQ4wIFEax4uzztPHgHwKw0aHJIfMDprsCBCL3D+WPi3vXTPhk7oiPe0JE+WID8RdGSDzD0shdhyO5uMsMQCPIdBze6DWBNFFIfqD7JSjhIlc2bCrKUCZKdIZJ0VboEh+yRXienGVdJpbQTw83vjiWxVep4xIltpHwt0chMbT5VCSZENl0Vvy8sH7oRaMT100/3Nv7QkoHdO/R4xxvuhX+ld45FHQgZfw8rOZFjuE9g8HZ574baynOS32wj7NP+WQ17Tjl00ZQY0qxIt800VCplr2HiKmNT6kxnSt00TfWIqcbBPRQYTcFIOUqEJyOwb4cIMZPpxj+FG+Q2UoUOUrSH0isidHxg1eNBSGhOTCuwzFKHMlCI3mCs3ZAXNCM7JWyRC+UTBR9Mu0HO18QJ9144nRbwevrJVp8T9/R62upk2uBAkJ+SsLuNXyq6EgqGKy4hUcGoZq24xHXXZb8ixwLRIBwX4u9V5S89vR7ukUY3lPDDpU0B+gGnGqHWKzs8Xv3QgFKn7qQiB22kaffuKW05TCCf9Q7hHBSzTb81AB4DaNUb3nTSl6ttZGw5LDP24kXutdtUvuubM486/meG78bJfNjSDr9ehictC/6k2H262oHj2DRF7SFIHIHFrICDFr+wKE9z/5H3lsXla+mYgrKKpGCpjzntOcxQSHXrVHrTpIRAK0UiOfaqf0q4wLHpr7pqTylhG5s8sKVOyQ3HHzDKjBwq0qkNqaKfA6gohKFyQABtWoKk1Xvz968f+3v3N1yMHTemdcyVty80mXV//K7MP+xtU+TxWND0O/VOr0OfM2MKdZkYD0r1DbVs06VqhhpVJZwO37KxypANrxjxoMKqPt3zRaIlqLrfCXtpa2Q1y2EIxPPPGdFh8coSKxHHvd9UNALlGN+WP1RtFiohb8uWe1jv5/Dez9dYrN2yy7B1kZ1+bitoBPglTDBB5G6SdTZU0hVu4oodRJZZrgH3OP5vCkHTMUJ/cLq8YDBv+6fxxIiehrhOLKfyExz1aWiscWyc1zDe6C0BI3SqRm2FWqNYonlFRIkPSCYIsLvRN8wS5imDH3m81p//Kaa5J4tECpDIlehW3KC/rb5a05fwXuL5NQTHIEexySMlNTOZTJAJBZ7htvTzAv4p1sLmtWEXSUFQZuGUjHr8eHWZ4ZjBCtWuYaik+5fE86njIF4tLZbWtumSNCZlLcM1TKhAfvuYEujIzyT5RFApTnlDjcLnFBOZA+KPF8JTytjvd9aQtwkE2u2qc9XZ2yxFoOKmpcfHl8BQ8UHnPPb4MfAmU1ZozLiTQoqSRfkExqhWdZDcxC7FJv9SQMOP6RjB1SDtC9m5ByqOqBjHr38d1aao8tCCz/XLjvSUNDqQtgF1zf4sHiKkIJWjM56R2oXUuUnXLI/Gw/vcjc0OXTkjdmpm1EJwQP5Dl4HQ5GEARY3PfwdVd9uAuZSd2eRoAKI5rCduoVxJAgpjf4thdvQnm2k1+2tpjvUQAEV6ohiphY5mZ3TFCBBtBpkUW/h8m5m9a2wFa/MYr748CYmNeo2nGZabBrm8sUyUx2YssH1Q7LozZRyuHg+/VGMp5+1PIII9Sx0W6o4b5TXusXEujyxb+TsCS3nvvmepeMUX7MKu6xE6SWrXCToNO4k2vsgGGznITHDN8bWntSMVwlKWa9qUEKbFaM7ufFDglXC6CFQGJdicxrvLnIt+SPdVJuTX03/vPvVMTbSgDkp5Q+kCvFfj039kiGTN8IH3diW5KUUDl13on5N93Q23yoLwBPaka3rRItjUv/JV1LZt3ZcnXuVwnKMbWFb4MXAWmDt0J5za9Fssd3gOx2CWc3aTy8SRW/IYSuLz8hknueF/stNUSa/wu5jWNB1xVWMKnjJ7IshPpG7mkI15FJCLWh88XlIUKeoOSutkq4xivIBmdWwqTJUbljzyqQKwwkGHvcYhHZranzUu3xLeY3s/tOVW3zvR/d6PkphJniMGG7EnAJU95BET9tn8uEBldzzxwrcHFy/wcj1Ws73bZ8KY+MH95uzkmmZbwykyYeZf9Q1d8WSP4DPiliMnQXC3ejq0YjcYpd+2+TqT//2a4uApd/BzNgQrp32r58gQEhcsqs86rWz/LeoPsExcvbJPuhz9vIs9rUhY7uf/CbjDToG0W19pZKHesRUW/aIPOXb8Ij/OXCync7Q5CZioFE1juzWCqGAKOq0UfWxHN/I/gAb990MFlFX32e4cEQ5E4pSoJnPKkA6t0c+nkVyHk6dVUWMxUwYWzXQqX+hlpt8N786NaoPKhPa2aPFBx0dDMnTJ5VV2HPUvoA4ABQ2xjpKTvEtTRlx3pJrMQeFvd9/lGi6WFBWhbbVebN4UDfLKv5uumkz0BzJVRL5l/N8MTo4kXXvSCTARFz9TTWbZaHTkIh23FhWW4nWX14N7S6B0kNCcYd9tVFI6TCKkyIHmEST0mrfpWO27UGIofwa661u7984vhpl6LyrR5MmiXvKbgWYRiPdyMyrC8fRzT4HsG4ueTS9d1FcCrpSrv0M8jq8PYgo1+WBX+Ptwu2Nt9d4vCTQMaKs4RV2SCFkC75Sd2wtjfTrktCIGObjRAFS8HWaIsxSCRnmByh32879CAHkFDQS2MpSuo885ePG2vsVFU9VhDJCJ6376jpcqOdMkFbQ9nQi95ftoknTQTwKqed9yGz1OSIAlLghn4QgFT0W1eeV23klE/7Qzh9UXh3PH07ShLOxqsndy4jT1YiDng3sfkTc8HQk7du9ofoCwiiadlep5WU3j8S2OtydQbWVXuxqyrVv2UhS0An+3HzmqZFurzzbi2uxIEYuv2sxbjr3GRgyOQK58hO0JrRFdI1EliP9bQtrAxE95nh8Uxls9GTv83RbgiKDlWqvXb0WNOi+wSKw26gdKYMSf8GPKDfWW/sxRZ4mgm6E7HMLnpmGKS9seWz5GxrqN1P87X+rkh8jwQn1DHiHqIK6eCChw1drywvbMbgnTB1WjmcmniHRtMJhIZ7jIK7XCgmcHtYJ2sLG6kSXck3+hQMxpIJ6PXAO/spRkaFVPPHpBwW5X+a4aeqvaTObv50lOlT3wHL+8c9QGnoM1V6tgwsPBgWgmUML3RhZdBS5cB9k5x2jkpXvwwCOgXtzDbMcBSHOVgNWRxQIkCvMsv6D0bXIgY+nrS1ar8cdsky3mPZ/qFgKt/PeTGwfMjKrIl6Sp0V85QsqZRO4jeOmnaf4kWSRJnPvHh7HSsMm4eF0DrhMs9hru2LktQyVJ1Xs5gz5gtbcqPxAhnhYVfcgkH+VhHrVJO+10J2ZnYQw1pISPYasaBsPEmeYsQfb1Kje6BWFSuo4Xrm3MGABIM2o+ax9l23Ta8e6Lmb0oJE8G6hxa1TVM9ipX1bekJ1/rZVapMgOHQGJflmbbYOCWk7vUk9EO0WBr1R1ypK4aj89Ys33RHmVeAbIs4BufX70rnlFJoUzYlmBDxm5SARAjwOqGAXnnYqJLuGbzIarg3g65E+V6SaOD3dk0gCYkHy+7sL4MK066k6baKnVMWXdXzsb1iOtdUTpAj/L/vrxYjmuemRiPyTILSekPAMPbyed1CfJGNKXOSYGeqOZ1W0TcKeb9Y7kWPXtFF7L2BMwG1oXu0Jr8z8FjmFJ1eIoriBVVM9he4DydbD2b2XAIyJaQgnYEmNQJfXycklSuQmhQxhL/cjF1vh2wQuczB4JQfKvv3q1fXwvH3uj/iIp0XIIOT/cKFhevD+uH5E13JHvxTDjBGGFNs7C0WRgNXf0Ra+VtKTxn9Tc+vNW6n+D25yMDgFQauSg3/DNWY3oZEfzNM92AgDK8le+9S3sIzRrmGAr6ilCmOKscl2ZqEMwtnrfJUthZeSNni+IApAT7ocVi5/7m0gitd6br7XFfTD2TRLCpvCcmRJJmOPGxiM9ghk9h6MfC+OsQsFH0Q02CYfBD8LBnGvzKKnpAhW9XoEA/ysyP7PvXV6fyjsYDf/As74YY0OyhV439M72TXYwe5yFWokF/TaZN1brRYu+tRQ81B55P7S5PUH8XpaEuZoGWWXJuuFJw7cAG3jU4RDGKSkz/ZKOT+I+Tl/rNnlnTwM9tItDdTbZm2ez0dW8UYC53Qz9YQL7g3lgvkRXJCGTyh+zzILDBdf2Do+u3IIkL9vh5akgxt98rXLoDswuescL0IwmMrC3Oka4oc6LZeSIIz5UPRBBVkmc+DfvQkcuJjdlbvbQMNgnX6BJvlUk0+Os6SANxzWNVXzQB0qVqhfzbJQEGjK5J4tCLzawkoatanA7tU90P/lZ5kRQlL6NufxtjvG5lEs4ovXxAuV7OzCFu92aNoR9Fd94n/vOiEpI2xMN/CA2tXw+fXFPZ5GSiQ4V5bdke7joTdJsGlRKZf11lbY55C3phgpVwR1vtMzJWZpmuCAbGgK9mOvkbFwTtOTrIVoIzdOoHpN1ytFreUcJVWZ5ACSwTQPUHDa4kyfYBMao7zB+cvxKfv2WCE4AExQwqaqgSw6nwJUHObLaec99wCzKMEp6MTgmADcQ98Tz34L/GJHkdqDEKI8xvmkBOQSa/yAbkrLYN2ES4++aK9/cYZCNaYCgWojqtebUdk9V3JeprclznlFlgdAYHcS5eViGJj3bPJivElzx/dWB701VUTwI3diMAQf85eNLW38qgsSO98AwJe/IMvyqVeHoBeYYpp1djd+ONwIJQNw4GhZAcydWhyFdz3/NM/l8TAyzKnv6O8nbFF+qrr9GryvflsC1JWLpMh4IEqFqxY5KfoQWpD9nKHUl5pjGDhQY3UM8vb+ardHK8CUPTbUswltK8uuelG3/F/8PL6fGeVtplYvdqwt7ke2fv4QOOHpJwmBR6Igoop/xasvNcv7fHcLVXZG7g1qLdy7mIM3BJYmRcL36hETT+DMKdiLQ4whnqb8PRXZWrb54X3/pcYET5WrFrqGgyQAUjds0680qHWNvbO/oelMTS+TWJYuhgHrk1c31U2pbKFRhYP48aS4BUsTeSKt63BS1bgZDi+yL52bxOKnqqnxNC1zur6J10Lpvkqwlr3b7PHiEXqLpAMCEubt3y9cWr3l7HxSy8MRFdvYtsFGpiCDgz17dA3NaKtAZp5puyWNciyn5K3Wx3pXoc8xriaNl8FfBfrM/ZGmIMyZ7reUsINQk+uw+WCmslSDFdqc0DdbgPnUdNEwLoWfYfXe7Csq8vT+ocd948LkJYBvRPNsn40BKTG23TyWD0scBd6bKYFtKLSNKVD4tpOv0lWQ9RfbZEAR2ftE9pM4JVht63PcuD9YVEkG542Pf4XIqmZPZkvn8qarsU+X0imBqpbBUagy4siD65ItIFHfeQZygsLU9Qs2Z8Z7KB9M9PkKduP24ugPFpGj36KTduscHXFgfSj+XzNKEN/UvWL82MifOGLQ4H3AAQvaW8yact5Z+9A37dQuoLvbEB38gVlerIrtc7hGR787RcmzIVG6nRjIq5hx1FuqdqNSkxFku770fU+qYN2A6ahZavI6Od2KJoV7v8Kz/CF+xJzOpLccaaw9A92Jb+tCw+hWyqaoOwZIHlDhooqU0bHgguule1N1LkZl8T6k2lqNac391O8nZkjso2W32CYQdEJiw8p0PDOHgRLpVSTIONHSth+RvqdqAGHdbZRa9P7QAhb/C0TydBrqHn6fAHUnCHLrZGuToEFrU1JG0+ealSZJoN6yJqcFn5EUuDF8GC446dWa6uzYgLocoJi1rq0m0mVvf1pIR9b7I4mFcjlQxRu5JZ0TpeNydZzoxJUCjKmnjkcEkYPk2adEDtvD6z2E+iaTt7SDGUJpeQRR9Ge2TVxr9mG16Fb7YkrtW1ae8KoMMWmOiDSEmprHdewptWEIpoCYvs6KffcBdbluKu3Yyiozsk3qcYqMVNqehZxX73iKkI3o2MtweUeRZp/888N7yQwr9ZPegUObuyRYVHP1C0KTKgrV9L/eiIdt3IL8dzr84Rw8vCLNnHlXGQNtiBtyf1qfduBZc+0jpjKMdhDpXrqyDgIeD0ZT5gY+mSyujPmFbpbzXsOYdF2XKKiVxgPJmgTwDdxA9/dliLWfDhYcPYHAKbitUKCWE//Ttu3hYB4vhqce0q1X/N4+CEpr5uJ0ZP0WuW/34jMIB80DikllJLAzwxxt+XIZZ4PS68x8dfj7w+KFnQd0b918on0rq0df1ZxFNw6j+pmLy6BaGu3Px1SYyolwj0w2QjFMjhgs4qzaVCDC+XXGt+HxlP9oe7xBvk1YsR4IMubO5duwa763lfMgszoU7Qj+J8tyN07Iy9cYngmtanUWWep43WhCpU38IaA=="
+      },
+      "model": "gemini-3.6-flash",
+      "model_provider": "Google",
+      "session_state": {},
+      "created_at": 1794454480,
+      "status": "COMPLETED",
+      "metrics": {
+        "input_tokens": 4826,
+        "output_tokens": 555,
+        "total_tokens": 5381,
+        "reasoning_tokens": 1610,
+        "time_to_first_token": 1.8626265000002604,
+        "duration": 10.899639799999932,
+        "details": {
+          "model": [
+            {
+              "input_tokens": 4826,
+              "output_tokens": 555,
+              "total_tokens": 5381,
+              "reasoning_tokens": 1610,
+              "id": "gemini-3.6-flash",
+              "provider": "Google"
+            }
+          ]
+        }
+      },
+      "messages": [
+        {
+          "id": "dcdbd32f-a383-472a-9958-88eb0b2a20ff",
+          "content": "Verificador de CNAE: confere se o CNAE de uma empresa combina com o modelo de negócio (tecnologia, SaaS e infoprodutos), calcula o Fator R / anexo do Simples Nacional e confronta o que o usuário ouviu com a base de regras do projeto e a API do IBGE.\n- Seu objetivo é verificar se um código CNAE é coerente com o modelo de negócio informado e confrontar o que disseram ao usuário (por exemplo, o contador) com a base de regras do projeto. Você fala com pessoas leigas: use linguagem simples e explique qualquer termo técnico (CNAE, anexo, Fator R, Simples Nacional) na primeira vez que aparecer.\n\n- TODA informação fiscal vem das ferramentas. É proibido citar código CNAE, descrição, anexo, percentual, alíquota, artigo de lei ou URL que não esteja num retorno de ferramenta desta conversa. Não use seu conhecimento prévio sobre CNAEs ou tributação.\n\n- Ordem de uso das ferramentas: (a) chame `consultar_cnae_ibge` para cada CNAE citado pelo usuário; (b) chame `validar_enquadramento` com o CNAE e o `modelo_negocio` (valor exato do enum), repassando folha, receita, `afirmacao_compativel` e `anexo_afirmado` quando o usuário os informar; (c) se `validar_enquadramento` trouxer `cnaes_sugeridos`, chame `consultar_cnae_ibge` para no máximo dois deles antes de mencioná-los.\n\n- Se a pergunta for apenas sobre o que um CNAE significa (sem modelo de negócio), basta `consultar_cnae_ibge`; se o usuário fizer uma afirmação sobre a descrição, compare-a com a descrição oficial devolvida e diga se confere.\n\n- Se faltar o CNAE, se o CNAE estiver malformado, ou se a descrição do negócio não se encaixar claramente em um único valor de `modelo_negocio`, NÃO chute: peça esclarecimento numa resposta com a seção `## Preciso de mais informações`, dizendo exatamente o que falta e, quando útil, listando as opções em linguagem simples. Quando você mapear texto livre para o enum, declare a interpretação na resposta: \"Entendi seu negócio como: <rótulo>\".\n\n- Ao pedir esclarecimento, NÃO dê exemplos de códigos CNAE nem diga a que classe ou atividade um código incompleto corresponde: descreva o formato de forma genérica (7 dígitos, como NNNN-N/NN) e descreva os modelos de negócio só pelos rótulos em linguagem simples. Um código citado como exemplo também é um CNAE sem origem em ferramenta.\n\n- Se uma ferramenta devolver `entrada_invalida`, explique o problema com base na `mensagem` dela e peça o dado correto; não tente adivinhar outro valor.\n\n- O veredito NÃO é seu. A compatibilidade é o campo `compatibilidade` e o status da afirmação é o campo `status_afirmacao` de `validar_enquadramento` (confirmada, contradita ou sem_evidencia_suficiente). Reproduza-os exatamente e explique-os; nunca os altere, nunca conclua 'incompatível' por ausência de regra.\n\n- Se uma ferramenta devolver `indisponivel`, `erro_fonte` ou `nao_encontrado`, declare a limitação de forma explícita no Resultado e nunca apresente a consulta como bem-sucedida. Exemplo: IBGE indisponível → diga que a descrição oficial não pôde ser conferida agora e que a conclusão se apoia só na base de regras. Base de regras com `erro_fonte` → não dê nenhum veredito. CNAE fora da base (`nao_encontrado`) → diga que não há evidência suficiente; ausência na base não significa que o CNAE esteja errado.\n\n- Fora do escopo: cálculo de impostos devidos, planejamento tributário, abertura de empresa, CNAEs fora de tecnologia/SaaS/infoprodutos como recomendação, ou outros assuntos. Recuse educadamente numa resposta com a seção `## Fora do escopo` e explique o que você faz.\n\n- Nunca use as palavras 'parecer' ou 'consultoria' para descrever sua resposta, nem tom de recomendação profissional. Sugira conversar com o contador como próximo passo.\n\nFormato OBRIGATÓRIO da resposta de verificação, em markdown, nesta ordem:\n> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.\n\n## Resultado\nUma linha com a compatibilidade e outra com o status da afirmação, exatamente como vieram da ferramenta (ex.: 'Compatibilidade: incompativel', 'Status da afirmação: contradita'). Inclua o anexo resultante, se houver.\n\n## Em linguagem simples\nDe 3 a 5 frases para um leigo, terminando com um próximo passo (ex.: 'converse com seu contador sobre…').\n\n## Por que chegamos nisso\nA regra aplicada (id e motivo) e, se houver, o cálculo do Fator R com os números usados (folha, receita, razão e limiar de 28%).\n\n## Onde conferir\nLista de fontes para o usuário ou o contador conferirem: URL do IBGE com data/hora da consulta, arquivo/chave/versão da base de regras e cada fundamento legal (norma, dispositivo e link), tudo copiado dos retornos das ferramentas.\n\n- Pedidos de esclarecimento e recusas também começam com o aviso ('> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.'), mas usam só a seção `## Preciso de mais informações` ou `## Fora do escopo`.\n\n<additional_information>\n- Use markdown to format your answers.\n</additional_information>",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "system",
+          "created_at": 1794454480
+        },
+        {
+          "id": "0473155c-c605-4007-8b3d-b1685de69944",
+          "content": "Verifique se o CNAE da minha empresa combina com o que ela faz.\n- CNAE: 4711-3/02\n- O que minha empresa faz: Revendo computadores, peças ou equipamentos de informática (modelo_negocio: revenda_hardware)\n- Me disseram que esse CNAE serve para o meu negócio.",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "user",
+          "created_at": 1794454480
+        },
+        {
+          "id": "b502cd44-00d4-4581-9956-315661fa0d42",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "id": "call_6220364586530652756",
+              "type": "function",
+              "function": {
+                "name": "consultar_cnae_ibge",
+                "arguments": "{\"codigo_cnae\": \"4711-3/02\"}"
+              },
+              "thought_signature": "Ev8ECvwEAWkUfRO5tppq1tfqqq9RlxnnC283GHXr6iiLCTe59R7XMSdO+7UVBM1d2rFqXCWfEyyO+gXSRsfJHW/DHT8Oc2zb22Caac8LwxPbe1mLIeAq5U+hawTPGmgsNvIxatfwZnQh94z8baJ7K4SqwqtWnUiZ98ONVrpNjhVwji0ftJqEyvlus5ZSURHxuv9ngIEMzSXlnsMUDRmXbng7xvU8Tz/vrTjwe0eSNXoZonjy9pvo2sJMxmjXyzUI7iGO7nSuUiMIFVuL5s7I8XjQ6MBTy6s7qQCoXdEp56SdPf2W44VQW8LQeHhHUJX+ZFrWriv+XvFmrBzIQe6mRoJMIPZ9Lys3IRi4FBP8K9Uv/HoHHkYgRTWzfwiWdvasvFzT0mpjKl7qnMLzNtqQAUBBnIbHimVPcfHMCa3haCn81cVdzbs31qLwNQYieByYoJJo3puhYA19OaJPSqkYHDQLTsBiNQjJi4BAq8XJ2Bbdx2Kb+yhHC9tXpLpNewk4kkftmEA29e1sL2j2mF/fhTzVcQFWQTgs7DXQJmD9rVhO70OsarkWcX4nrHuM2LHuGj71u1LPoyyekOLAZxxFkuQsFtrrCsivfEDesQWs6E7Vj4grsJtYr1KYfcXjm1eiOlLiS2VrUxremRuxjsm+Ixxql0o6ZHZMYORv2K0rUqcuk+3rk9taJPni0pXrOveSs7n9yRptbC8xt6lpJUYuJDis/zNtJdF+D1nxckksWbbkvahVJZgKfYG9cVaGL57EmpEN+pFT26pXP9XVJHB9+rhDQF5FriKEne7MlVNxhqt9+AGGw7+rIqClhcjTDbEoPbTcR21soC4rRHx/E00kImRf"
+            },
+            {
+              "id": "call_6220364586530654943",
+              "type": "function",
+              "function": {
+                "name": "validar_enquadramento",
+                "arguments": "{\"modelo_negocio\": \"revenda_hardware\", \"codigo_cnae\": \"4711-3/02\", \"afirmacao_compativel\": true}"
+              }
+            }
+          ],
+          "metrics": {
+            "input_tokens": 1907,
+            "output_tokens": 83,
+            "total_tokens": 1990,
+            "reasoning_tokens": 173,
+            "duration": 1.8615030000000843
+          },
+          "created_at": 1794454480
+        },
+        {
+          "id": "30c916da-8a94-4d7c-8879-6a954b4eb643",
+          "content": "{\"status\": \"ok\", \"codigo\": \"4711-3/02\", \"descricao\": \"COMÉRCIO VAREJISTA DE MERCADORIAS EM GERAL, COM PREDOMINÂNCIA DE PRODUTOS ALIMENTÍCIOS - SUPERMERCADOS\", \"hierarquia\": {\"secao\": \"G - COMÉRCIO; REPARAÇÃO DE VEÍCULOS AUTOMOTORES E MOTOCICLETAS\", \"divisao\": \"47 - COMÉRCIO VAREJISTA\", \"grupo\": \"471 - COMÉRCIO VAREJISTA NÃO-ESPECIALIZADO\", \"classe\": \"47113 - COMÉRCIO VAREJISTA DE MERCADORIAS EM GERAL, COM PREDOMINÂNCIA DE PRODUTOS ALIMENTÍCIOS - HIPERMERCADOS E SUPERMERCADOS\"}, \"observacoes\": [\"Esta subclasse compreende - as atividades dos estabelecimentos comerciais com venda predominante de produtos alimentícios variados e que também oferecem um gama variada de outras mercadorias, tais como: utensílios domésticos, produtos de limpeza e higiene pessoal, roupas, ferragens, etc. com área de venda entre 300 a 5000 metros quadrados\"], \"evidencia\": {\"fonte\": \"API CNAE do IBGE (servicodados.ibge.gov.br)\", \"url\": \"https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/4711302\", \"consultado_em\": \"2026-11-12T03:34:42+00:00\"}}",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "tool",
+          "tool_call_id": "call_6220364586530652756",
+          "tool_name": "consultar_cnae_ibge",
+          "tool_args": {
+            "codigo_cnae": "4711-3/02"
+          },
+          "tool_call_error": false,
+          "created_at": 1794454483
+        },
+        {
+          "id": "6f9977d7-b85d-4e01-b73c-aaf45408b762",
+          "content": "{\"status\": \"nao_encontrado\", \"codigo\": \"4711-3/02\", \"modelo_negocio\": {\"valor\": \"revenda_hardware\", \"rotulo\": \"Revendo computadores, peças ou equipamentos de informática\"}, \"compatibilidade\": \"indeterminado\", \"status_afirmacao\": \"sem_evidencia_suficiente\", \"mensagem\": \"O CNAE 4711-3/02 não está na base de regras. Isso não significa que ele seja incompatível: a base simplesmente não cobre esse código.\", \"cnaes_na_base\": [\"4751-2/01\", \"6201-5/01\", \"6202-3/00\", \"6203-1/00\", \"6204-0/00\", \"6209-1/00\", \"6311-9/00\", \"6319-4/00\", \"7319-0/02\", \"7490-1/04\", \"8599-6/04\", \"8599-6/99\"], \"evidencia\": {\"arquivo\": \"data/regras_cnae.json\", \"versao\": \"1.0.0\", \"data_referencia\": \"2026-11-11\", \"chave\": \"cnaes\"}, \"aviso\": \"Dados simplificados para fins didáticos. Material de referência: não constitui consultoria e não substitui a consulta a um contador ou advogado.\"}",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "tool",
+          "tool_call_id": "call_6220364586530654943",
+          "tool_name": "validar_enquadramento",
+          "tool_args": {
+            "modelo_negocio": "revenda_hardware",
+            "codigo_cnae": "4711-3/02",
+            "afirmacao_compativel": true
+          },
+          "tool_call_error": false,
+          "created_at": 1794454483
+        },
+        {
+          "id": "1358d714-1cb8-4509-be5e-724ec70e70c9",
+          "content": "Entendi seu negócio como: Revendo computadores, peças ou equipamentos de informática.\n\n> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.\n\n## Resultado\nCompatibilidade: indeterminado  \nStatus da afirmação: sem_evidencia_suficiente\n\n## Em linguagem simples\nO CNAE (Classificação Nacional de Atividades Econômicas, o código que define a atividade oficial de uma empresa) 4711-3/02 refere-se, segundo o IBGE, ao comércio varejista de mercadorias em geral com predominância de produtos alimentícios (supermercados). Como este código não está cadastrado na nossa base de regras para atividades de tecnologia, a compatibilidade permaneceu indeterminada e não há evidência suficiente na ferramenta para validar o que lhe disseram. Isso não significa que o enquadramento esteja obrigatoriamente errado, mas sim que a base de dados utilizada não cobre esse CNAE. Converse com seu contador sobre o enquadramento adequado para o seu negócio de revenda de hardware.\n\n## Por que chegamos nisso\nO CNAE 4711-3/02 não consta na base de regras analisada, gerando o status \"sem_evidencia_suficiente\" e compatibilidade \"indeterminado\". Além disso, a descrição oficial obtida no IBGE define a subclasse 4711-3/02 como \"COMÉRCIO VAREJISTA DE MERCADORIAS EM GERAL, COM PREDOMINÂNCIA DE PRODUTOS ALIMENTÍCIOS - SUPERMERCADOS\".\n\n## Onde conferir\n- **IBGE**: API CNAE do IBGE (`https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/4711302`), consultado em 2026-11-12T03:34:42+00:00.\n- **Base de Regras**: arquivo `data/regras_cnae.json`, chave `cnaes`, versão `1.0.0` (data de referência: 2026-11-11).",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "assistant",
+          "provider_data": {
+            "thought_signature": "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"
+          },
+          "metrics": {
+            "input_tokens": 2919,
+            "output_tokens": 472,
+            "total_tokens": 3391,
+            "reasoning_tokens": 1437,
+            "duration": 7.963605599999937,
+            "time_to_first_token": 7.963605599999937
+          },
+          "created_at": 1794454483
+        }
+      ],
+      "tools": [
+        {
+          "tool_call_id": "call_6220364586530652756",
+          "tool_name": "consultar_cnae_ibge",
+          "tool_args": {
+            "codigo_cnae": "4711-3/02"
+          },
+          "tool_call_error": false,
+          "result": "{\"status\": \"ok\", \"codigo\": \"4711-3/02\", \"descricao\": \"COMÉRCIO VAREJISTA DE MERCADORIAS EM GERAL, COM PREDOMINÂNCIA DE PRODUTOS ALIMENTÍCIOS - SUPERMERCADOS\", \"hierarquia\": {\"secao\": \"G - COMÉRCIO; REPARAÇÃO DE VEÍCULOS AUTOMOTORES E MOTOCICLETAS\", \"divisao\": \"47 - COMÉRCIO VAREJISTA\", \"grupo\": \"471 - COMÉRCIO VAREJISTA NÃO-ESPECIALIZADO\", \"classe\": \"47113 - COMÉRCIO VAREJISTA DE MERCADORIAS EM GERAL, COM PREDOMINÂNCIA DE PRODUTOS ALIMENTÍCIOS - HIPERMERCADOS E SUPERMERCADOS\"}, \"observacoes\": [\"Esta subclasse compreende - as atividades dos estabelecimentos comerciais com venda predominante de produtos alimentícios variados e que também oferecem um gama variada de outras mercadorias, tais como: utensílios domésticos, produtos de limpeza e higiene pessoal, roupas, ferragens, etc. com área de venda entre 300 a 5000 metros quadrados\"], \"evidencia\": {\"fonte\": \"API CNAE do IBGE (servicodados.ibge.gov.br)\", \"url\": \"https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/4711302\", \"consultado_em\": \"2026-11-12T03:34:42+00:00\"}}",
+          "metrics": {
+            "start_time": 1794454482.4324262,
+            "end_time": 1794454483.5039723,
+            "duration": 1.0715460000010353
+          },
+          "child_run_id": null,
+          "stop_after_tool_call": false,
+          "created_at": 1794454483,
+          "requires_confirmation": null,
+          "confirmed": null,
+          "confirmation_note": null,
+          "requires_user_input": null,
+          "user_input_schema": null,
+          "user_feedback_schema": null,
+          "answered": null,
+          "external_execution_required": null,
+          "external_execution_silent": null,
+          "approval_type": null,
+          "approval_id": null,
+          "parent_tool_call_id": null
+        },
+        {
+          "tool_call_id": "call_6220364586530654943",
+          "tool_name": "validar_enquadramento",
+          "tool_args": {
+            "modelo_negocio": "revenda_hardware",
+            "codigo_cnae": "4711-3/02",
+            "afirmacao_compativel": true
+          },
+          "tool_call_error": false,
+          "result": "{\"status\": \"nao_encontrado\", \"codigo\": \"4711-3/02\", \"modelo_negocio\": {\"valor\": \"revenda_hardware\", \"rotulo\": \"Revendo computadores, peças ou equipamentos de informática\"}, \"compatibilidade\": \"indeterminado\", \"status_afirmacao\": \"sem_evidencia_suficiente\", \"mensagem\": \"O CNAE 4711-3/02 não está na base de regras. Isso não significa que ele seja incompatível: a base simplesmente não cobre esse código.\", \"cnaes_na_base\": [\"4751-2/01\", \"6201-5/01\", \"6202-3/00\", \"6203-1/00\", \"6204-0/00\", \"6209-1/00\", \"6311-9/00\", \"6319-4/00\", \"7319-0/02\", \"7490-1/04\", \"8599-6/04\", \"8599-6/99\"], \"evidencia\": {\"arquivo\": \"data/regras_cnae.json\", \"versao\": \"1.0.0\", \"data_referencia\": \"2026-11-11\", \"chave\": \"cnaes\"}, \"aviso\": \"Dados simplificados para fins didáticos. Material de referência: não constitui consultoria e não substitui a consulta a um contador ou advogado.\"}",
+          "metrics": {
+            "start_time": 1794454483.4994872,
+            "end_time": 1794454483.5039723,
+            "duration": 0.0044851000002381625
+          },
+          "child_run_id": null,
+          "stop_after_tool_call": false,
+          "created_at": 1794454483,
+          "requires_confirmation": null,
+          "confirmed": null,
+          "confirmation_note": null,
+          "requires_user_input": null,
+          "user_input_schema": null,
+          "user_feedback_schema": null,
+          "answered": null,
+          "external_execution_required": null,
+          "external_execution_silent": null,
+          "approval_type": null,
+          "approval_id": null,
+          "parent_tool_call_id": null
+        }
+      ],
+      "input": {
+        "input_content": "Verifique se o CNAE da minha empresa combina com o que ela faz.\n- CNAE: 4711-3/02\n- O que minha empresa faz: Revendo computadores, peças ou equipamentos de informática (modelo_negocio: revenda_hardware)\n- Me disseram que esse CNAE serve para o meu negócio."
+      }
+    }
+  }
+}

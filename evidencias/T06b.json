@@ -1,0 +1,283 @@
+{
+  "caso": "T06b",
+  "titulo": "Base de regras ausente",
+  "esperado": "validar_enquadramento erro_fonte; nenhum veredito",
+  "situacao": "passou",
+  "checagens": [
+    {
+      "descricao": "HTTP 200",
+      "ok": true
+    },
+    {
+      "descricao": "validar_enquadramento devolveu erro_fonte",
+      "ok": true
+    },
+    {
+      "descricao": "nenhum veredito na resposta",
+      "ok": true
+    },
+    {
+      "descricao": "pós-validação do app web aprovou",
+      "ok": true
+    }
+  ],
+  "pos_validacao": {
+    "verificada": true,
+    "falhas": [],
+    "status_afirmacao": null
+  },
+  "ferramentas_executadas": [
+    {
+      "nome": "consultar_cnae_ibge",
+      "argumentos": {
+        "codigo_cnae": "6201-5/01"
+      },
+      "status": "ok"
+    },
+    {
+      "nome": "validar_enquadramento",
+      "argumentos": {
+        "codigo_cnae": "6201-5/01",
+        "modelo_negocio": "saas_padronizado",
+        "afirmacao_compativel": true
+      },
+      "status": "erro_fonte"
+    }
+  ],
+  "modelo": "gemini-3.6-flash",
+  "base_regras": {
+    "versao": "1.0.0",
+    "data_referencia": "2026-11-11"
+  },
+  "requisicao": {
+    "metodo": "POST",
+    "url": "http://localhost:7777/agents/verificador-cnae/runs",
+    "form": {
+      "message": "Verifique se o CNAE da minha empresa combina com o que ela faz.\n- CNAE: 6201-5/01\n- O que minha empresa faz: Vendo assinatura de um sistema na internet, igual para todos os clientes (SaaS) (modelo_negocio: saas_padronizado)\n- Me disseram que esse CNAE serve para o meu negócio.",
+      "stream": "false",
+      "session_id": "T06b-131b7f2c-2198-4d55-9507-b273819766d7"
+    },
+    "enviado_em": "2026-11-12T03:35:55+00:00"
+  },
+  "resposta": {
+    "status_http": 200,
+    "corpo": {
+      "run_id": "2118f8e0-2f3a-4791-9606-31e5c3f093e3",
+      "agent_id": "verificador-cnae",
+      "agent_name": "Verificador de CNAE",
+      "session_id": "T06b-131b7f2c-2198-4d55-9507-b273819766d7",
+      "content": "> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.\n\n## Resultado\nCompatibilidade: Indeterminada (não foi possível emitir veredito devido a erro de fonte na base de regras)  \nStatus da afirmação: Não foi possível avaliar (base de regras indisponível)\n\n## Em linguagem simples\nEntendi seu negócio como SaaS padronizado (venda de assinatura de sistema na internet igual para todos os clientes). O CNAE (Classificação Nacional de Atividades Econômicas) é a codificação oficial que define o ramo de atuação de uma empresa para o Fisco. A consulta oficial ao IBGE indica que o código 6201-5/01 se destina ao desenvolvimento de sistemas sob encomenda, feitos de forma personalizada para as necessidades de um cliente específico. Como a nossa base de regras retornou uma falha técnica (`erro_fonte`), não é possível emitir uma conclusão definitiva de compatibilidade nem de tributação neste momento. Recomendamos que converse com seu contador sobre a escolha do código correto para a venda de softwares padronizados.\n\n## Por que chegamos nisso\nA verificação automatizada não pôde ser finalizada porque a ferramenta de validação de regras retornou o status `erro_fonte` (\"Base de regras não encontrada\"). Seguindo o protocolo de segurança da informação, nenhum veredito de compatibilidade ou cálculo tributário (como enquadramento no Simples Nacional ou Fator R) é gerado quando a fonte de regras está indisponível.\n\nNa consulta realizada ao IBGE para o CNAE 6201-5/01:\n- **Descrição oficial:** DESENVOLVIMENTO DE PROGRAMAS DE COMPUTADOR SOB ENCOMENDA\n- **Compreende:** Desenvolvimento de sistemas para atender às necessidades específicas do cliente, programação, documentação e modelagem de banco de dados sob encomenda.\n- **Não compreende:** O desenvolvimento e licenciamento de programas de computador não-customizáveis (CNAE 6203-1/00) ou customizáveis (CNAE 6202-3/00).\n\n## Onde conferir\n- **IBGE (API pública CNAE):** https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6201501 (Consultado em: 2026-11-12T03:35:57+00:00)\n- **Base de regras de enquadramento:** Indisponível (retorno de erro de fonte no sistema).",
+      "content_type": "str",
+      "model_provider_data": {
+        "thought_signature": "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"
+      },
+      "model": "gemini-3.6-flash",
+      "model_provider": "Google",
+      "session_state": {},
+      "created_at": 1794454555,
+      "status": "COMPLETED",
+      "metrics": {
+        "input_tokens": 7443,
+        "output_tokens": 639,
+        "total_tokens": 8082,
+        "reasoning_tokens": 2422,
+        "time_to_first_token": 2.262539499999548,
+        "duration": 18.38890480000009,
+        "details": {
+          "model": [
+            {
+              "input_tokens": 7443,
+              "output_tokens": 639,
+              "total_tokens": 8082,
+              "reasoning_tokens": 2422,
+              "id": "gemini-3.6-flash",
+              "provider": "Google"
+            }
+          ]
+        }
+      },
+      "messages": [
+        {
+          "id": "8b1fe910-99a3-4ed2-9580-22cddfd3db0a",
+          "content": "Verificador de CNAE: confere se o CNAE de uma empresa combina com o modelo de negócio (tecnologia, SaaS e infoprodutos), calcula o Fator R / anexo do Simples Nacional e confronta o que o usuário ouviu com a base de regras do projeto e a API do IBGE.\n- Seu objetivo é verificar se um código CNAE é coerente com o modelo de negócio informado e confrontar o que disseram ao usuário (por exemplo, o contador) com a base de regras do projeto. Você fala com pessoas leigas: use linguagem simples e explique qualquer termo técnico (CNAE, anexo, Fator R, Simples Nacional) na primeira vez que aparecer.\n\n- TODA informação fiscal vem das ferramentas. É proibido citar código CNAE, descrição, anexo, percentual, alíquota, artigo de lei ou URL que não esteja num retorno de ferramenta desta conversa. Não use seu conhecimento prévio sobre CNAEs ou tributação.\n\n- Ordem de uso das ferramentas: (a) chame `consultar_cnae_ibge` para cada CNAE citado pelo usuário; (b) chame `validar_enquadramento` com o CNAE e o `modelo_negocio` (valor exato do enum), repassando folha, receita, `afirmacao_compativel` e `anexo_afirmado` quando o usuário os informar; (c) se `validar_enquadramento` trouxer `cnaes_sugeridos`, chame `consultar_cnae_ibge` para no máximo dois deles antes de mencioná-los.\n\n- Se a pergunta for apenas sobre o que um CNAE significa (sem modelo de negócio), basta `consultar_cnae_ibge`; se o usuário fizer uma afirmação sobre a descrição, compare-a com a descrição oficial devolvida e diga se confere.\n\n- Se faltar o CNAE, se o CNAE estiver malformado, ou se a descrição do negócio não se encaixar claramente em um único valor de `modelo_negocio`, NÃO chute: peça esclarecimento numa resposta com a seção `## Preciso de mais informações`, dizendo exatamente o que falta e, quando útil, listando as opções em linguagem simples. Quando você mapear texto livre para o enum, declare a interpretação na resposta: \"Entendi seu negócio como: <rótulo>\".\n\n- Ao pedir esclarecimento, NÃO dê exemplos de códigos CNAE nem diga a que classe ou atividade um código incompleto corresponde: descreva o formato de forma genérica (7 dígitos, como NNNN-N/NN) e descreva os modelos de negócio só pelos rótulos em linguagem simples. Um código citado como exemplo também é um CNAE sem origem em ferramenta.\n\n- Se uma ferramenta devolver `entrada_invalida`, explique o problema com base na `mensagem` dela e peça o dado correto; não tente adivinhar outro valor.\n\n- O veredito NÃO é seu. A compatibilidade é o campo `compatibilidade` e o status da afirmação é o campo `status_afirmacao` de `validar_enquadramento` (confirmada, contradita ou sem_evidencia_suficiente). Reproduza-os exatamente e explique-os; nunca os altere, nunca conclua 'incompatível' por ausência de regra.\n\n- Se uma ferramenta devolver `indisponivel`, `erro_fonte` ou `nao_encontrado`, declare a limitação de forma explícita no Resultado e nunca apresente a consulta como bem-sucedida. Exemplo: IBGE indisponível → diga que a descrição oficial não pôde ser conferida agora e que a conclusão se apoia só na base de regras. Base de regras com `erro_fonte` → não dê nenhum veredito. CNAE fora da base (`nao_encontrado`) → diga que não há evidência suficiente; ausência na base não significa que o CNAE esteja errado.\n\n- Fora do escopo: cálculo de impostos devidos, planejamento tributário, abertura de empresa, CNAEs fora de tecnologia/SaaS/infoprodutos como recomendação, ou outros assuntos. Recuse educadamente numa resposta com a seção `## Fora do escopo` e explique o que você faz.\n\n- Nunca use as palavras 'parecer' ou 'consultoria' para descrever sua resposta, nem tom de recomendação profissional. Sugira conversar com o contador como próximo passo.\n\nFormato OBRIGATÓRIO da resposta de verificação, em markdown, nesta ordem:\n> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.\n\n## Resultado\nUma linha com a compatibilidade e outra com o status da afirmação, exatamente como vieram da ferramenta (ex.: 'Compatibilidade: incompativel', 'Status da afirmação: contradita'). Inclua o anexo resultante, se houver.\n\n## Em linguagem simples\nDe 3 a 5 frases para um leigo, terminando com um próximo passo (ex.: 'converse com seu contador sobre…').\n\n## Por que chegamos nisso\nA regra aplicada (id e motivo) e, se houver, o cálculo do Fator R com os números usados (folha, receita, razão e limiar de 28%).\n\n## Onde conferir\nLista de fontes para o usuário ou o contador conferirem: URL do IBGE com data/hora da consulta, arquivo/chave/versão da base de regras e cada fundamento legal (norma, dispositivo e link), tudo copiado dos retornos das ferramentas.\n\n- Pedidos de esclarecimento e recusas também começam com o aviso ('> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.'), mas usam só a seção `## Preciso de mais informações` ou `## Fora do escopo`.\n\n<additional_information>\n- Use markdown to format your answers.\n</additional_information>",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "system",
+          "created_at": 1794454555
+        },
+        {
+          "id": "ce062d36-0d21-41c2-a591-30dccb892dbf",
+          "content": "Verifique se o CNAE da minha empresa combina com o que ela faz.\n- CNAE: 6201-5/01\n- O que minha empresa faz: Vendo assinatura de um sistema na internet, igual para todos os clientes (SaaS) (modelo_negocio: saas_padronizado)\n- Me disseram que esse CNAE serve para o meu negócio.",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "user",
+          "created_at": 1794454555
+        },
+        {
+          "id": "576158a3-c3be-4553-8135-363bca2a3786",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "id": "call_7701130189773179427",
+              "type": "function",
+              "function": {
+                "name": "consultar_cnae_ibge",
+                "arguments": "{\"codigo_cnae\": \"6201-5/01\"}"
+              },
+              "thought_signature": "Ev8GCvwGAWkUfRNWPft54+c9gvBq4R/kC6ofZxbiZyP4tF7x0mfRMgGUz8RVxeRfqMt6LZAqF7nl2etbsAhHw9Y36Rtqi5UH2VMLYCAJuMZy4BtvWyFMWK+arlPeiH6oqIru3BrZOui1pR7M9PEoJ6YD5XSvF/mAc8J55zL5eITRDyJ5gfUeZaZ5syH8DZ2Tg0AXvttPhIkvwTkhLwMN/3ekNooldGGTzcFxq6OdBalAGP20CtyAYgX+CeDCHHnyv1bT0jqAJe9FMi9Qg2KB0XQoogRzKqzDpYtDpc8KAUckG3iPMaszs2xXFRDbaKnwSR1GrVfdby1QKU49SbZJqWK6d13Osb5Enas66cBVeoLO+5Pwq3rEaNS86Xw1Ju4FzQzmWRLPDmsLrvVqBfd9xuCBHHFYqhaGHi38P941SbCbDhyQbLLDWeb/ODrCz+J66Yh05xDtn6sNNtqKdj4H+D4m93Nto/dwW2Qok0L/E/hB+dMLwuoZGsnpmUfog2LA6Es4648w4C4F5f0dVfuXqcqnFJDGxl4R4Wt38UJ9SwEafLJd253d1xYuMzPKZgJpNsFPjS50Q00E8XMwl5jbojBATdbKNk6rP9Huy4ssPMRkCZh3eYBHKp50PTXiR8eHJUvlOHZncl6M6IkZWG+hgai97kevgEyHW9h/TZ0qJ7Goq7cd/cbd8+kTvnEw5wU0+1rbni0k0pouREET7gE08mfNTPKd1uzuAJTrpMjllyaJ9r2o25Zwp7eJw7CiwiB3+kb+caBpdXJR6nTBSlzS/HkkApOfhFCtZCbOOADRqGTmTzhwXCdpGmSWfChJzWl87qUe9tNq4JWysMzElE3PWT+xIQn7PHr7XdUISvtRz3tLunz648lbu5lpco7Ga4x1reQjoGjtNyc9eFfR/vcxTFkE0AnmJ/BSGiqsFRIs1xiqliHzH0f9i8I1t4fomd08qjqkpcxiJPXlv8ZXbNb2QXkvSbJgiAufmSEH2rYUo0Hn0MW92M7rRAEGdk/Qv0wA3CxbrutBKJcZFPtZTKm2D5cYjPl2jTMALoOAAwv8zzuR2G+nnrKfhxHSKlk2pS+3YL/cgVzb+FSeuFSIYHMhe69H56ZM/ad/0+UoGuTiSdfK1OoGVU1IUP4Qp75RHGbKZNY5ZXB7jmKR9VaDP+7ofyjLQl/+dOnkM+YM2pIOxkjmsA=="
+            }
+          ],
+          "metrics": {
+            "input_tokens": 1917,
+            "output_tokens": 32,
+            "total_tokens": 1949,
+            "reasoning_tokens": 262,
+            "duration": 2.242821699999695
+          },
+          "created_at": 1794454555
+        },
+        {
+          "id": "18937a38-d501-4acb-8495-1fcae2a2b404",
+          "content": "{\"status\": \"ok\", \"codigo\": \"6201-5/01\", \"descricao\": \"DESENVOLVIMENTO DE PROGRAMAS DE COMPUTADOR SOB ENCOMENDA\", \"hierarquia\": {\"secao\": \"J - INFORMAÇÃO E COMUNICAÇÃO\", \"divisao\": \"62 - ATIVIDADES DOS SERVIÇOS DE TECNOLOGIA DA INFORMAÇÃO\", \"grupo\": \"620 - ATIVIDADES DOS SERVIÇOS DE TECNOLOGIA DA INFORMAÇÃO\", \"classe\": \"62015 - DESENVOLVIMENTO DE PROGRAMAS DE COMPUTADOR SOB ENCOMENDA\"}, \"observacoes\": [\"Esta subclasse compreende - o desenvolvimento de sistemas para atender às necessidades do cliente, ou seja, as atividades voltadas para a definição dos módulos, especificações funcionais internas, tipos de relatórios e testes de avaliação do desempenho - a programação com o uso de ferramentas e de linguagens de programação - o fornecimento de documentação de programas de computador desenvolvidos sob encomenda - o desenvolvimento de projetos e modelagem de banco de dados sob encomenda\", \"Esta subclasse NÃO compreende - o desenho de páginas para a internet (web design) (6201-5/02) - o desenvolvimento e licenciamento de programas de computador customizáveis (6202-3/00) - o desenvolvimento e licenciamento de programas de computador não-customizáveis (6203-1/00) - os serviços de customização dos programas de computador (6204-0/00)\"], \"evidencia\": {\"fonte\": \"API CNAE do IBGE (servicodados.ibge.gov.br)\", \"url\": \"https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6201501\", \"consultado_em\": \"2026-11-12T03:35:57+00:00\"}}",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "tool",
+          "tool_call_id": "call_7701130189773179427",
+          "tool_name": "consultar_cnae_ibge",
+          "tool_args": {
+            "codigo_cnae": "6201-5/01"
+          },
+          "tool_call_error": false,
+          "created_at": 1794454559
+        },
+        {
+          "id": "7896eedf-4a4d-4fc4-bbd9-9b975a92611a",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "id": "call_4983862834360440800",
+              "type": "function",
+              "function": {
+                "name": "validar_enquadramento",
+                "arguments": "{\"codigo_cnae\": \"6201-5/01\", \"modelo_negocio\": \"saas_padronizado\", \"afirmacao_compativel\": true}"
+              },
+              "thought_signature": "ErUCCrICAWkUfRPnpPXCkwVyXmvrIfaAW3qzRF1ohf6v6uXBeBlbgqQrCussOgJSXI8UHQiZQQBwGo5vBPNPF5A9ODKsOtVBubVpEykNWFqdfDNtcWfOklC4KLIJY+v176/7JR+/PXpTx1s08wgKe8/lsQ7cXTXksUkG0LnoyYDhGLDBN300hUN8DcVTQ1a9S3lrjWmWNilPu1nJxaDn78Njn9cOUPYg+LHHe46m7UpIXcO74TEWyyW1uHV/UvWxo188HZkGFVmGB/ic3Q489cacNnMHEkyN5d/4Ca0zDz5us2K30W+3uXPIUSzj8kvW7y+sb5QSjijCqho39llKRaONKfG5tsX4FITA/IlKFgNsiREZ4fpe4rpvxINcwB/KlVlZyBFiLDHpvB5cHwFrUEiuhWNLUTJZ"
+            }
+          ],
+          "metrics": {
+            "input_tokens": 2663,
+            "output_tokens": 53,
+            "total_tokens": 2716,
+            "reasoning_tokens": 89,
+            "duration": 1.4321579999996175
+          },
+          "created_at": 1794454559
+        },
+        {
+          "id": "24986fea-d11a-4994-8aad-d30b7605c0c9",
+          "content": "{\"status\": \"erro_fonte\", \"mensagem\": \"Base de regras não encontrada em data/regras_cnae_AUSENTE.json. Não é possível verificar sem a base de regras.\"}",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "tool",
+          "tool_call_id": "call_4983862834360440800",
+          "tool_name": "validar_enquadramento",
+          "tool_args": {
+            "codigo_cnae": "6201-5/01",
+            "modelo_negocio": "saas_padronizado",
+            "afirmacao_compativel": true
+          },
+          "tool_call_error": false,
+          "created_at": 1794454560
+        },
+        {
+          "id": "c1acd4dc-2ed5-4af3-9247-868cc135dc87",
+          "content": "> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.\n\n## Resultado\nCompatibilidade: Indeterminada (não foi possível emitir veredito devido a erro de fonte na base de regras)  \nStatus da afirmação: Não foi possível avaliar (base de regras indisponível)\n\n## Em linguagem simples\nEntendi seu negócio como SaaS padronizado (venda de assinatura de sistema na internet igual para todos os clientes). O CNAE (Classificação Nacional de Atividades Econômicas) é a codificação oficial que define o ramo de atuação de uma empresa para o Fisco. A consulta oficial ao IBGE indica que o código 6201-5/01 se destina ao desenvolvimento de sistemas sob encomenda, feitos de forma personalizada para as necessidades de um cliente específico. Como a nossa base de regras retornou uma falha técnica (`erro_fonte`), não é possível emitir uma conclusão definitiva de compatibilidade nem de tributação neste momento. Recomendamos que converse com seu contador sobre a escolha do código correto para a venda de softwares padronizados.\n\n## Por que chegamos nisso\nA verificação automatizada não pôde ser finalizada porque a ferramenta de validação de regras retornou o status `erro_fonte` (\"Base de regras não encontrada\"). Seguindo o protocolo de segurança da informação, nenhum veredito de compatibilidade ou cálculo tributário (como enquadramento no Simples Nacional ou Fator R) é gerado quando a fonte de regras está indisponível.\n\nNa consulta realizada ao IBGE para o CNAE 6201-5/01:\n- **Descrição oficial:** DESENVOLVIMENTO DE PROGRAMAS DE COMPUTADOR SOB ENCOMENDA\n- **Compreende:** Desenvolvimento de sistemas para atender às necessidades específicas do cliente, programação, documentação e modelagem de banco de dados sob encomenda.\n- **Não compreende:** O desenvolvimento e licenciamento de programas de computador não-customizáveis (CNAE 6203-1/00) ou customizáveis (CNAE 6202-3/00).\n\n## Onde conferir\n- **IBGE (API pública CNAE):** https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6201501 (Consultado em: 2026-11-12T03:35:57+00:00)\n- **Base de regras de enquadramento:** Indisponível (retorno de erro de fonte no sistema).",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "assistant",
+          "provider_data": {
+            "thought_signature": "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"
+          },
+          "metrics": {
+            "input_tokens": 2863,
+            "output_tokens": 554,
+            "total_tokens": 3417,
+            "reasoning_tokens": 2071,
+            "duration": 13.53018769999835,
+            "time_to_first_token": 13.53018769999835
+          },
+          "created_at": 1794454560
+        }
+      ],
+      "tools": [
+        {
+          "tool_call_id": "call_7701130189773179427",
+          "tool_name": "consultar_cnae_ibge",
+          "tool_args": {
+            "codigo_cnae": "6201-5/01"
+          },
+          "tool_call_error": false,
+          "result": "{\"status\": \"ok\", \"codigo\": \"6201-5/01\", \"descricao\": \"DESENVOLVIMENTO DE PROGRAMAS DE COMPUTADOR SOB ENCOMENDA\", \"hierarquia\": {\"secao\": \"J - INFORMAÇÃO E COMUNICAÇÃO\", \"divisao\": \"62 - ATIVIDADES DOS SERVIÇOS DE TECNOLOGIA DA INFORMAÇÃO\", \"grupo\": \"620 - ATIVIDADES DOS SERVIÇOS DE TECNOLOGIA DA INFORMAÇÃO\", \"classe\": \"62015 - DESENVOLVIMENTO DE PROGRAMAS DE COMPUTADOR SOB ENCOMENDA\"}, \"observacoes\": [\"Esta subclasse compreende - o desenvolvimento de sistemas para atender às necessidades do cliente, ou seja, as atividades voltadas para a definição dos módulos, especificações funcionais internas, tipos de relatórios e testes de avaliação do desempenho - a programação com o uso de ferramentas e de linguagens de programação - o fornecimento de documentação de programas de computador desenvolvidos sob encomenda - o desenvolvimento de projetos e modelagem de banco de dados sob encomenda\", \"Esta subclasse NÃO compreende - o desenho de páginas para a internet (web design) (6201-5/02) - o desenvolvimento e licenciamento de programas de computador customizáveis (6202-3/00) - o desenvolvimento e licenciamento de programas de computador não-customizáveis (6203-1/00) - os serviços de customização dos programas de computador (6204-0/00)\"], \"evidencia\": {\"fonte\": \"API CNAE do IBGE (servicodados.ibge.gov.br)\", \"url\": \"https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6201501\", \"consultado_em\": \"2026-11-12T03:35:57+00:00\"}}",
+          "metrics": {
+            "start_time": 1794454557.8893905,
+            "end_time": 1794454559.0453663,
+            "duration": 1.1559756999995443
+          },
+          "child_run_id": null,
+          "stop_after_tool_call": false,
+          "created_at": 1794454559,
+          "requires_confirmation": null,
+          "confirmed": null,
+          "confirmation_note": null,
+          "requires_user_input": null,
+          "user_input_schema": null,
+          "user_feedback_schema": null,
+          "answered": null,
+          "external_execution_required": null,
+          "external_execution_silent": null,
+          "approval_type": null,
+          "approval_id": null,
+          "parent_tool_call_id": null
+        },
+        {
+          "tool_call_id": "call_4983862834360440800",
+          "tool_name": "validar_enquadramento",
+          "tool_args": {
+            "codigo_cnae": "6201-5/01",
+            "modelo_negocio": "saas_padronizado",
+            "afirmacao_compativel": true
+          },
+          "tool_call_error": false,
+          "result": "{\"status\": \"erro_fonte\", \"mensagem\": \"Base de regras não encontrada em data/regras_cnae_AUSENTE.json. Não é possível verificar sem a base de regras.\"}",
+          "metrics": {
+            "start_time": 1794454560.4799783,
+            "end_time": 1794454560.4819782,
+            "duration": 0.0019998999996460043
+          },
+          "child_run_id": null,
+          "stop_after_tool_call": false,
+          "created_at": 1794454560,
+          "requires_confirmation": null,
+          "confirmed": null,
+          "confirmation_note": null,
+          "requires_user_input": null,
+          "user_input_schema": null,
+          "user_feedback_schema": null,
+          "answered": null,
+          "external_execution_required": null,
+          "external_execution_silent": null,
+          "approval_type": null,
+          "approval_id": null,
+          "parent_tool_call_id": null
+        }
+      ],
+      "input": {
+        "input_content": "Verifique se o CNAE da minha empresa combina com o que ela faz.\n- CNAE: 6201-5/01\n- O que minha empresa faz: Vendo assinatura de um sistema na internet, igual para todos os clientes (SaaS) (modelo_negocio: saas_padronizado)\n- Me disseram que esse CNAE serve para o meu negócio."
+      }
+    }
+  }
+}

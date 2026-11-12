@@ -1,0 +1,125 @@
+{
+  "caso": "T05a",
+  "titulo": "Pergunta ambígua (sem CNAE)",
+  "esperado": "Pedido de esclarecimento; nenhum veredito",
+  "situacao": "passou",
+  "checagens": [
+    {
+      "descricao": "HTTP 200",
+      "ok": true
+    },
+    {
+      "descricao": "pede esclarecimento (seção própria)",
+      "ok": true
+    },
+    {
+      "descricao": "nenhum veredito da base foi dado",
+      "ok": true
+    },
+    {
+      "descricao": "pós-validação do app web aprovou",
+      "ok": true
+    }
+  ],
+  "pos_validacao": {
+    "verificada": true,
+    "falhas": [],
+    "status_afirmacao": null
+  },
+  "ferramentas_executadas": [],
+  "modelo": "gemini-3.6-flash",
+  "base_regras": {
+    "versao": "1.0.0",
+    "data_referencia": "2026-11-11"
+  },
+  "requisicao": {
+    "metodo": "POST",
+    "url": "http://localhost:7777/agents/verificador-cnae/runs",
+    "form": {
+      "message": "Posso usar o CNAE de desenvolvimento?",
+      "stream": "false",
+      "session_id": "T05a-71ec7a72-595a-443e-856c-c8e282316225"
+    },
+    "enviado_em": "2026-11-12T03:34:51+00:00"
+  },
+  "resposta": {
+    "status_http": 200,
+    "corpo": {
+      "run_id": "a1d40945-ab19-49a5-8b2a-c5edddc27ad4",
+      "agent_id": "verificador-cnae",
+      "agent_name": "Verificador de CNAE",
+      "session_id": "T05a-71ec7a72-595a-443e-856c-c8e282316225",
+      "content": "> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.\n\n## Preciso de mais informações\n\nPara analisar a compatibilidade do CNAE e enquadramento tributário, preciso que você informe alguns detalhes adicionais:\n\n1. **O código do CNAE específico**: informe o código de 7 dígitos (no formato genérico `NNNN-N/NN` ou apenas os números).\n2. **O modelo de negócio da sua empresa**: descreva exatamente como sua empresa atua. Por exemplo, se você faz:\n   - Desenvolvimento de software sob encomenda (sob medida para clientes);\n   - Licenciamento ou venda de software padronizado (SaaS);\n   - Licenciamento customizável;\n   - Consultoria ou suporte técnico em TI;\n   - Outro tipo de produto ou serviço digital.\n\n3. **Informações adicionais (opcional, se desejar verificar o enquadramento tributário/Fator R)**:\n   - O que disseram a você sobre a compatibilidade ou sobre o anexo do Simples Nacional;\n   - O faturamento bruto dos últimos 12 meses;\n   - O valor total da folha de pagamento (incluindo pro-labore) dos últimos 12 meses.",
+      "content_type": "str",
+      "model_provider_data": {
+        "thought_signature": "EuwPCukPAWkUfRPJtBA+USOiKjDkh1QhBRFDnZUW8a4Q2WGJwm4z+qvB+BpSLo0Ft5qxHRIQ9uNwdv0rVZjWmrOzGovZa64gbfXpmJzuAhKLM3+0RHPxLnGClV67zMhOmPbKTPWeMD9K6NFODpA5SpN/DIFjiuTlSea6jyHmkB3Hnn/2pytLmPffyWUUKNWT7lvhV1UoIpJh2+bHY3DlKjSSHNzJZ5cqPm0yP8LYydnOOT6hF7oxMfslUvA6cblJ5cbwztECMc3NuYIaskq2rAxJRYxAEaLgaAYmBiueUVDTmg6dLqmS5109Y3wxDIKV9689i5TPf4mYN6n4kntlyV72QMFFMrY8K/mB9530Wp+MZH1FjTz2YInuyLEo9gPqShnrTu/tm/QcG6F7JZq2V3AW9+lgebpyFCEAon5ypIQlgXL0dyU33UgJb4gvZmhmKcdz2IkWwgyHHmmtqE24RE56kBvROQohUJpn8/RH5PNsa4lRxv18zWR+Ng3nTZ54VE0Q9MeD8Q9aR8dUEghmz6qDNJJoA3CJ5O6LqEBJxLmQIWH1RP61WM9tlt4u6XmdQwtQSylG151gee2GhSg1/L76OkXhrQEz51YEDaNnKnxt8tCD8no9Cn1yo1bQVkC+rNDRWZZ/CjUzJ6PwZDJk2doXePT7xtw66VVWqRf0HxeII9UFvvSFSTFL+H2QHVXGQ5XhJSQfYfp04MyltyIjmyPLzT5AX0U1E/vY4JZnBWBUyAM/0jS3DSA/JQh0h1oX8IKqpqldtN3lJ6FA2bpvk3i6hYmQur4ncAtn/A7BL/Vjs/FNw6hnNvAP1fa1NRFrGf2xODelmruTax1kB/saNiD/3JtPT61WkE7iCknaLxP5Ia4dBDvS83cXlns4fDCZxj9vzquoEpJI3MImIpMcUXO+ixncGyuukfhNiobyxD0ZHpI89Kpd1nTlTuENzwsYGgFhoJ8AEebmExf35jNoQciWbkZOpd+tByQSUfX0XUd1OlD3YkRihuxpkF+SAKFxcxyOI8s5tK8X/nzAq2qha7BXU3S0q1N7qCoqcag/BsV9Nj5WIR044vpBXabkB11gCDbMSxKItPfOjSccRXmi5qs72tGVMYco28jD4xsjwijnKyqCT9uMlAec2QuAWZ111cUDjGXuJ8t6njA2/RdknDN8PsimO2H5jPF9G2Oa2JGl/mHDrngFtIWKnK+FzIRLnvjhtyBPXwcz6AAIYYT17KuQsY8cP67AgK+QVFXqHnWAVt6eBvPaAi09FsmsuwhuHHmno67Yj01wyC3z4no+GYYGg5MN/CV5n5xkEDqSZYFamjNyF33uvaq6uy91IRBKxe+ho+Aud0X3ZuSn8AM2L9faZ+jqrTg5VKipmhLK90VQE99DUUju+qX24wBhAqw3LL1SC6dyrYwrM4dWaDQw3d5sOQMQZ372mDKCsZ7+pUBnrP26iJWTcNfLGkuzXCOzXMsqS0P5UzgFduKfkTbIR4haEFkVhGfNB4u2guSnyR+A/17zPqaxPgYyLZXvUYIGcxrQruWvoUe0yRFE/DizPWtxIYtT68tTgjONxhiJKY2cKn95UcQ0t3536lIqobXTkoSxNtsOnjh/rqHUrWNYVn6ID58E2Nboms1VsmvRVb2wGmIlvZZjCEvkAxKEOg3ZS5OOnVoEiTJfqKBbXiTQRi0HCzVQLUmPU9LeGzUonvneuTA5mKAMeH7FDWL/N5wO5+FqIm0slYwwHSRwMzHXonxWIjP1kcbw8XW/TrulAXT7V525U7scuOknrNfW6ufcYNzg+D8rZlgM/7Bo3YYwTHuk3lbIUs5cywfKVzt36ejsYbYnLPZFiARCbL35IIcSdeIzuqVcjHsZzyNaGfqT6MJk28CEQ/x8ffvBcpbxojtTbBfTFGXT+PjEKsG9bk3UlCPiPASlNGd9iF7zQct3+u1IxEa68b/Ff90MHBkDfmUHUaTcGuYP70xTmFicUv+wpzzZX/HFL6vCKl+Zf6+qzkahLym2fd/Ji33LL8wy9kbYG/+4krU6hyV6iQ6+sI9PP2FA1x15yEa24jKJCLHVxvOzDG+j5ta0s8jcoc5+7IcSPHfyVGfJOcXO6WfDrheOT4yrkfBIfeszoCggsA4WqUaucb3prOxNVcVdkiNEj4ksaufptbkshIQIFSmcsFkQY0ZQY78JMomQxnNl+ujp61vPWd7KoSSCEyBsNjrXFMioVVlr2M4Ba5uvMqgbFMMffvgVB/biJICK81XIfXwmLHMvkQJrYLpr+bMhVuI7FTdOnmA/YDB9wR2G2P5miAps3fp5bTRuT9qMCrA2O5Z5J4X5KCnnC/4NuNlOgQW9we++jthAp6wwq4afnEPPFIPI7VwhardNIJJHH6fsntp3EiumbmO1IQx0nXB+dWBmkmfCJnz5R25HNlQKYEzHmneCrR3VNg4GdwLthzz4ja218Z1Tsev2fiUXy0wshAvZNapJxMOkMi/JkW6TfV1TtDMiAzKurFF7VNghpQIidX8TOcTLwlsgGSwjeANttMIi+TdjthR+E15Y9WM+Z4n8xNKEKSN95bIuH1kRhms4KgZeCSmACnmmzZf8XK2SPAfY3BCRD+GZYs4uPIoaeIC4vkVeKeObQk4+IBTYzTV7oNkcvTmKGYHQlwRyO25F80WG8AhJ2RgmJwvmGewtCNYr/XW1l632mQc5ZriwBVfIw3Ko"
+      },
+      "model": "gemini-3.6-flash",
+      "model_provider": "Google",
+      "session_state": {},
+      "created_at": 1794454491,
+      "status": "COMPLETED",
+      "metrics": {
+        "input_tokens": 1840,
+        "output_tokens": 270,
+        "total_tokens": 2110,
+        "reasoning_tokens": 466,
+        "time_to_first_token": 3.963308700000198,
+        "duration": 3.9635371000003943,
+        "details": {
+          "model": [
+            {
+              "input_tokens": 1840,
+              "output_tokens": 270,
+              "total_tokens": 2110,
+              "reasoning_tokens": 466,
+              "id": "gemini-3.6-flash",
+              "provider": "Google"
+            }
+          ]
+        }
+      },
+      "messages": [
+        {
+          "id": "9c4215f5-f9f4-4cf4-8e93-91b0629d03f6",
+          "content": "Verificador de CNAE: confere se o CNAE de uma empresa combina com o modelo de negócio (tecnologia, SaaS e infoprodutos), calcula o Fator R / anexo do Simples Nacional e confronta o que o usuário ouviu com a base de regras do projeto e a API do IBGE.\n- Seu objetivo é verificar se um código CNAE é coerente com o modelo de negócio informado e confrontar o que disseram ao usuário (por exemplo, o contador) com a base de regras do projeto. Você fala com pessoas leigas: use linguagem simples e explique qualquer termo técnico (CNAE, anexo, Fator R, Simples Nacional) na primeira vez que aparecer.\n\n- TODA informação fiscal vem das ferramentas. É proibido citar código CNAE, descrição, anexo, percentual, alíquota, artigo de lei ou URL que não esteja num retorno de ferramenta desta conversa. Não use seu conhecimento prévio sobre CNAEs ou tributação.\n\n- Ordem de uso das ferramentas: (a) chame `consultar_cnae_ibge` para cada CNAE citado pelo usuário; (b) chame `validar_enquadramento` com o CNAE e o `modelo_negocio` (valor exato do enum), repassando folha, receita, `afirmacao_compativel` e `anexo_afirmado` quando o usuário os informar; (c) se `validar_enquadramento` trouxer `cnaes_sugeridos`, chame `consultar_cnae_ibge` para no máximo dois deles antes de mencioná-los.\n\n- Se a pergunta for apenas sobre o que um CNAE significa (sem modelo de negócio), basta `consultar_cnae_ibge`; se o usuário fizer uma afirmação sobre a descrição, compare-a com a descrição oficial devolvida e diga se confere.\n\n- Se faltar o CNAE, se o CNAE estiver malformado, ou se a descrição do negócio não se encaixar claramente em um único valor de `modelo_negocio`, NÃO chute: peça esclarecimento numa resposta com a seção `## Preciso de mais informações`, dizendo exatamente o que falta e, quando útil, listando as opções em linguagem simples. Quando você mapear texto livre para o enum, declare a interpretação na resposta: \"Entendi seu negócio como: <rótulo>\".\n\n- Ao pedir esclarecimento, NÃO dê exemplos de códigos CNAE nem diga a que classe ou atividade um código incompleto corresponde: descreva o formato de forma genérica (7 dígitos, como NNNN-N/NN) e descreva os modelos de negócio só pelos rótulos em linguagem simples. Um código citado como exemplo também é um CNAE sem origem em ferramenta.\n\n- Se uma ferramenta devolver `entrada_invalida`, explique o problema com base na `mensagem` dela e peça o dado correto; não tente adivinhar outro valor.\n\n- O veredito NÃO é seu. A compatibilidade é o campo `compatibilidade` e o status da afirmação é o campo `status_afirmacao` de `validar_enquadramento` (confirmada, contradita ou sem_evidencia_suficiente). Reproduza-os exatamente e explique-os; nunca os altere, nunca conclua 'incompatível' por ausência de regra.\n\n- Se uma ferramenta devolver `indisponivel`, `erro_fonte` ou `nao_encontrado`, declare a limitação de forma explícita no Resultado e nunca apresente a consulta como bem-sucedida. Exemplo: IBGE indisponível → diga que a descrição oficial não pôde ser conferida agora e que a conclusão se apoia só na base de regras. Base de regras com `erro_fonte` → não dê nenhum veredito. CNAE fora da base (`nao_encontrado`) → diga que não há evidência suficiente; ausência na base não significa que o CNAE esteja errado.\n\n- Fora do escopo: cálculo de impostos devidos, planejamento tributário, abertura de empresa, CNAEs fora de tecnologia/SaaS/infoprodutos como recomendação, ou outros assuntos. Recuse educadamente numa resposta com a seção `## Fora do escopo` e explique o que você faz.\n\n- Nunca use as palavras 'parecer' ou 'consultoria' para descrever sua resposta, nem tom de recomendação profissional. Sugira conversar com o contador como próximo passo.\n\nFormato OBRIGATÓRIO da resposta de verificação, em markdown, nesta ordem:\n> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.\n\n## Resultado\nUma linha com a compatibilidade e outra com o status da afirmação, exatamente como vieram da ferramenta (ex.: 'Compatibilidade: incompativel', 'Status da afirmação: contradita'). Inclua o anexo resultante, se houver.\n\n## Em linguagem simples\nDe 3 a 5 frases para um leigo, terminando com um próximo passo (ex.: 'converse com seu contador sobre…').\n\n## Por que chegamos nisso\nA regra aplicada (id e motivo) e, se houver, o cálculo do Fator R com os números usados (folha, receita, razão e limiar de 28%).\n\n## Onde conferir\nLista de fontes para o usuário ou o contador conferirem: URL do IBGE com data/hora da consulta, arquivo/chave/versão da base de regras e cada fundamento legal (norma, dispositivo e link), tudo copiado dos retornos das ferramentas.\n\n- Pedidos de esclarecimento e recusas também começam com o aviso ('> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.'), mas usam só a seção `## Preciso de mais informações` ou `## Fora do escopo`.\n\n<additional_information>\n- Use markdown to format your answers.\n</additional_information>",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "system",
+          "created_at": 1794454491
+        },
+        {
+          "id": "e14a1b7f-7295-471c-8065-201733fff270",
+          "content": "Posso usar o CNAE de desenvolvimento?",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "user",
+          "created_at": 1794454491
+        },
+        {
+          "id": "1ac093cd-391d-4a93-bfef-15c14e96f75c",
+          "content": "> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.\n\n## Preciso de mais informações\n\nPara analisar a compatibilidade do CNAE e enquadramento tributário, preciso que você informe alguns detalhes adicionais:\n\n1. **O código do CNAE específico**: informe o código de 7 dígitos (no formato genérico `NNNN-N/NN` ou apenas os números).\n2. **O modelo de negócio da sua empresa**: descreva exatamente como sua empresa atua. Por exemplo, se você faz:\n   - Desenvolvimento de software sob encomenda (sob medida para clientes);\n   - Licenciamento ou venda de software padronizado (SaaS);\n   - Licenciamento customizável;\n   - Consultoria ou suporte técnico em TI;\n   - Outro tipo de produto ou serviço digital.\n\n3. **Informações adicionais (opcional, se desejar verificar o enquadramento tributário/Fator R)**:\n   - O que disseram a você sobre a compatibilidade ou sobre o anexo do Simples Nacional;\n   - O faturamento bruto dos últimos 12 meses;\n   - O valor total da folha de pagamento (incluindo pro-labore) dos últimos 12 meses.",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "assistant",
+          "provider_data": {
+            "thought_signature": "EuwPCukPAWkUfRPJtBA+USOiKjDkh1QhBRFDnZUW8a4Q2WGJwm4z+qvB+BpSLo0Ft5qxHRIQ9uNwdv0rVZjWmrOzGovZa64gbfXpmJzuAhKLM3+0RHPxLnGClV67zMhOmPbKTPWeMD9K6NFODpA5SpN/DIFjiuTlSea6jyHmkB3Hnn/2pytLmPffyWUUKNWT7lvhV1UoIpJh2+bHY3DlKjSSHNzJZ5cqPm0yP8LYydnOOT6hF7oxMfslUvA6cblJ5cbwztECMc3NuYIaskq2rAxJRYxAEaLgaAYmBiueUVDTmg6dLqmS5109Y3wxDIKV9689i5TPf4mYN6n4kntlyV72QMFFMrY8K/mB9530Wp+MZH1FjTz2YInuyLEo9gPqShnrTu/tm/QcG6F7JZq2V3AW9+lgebpyFCEAon5ypIQlgXL0dyU33UgJb4gvZmhmKcdz2IkWwgyHHmmtqE24RE56kBvROQohUJpn8/RH5PNsa4lRxv18zWR+Ng3nTZ54VE0Q9MeD8Q9aR8dUEghmz6qDNJJoA3CJ5O6LqEBJxLmQIWH1RP61WM9tlt4u6XmdQwtQSylG151gee2GhSg1/L76OkXhrQEz51YEDaNnKnxt8tCD8no9Cn1yo1bQVkC+rNDRWZZ/CjUzJ6PwZDJk2doXePT7xtw66VVWqRf0HxeII9UFvvSFSTFL+H2QHVXGQ5XhJSQfYfp04MyltyIjmyPLzT5AX0U1E/vY4JZnBWBUyAM/0jS3DSA/JQh0h1oX8IKqpqldtN3lJ6FA2bpvk3i6hYmQur4ncAtn/A7BL/Vjs/FNw6hnNvAP1fa1NRFrGf2xODelmruTax1kB/saNiD/3JtPT61WkE7iCknaLxP5Ia4dBDvS83cXlns4fDCZxj9vzquoEpJI3MImIpMcUXO+ixncGyuukfhNiobyxD0ZHpI89Kpd1nTlTuENzwsYGgFhoJ8AEebmExf35jNoQciWbkZOpd+tByQSUfX0XUd1OlD3YkRihuxpkF+SAKFxcxyOI8s5tK8X/nzAq2qha7BXU3S0q1N7qCoqcag/BsV9Nj5WIR044vpBXabkB11gCDbMSxKItPfOjSccRXmi5qs72tGVMYco28jD4xsjwijnKyqCT9uMlAec2QuAWZ111cUDjGXuJ8t6njA2/RdknDN8PsimO2H5jPF9G2Oa2JGl/mHDrngFtIWKnK+FzIRLnvjhtyBPXwcz6AAIYYT17KuQsY8cP67AgK+QVFXqHnWAVt6eBvPaAi09FsmsuwhuHHmno67Yj01wyC3z4no+GYYGg5MN/CV5n5xkEDqSZYFamjNyF33uvaq6uy91IRBKxe+ho+Aud0X3ZuSn8AM2L9faZ+jqrTg5VKipmhLK90VQE99DUUju+qX24wBhAqw3LL1SC6dyrYwrM4dWaDQw3d5sOQMQZ372mDKCsZ7+pUBnrP26iJWTcNfLGkuzXCOzXMsqS0P5UzgFduKfkTbIR4haEFkVhGfNB4u2guSnyR+A/17zPqaxPgYyLZXvUYIGcxrQruWvoUe0yRFE/DizPWtxIYtT68tTgjONxhiJKY2cKn95UcQ0t3536lIqobXTkoSxNtsOnjh/rqHUrWNYVn6ID58E2Nboms1VsmvRVb2wGmIlvZZjCEvkAxKEOg3ZS5OOnVoEiTJfqKBbXiTQRi0HCzVQLUmPU9LeGzUonvneuTA5mKAMeH7FDWL/N5wO5+FqIm0slYwwHSRwMzHXonxWIjP1kcbw8XW/TrulAXT7V525U7scuOknrNfW6ufcYNzg+D8rZlgM/7Bo3YYwTHuk3lbIUs5cywfKVzt36ejsYbYnLPZFiARCbL35IIcSdeIzuqVcjHsZzyNaGfqT6MJk28CEQ/x8ffvBcpbxojtTbBfTFGXT+PjEKsG9bk3UlCPiPASlNGd9iF7zQct3+u1IxEa68b/Ff90MHBkDfmUHUaTcGuYP70xTmFicUv+wpzzZX/HFL6vCKl+Zf6+qzkahLym2fd/Ji33LL8wy9kbYG/+4krU6hyV6iQ6+sI9PP2FA1x15yEa24jKJCLHVxvOzDG+j5ta0s8jcoc5+7IcSPHfyVGfJOcXO6WfDrheOT4yrkfBIfeszoCggsA4WqUaucb3prOxNVcVdkiNEj4ksaufptbkshIQIFSmcsFkQY0ZQY78JMomQxnNl+ujp61vPWd7KoSSCEyBsNjrXFMioVVlr2M4Ba5uvMqgbFMMffvgVB/biJICK81XIfXwmLHMvkQJrYLpr+bMhVuI7FTdOnmA/YDB9wR2G2P5miAps3fp5bTRuT9qMCrA2O5Z5J4X5KCnnC/4NuNlOgQW9we++jthAp6wwq4afnEPPFIPI7VwhardNIJJHH6fsntp3EiumbmO1IQx0nXB+dWBmkmfCJnz5R25HNlQKYEzHmneCrR3VNg4GdwLthzz4ja218Z1Tsev2fiUXy0wshAvZNapJxMOkMi/JkW6TfV1TtDMiAzKurFF7VNghpQIidX8TOcTLwlsgGSwjeANttMIi+TdjthR+E15Y9WM+Z4n8xNKEKSN95bIuH1kRhms4KgZeCSmACnmmzZf8XK2SPAfY3BCRD+GZYs4uPIoaeIC4vkVeKeObQk4+IBTYzTV7oNkcvTmKGYHQlwRyO25F80WG8AhJ2RgmJwvmGewtCNYr/XW1l632mQc5ZriwBVfIw3Ko"
+          },
+          "metrics": {
+            "input_tokens": 1840,
+            "output_tokens": 270,
+            "total_tokens": 2110,
+            "reasoning_tokens": 466,
+            "duration": 3.961078799999086,
+            "time_to_first_token": 3.961078799999086
+          },
+          "created_at": 1794454491
+        }
+      ],
+      "tools": [],
+      "input": {
+        "input_content": "Posso usar o CNAE de desenvolvimento?"
+      }
+    }
+  }
+}

@@ -350,9 +350,9 @@ def _sanitizar(texto: str) -> str:
     return texto
 
 
-# O plano gratuito do Gemini aceita poucas requisições por minuto e cada caso faz de 3 a 4
-# chamadas ao modelo; a pausa entre casos evita que um 429 de cota contamine o caso seguinte.
-PAUSA_ENTRE_CASOS_S = float(os.getenv("CASOS_PAUSA_S", "60"))
+# O plano gratuito do Gemini aceita 5 requisições por minuto e cada caso faz de 3 a 4
+# chamadas ao modelo: no plano gratuito use CASOS_PAUSA_S=60 para um 429 não contaminar o caso seguinte.
+PAUSA_ENTRE_CASOS_S = float(os.getenv("CASOS_PAUSA_S", "5"))
 _ultimo_envio: float | None = None
 
 

@@ -1,0 +1,214 @@
+{
+  "caso": "T01",
+  "titulo": "Primeira ferramenta (IBGE) e informação conhecida confirmada",
+  "esperado": "consultar_cnae_ibge(6203-1/00) ok; descrição oficial 'DESENVOLVIMENTO E LICENCIAMENTO DE PROGRAMAS DE COMPUTADOR NÃO CUSTOMIZÁVEIS'; afirmação confirmada; URL + timestamp",
+  "situacao": "passou",
+  "checagens": [
+    {
+      "descricao": "HTTP 200",
+      "ok": true
+    },
+    {
+      "descricao": "consultar_cnae_ibge foi chamada",
+      "ok": true
+    },
+    {
+      "descricao": "IBGE devolveu status ok para 6203-1/00",
+      "ok": true
+    },
+    {
+      "descricao": "descrição oficial contém 'NÃO CUSTOMIZÁVEIS'",
+      "ok": true
+    },
+    {
+      "descricao": "evidência com URL e data/hora",
+      "ok": true
+    },
+    {
+      "descricao": "resposta diz que a afirmação confere",
+      "ok": true
+    },
+    {
+      "descricao": "pós-validação do app web aprovou",
+      "ok": true
+    }
+  ],
+  "pos_validacao": {
+    "verificada": true,
+    "falhas": [],
+    "status_afirmacao": null
+  },
+  "ferramentas_executadas": [
+    {
+      "nome": "consultar_cnae_ibge",
+      "argumentos": {
+        "codigo_cnae": "6203-1/00"
+      },
+      "status": "ok"
+    }
+  ],
+  "modelo": "gemini-3.6-flash",
+  "base_regras": {
+    "versao": "1.0.0",
+    "data_referencia": "2026-11-11"
+  },
+  "requisicao": {
+    "metodo": "POST",
+    "url": "http://localhost:7777/agents/verificador-cnae/runs",
+    "form": {
+      "message": "O CNAE 6203-1/00 é de licenciamento de programas de computador não customizáveis? Confira na fonte oficial e mostre a evidência.",
+      "stream": "false",
+      "session_id": "T01-8ffb7e9e-c4e5-4b14-9089-28ddfcd79826"
+    },
+    "enviado_em": "2026-11-12T03:34:01+00:00"
+  },
+  "resposta": {
+    "status_http": 200,
+    "corpo": {
+      "run_id": "018c245a-4cc2-455e-b3c0-da77478dd6d3",
+      "agent_id": "verificador-cnae",
+      "agent_name": "Verificador de CNAE",
+      "session_id": "T01-8ffb7e9e-c4e5-4b14-9089-28ddfcd79826",
+      "content": "> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.\n\n## Resultado\nA sua afirmação **confere**. O CNAE 6203-1/00 é oficialmente denominado \"DESENVOLVIMENTO E LICENCIAMENTO DE PROGRAMAS DE COMPUTADOR NÃO CUSTOMIZÁVEIS\".\n\n## Em linguagem simples\nO CNAE (Classificação Nacional de Atividades Econômicas) é o código padronizado utilizado para identificar quais atividades uma empresa exerce. A informação que você possui está inteiramente correta: a subclasse 6203-1/00 abrange o desenvolvimento e a cessão de licenças de programas de computador padronizados (ou seja, aqueles prontos que não passam por adaptações ou customizações específicas para cada cliente). Como próximo passo, é recomendável conversar com seu contador para confirmar se este código corresponde ao modelo operacional do seu negócio.\n\n## Por que chegamos nisso\nA verificação foi realizada diretamente na base oficial do IBGE para a subclasse 6203-1/00. A descrição do código abrange explicitamente:\n- O desenvolvimento de programas de computador que não permitem customizações;\n- O licenciamento ou outorga de autorização de uso desses softwares não customizáveis;\n- Os distribuidores autorizados responsáveis pela concessão e regularização dessas licenças.\n\n## Onde conferir\n- **Fonte oficial do IBGE:** [https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6203100](https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6203100) (consulta realizada em 2026-11-12T03:34:04+00:00).",
+      "content_type": "str",
+      "model_provider_data": {
+        "thought_signature": "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"
+      },
+      "model": "gemini-3.6-flash",
+      "model_provider": "Google",
+      "session_state": {},
+      "created_at": 1794454441,
+      "status": "COMPLETED",
+      "metrics": {
+        "input_tokens": 4530,
+        "output_tokens": 430,
+        "total_tokens": 4960,
+        "reasoning_tokens": 1316,
+        "time_to_first_token": 2.6216647999990528,
+        "duration": 11.616276799999468,
+        "details": {
+          "model": [
+            {
+              "input_tokens": 4530,
+              "output_tokens": 430,
+              "total_tokens": 4960,
+              "reasoning_tokens": 1316,
+              "id": "gemini-3.6-flash",
+              "provider": "Google"
+            }
+          ]
+        }
+      },
+      "messages": [
+        {
+          "id": "19536508-132f-4c5a-be59-9fec65bc689c",
+          "content": "Verificador de CNAE: confere se o CNAE de uma empresa combina com o modelo de negócio (tecnologia, SaaS e infoprodutos), calcula o Fator R / anexo do Simples Nacional e confronta o que o usuário ouviu com a base de regras do projeto e a API do IBGE.\n- Seu objetivo é verificar se um código CNAE é coerente com o modelo de negócio informado e confrontar o que disseram ao usuário (por exemplo, o contador) com a base de regras do projeto. Você fala com pessoas leigas: use linguagem simples e explique qualquer termo técnico (CNAE, anexo, Fator R, Simples Nacional) na primeira vez que aparecer.\n\n- TODA informação fiscal vem das ferramentas. É proibido citar código CNAE, descrição, anexo, percentual, alíquota, artigo de lei ou URL que não esteja num retorno de ferramenta desta conversa. Não use seu conhecimento prévio sobre CNAEs ou tributação.\n\n- Ordem de uso das ferramentas: (a) chame `consultar_cnae_ibge` para cada CNAE citado pelo usuário; (b) chame `validar_enquadramento` com o CNAE e o `modelo_negocio` (valor exato do enum), repassando folha, receita, `afirmacao_compativel` e `anexo_afirmado` quando o usuário os informar; (c) se `validar_enquadramento` trouxer `cnaes_sugeridos`, chame `consultar_cnae_ibge` para no máximo dois deles antes de mencioná-los.\n\n- Se a pergunta for apenas sobre o que um CNAE significa (sem modelo de negócio), basta `consultar_cnae_ibge`; se o usuário fizer uma afirmação sobre a descrição, compare-a com a descrição oficial devolvida e diga se confere.\n\n- Se faltar o CNAE, se o CNAE estiver malformado, ou se a descrição do negócio não se encaixar claramente em um único valor de `modelo_negocio`, NÃO chute: peça esclarecimento numa resposta com a seção `## Preciso de mais informações`, dizendo exatamente o que falta e, quando útil, listando as opções em linguagem simples. Quando você mapear texto livre para o enum, declare a interpretação na resposta: \"Entendi seu negócio como: <rótulo>\".\n\n- Ao pedir esclarecimento, NÃO dê exemplos de códigos CNAE nem diga a que classe ou atividade um código incompleto corresponde: descreva o formato de forma genérica (7 dígitos, como NNNN-N/NN) e descreva os modelos de negócio só pelos rótulos em linguagem simples. Um código citado como exemplo também é um CNAE sem origem em ferramenta.\n\n- Se uma ferramenta devolver `entrada_invalida`, explique o problema com base na `mensagem` dela e peça o dado correto; não tente adivinhar outro valor.\n\n- O veredito NÃO é seu. A compatibilidade é o campo `compatibilidade` e o status da afirmação é o campo `status_afirmacao` de `validar_enquadramento` (confirmada, contradita ou sem_evidencia_suficiente). Reproduza-os exatamente e explique-os; nunca os altere, nunca conclua 'incompatível' por ausência de regra.\n\n- Se uma ferramenta devolver `indisponivel`, `erro_fonte` ou `nao_encontrado`, declare a limitação de forma explícita no Resultado e nunca apresente a consulta como bem-sucedida. Exemplo: IBGE indisponível → diga que a descrição oficial não pôde ser conferida agora e que a conclusão se apoia só na base de regras. Base de regras com `erro_fonte` → não dê nenhum veredito. CNAE fora da base (`nao_encontrado`) → diga que não há evidência suficiente; ausência na base não significa que o CNAE esteja errado.\n\n- Fora do escopo: cálculo de impostos devidos, planejamento tributário, abertura de empresa, CNAEs fora de tecnologia/SaaS/infoprodutos como recomendação, ou outros assuntos. Recuse educadamente numa resposta com a seção `## Fora do escopo` e explique o que você faz.\n\n- Nunca use as palavras 'parecer' ou 'consultoria' para descrever sua resposta, nem tom de recomendação profissional. Sugira conversar com o contador como próximo passo.\n\nFormato OBRIGATÓRIO da resposta de verificação, em markdown, nesta ordem:\n> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.\n\n## Resultado\nUma linha com a compatibilidade e outra com o status da afirmação, exatamente como vieram da ferramenta (ex.: 'Compatibilidade: incompativel', 'Status da afirmação: contradita'). Inclua o anexo resultante, se houver.\n\n## Em linguagem simples\nDe 3 a 5 frases para um leigo, terminando com um próximo passo (ex.: 'converse com seu contador sobre…').\n\n## Por que chegamos nisso\nA regra aplicada (id e motivo) e, se houver, o cálculo do Fator R com os números usados (folha, receita, razão e limiar de 28%).\n\n## Onde conferir\nLista de fontes para o usuário ou o contador conferirem: URL do IBGE com data/hora da consulta, arquivo/chave/versão da base de regras e cada fundamento legal (norma, dispositivo e link), tudo copiado dos retornos das ferramentas.\n\n- Pedidos de esclarecimento e recusas também começam com o aviso ('> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.'), mas usam só a seção `## Preciso de mais informações` ou `## Fora do escopo`.\n\n<additional_information>\n- Use markdown to format your answers.\n</additional_information>",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "system",
+          "created_at": 1794454441
+        },
+        {
+          "id": "db192f18-a012-41d0-be30-4ef2a886e854",
+          "content": "O CNAE 6203-1/00 é de licenciamento de programas de computador não customizáveis? Confira na fonte oficial e mostre a evidência.",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "user",
+          "created_at": 1794454441
+        },
+        {
+          "id": "3ca8d627-01df-418c-a3e2-e50ff9b46399",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "id": "call_8694900860581152753",
+              "type": "function",
+              "function": {
+                "name": "consultar_cnae_ibge",
+                "arguments": "{\"codigo_cnae\": \"6203-1/00\"}"
+              },
+              "thought_signature": "Ev4GCvsGAWkUfRPgQDcTvcG7LQeBflIVIIDQCsJKwRBTNwbuMEuv8jTO+nk9HuD/7zWCQlfS34A5p2MVSHHAg9yzXclxKLXzaRRbaeQ0TcSHnKvjUNE3DYiWSwYaGf+qblut4WHcsb1+fbbeDFYOX5f6pJj03/yHQ1C0qt2S6LnfpwzNZD2HZKbJL0PSEPSS5K+FUeePxxLKh8+Q3nm/AG36MDpRLukK/pkwW8cQzgdtqytDzBgA4+wG6++IOb2NUwlst6aCl7rY01EsZPvljt4xXS694tDHkvhEKgreVXTAYRQdyHcOlOCMfnMuPjpD3bsqkU0kFzDecJaJjRgJlhmXqbCUL1+xgvFyBgUY74PDHv1dZW8SvydTqGFbqeSJOrsZ3QQQL4tPz2gRtCXM3z5nLPHUQndFWkMjvon0Z5tE9X/PntrcVExLypdwdLisaijULALhennW0DRImJhcMoId2lNjRKf2vgB2tl6XH/Ccvqs3T8M4xqvlxHeCHDGIF37Vi4smgTGU5I7jKq+89rtgody+sB6vmmxKBvG7yNXyUTr6YoslvBN9Vz8eNL6flh9tuwGpFjuXaiNAla+RqjN3+N9QCjRME/ZAE+Z+QFUlZqArZroa+E8vhP/Hw/N0O7FrBtG7261R2s2ta8AamM/LI4V7ydxzr3rm6JqKShmoH71Qz6BT6nDu8+TUnP0mQy1G2YnFpkupgvSuBwVVOri5jGHIIOX70C1crkUKGQbEwiIxRZaNwnOFQwawjlOQmu7qvln8AgVXG6vUC6i7OoqnJCmDTGt1MHm/R5H1iKw7RtquHXe/6FZQhUmozhD7+TqoOf7ZFFCVaDAyQY/59Yb1GEsrYV50rApFzUCXaybkEHa+Kb529Ylu6B+0YivIUefIT7FnC74OEt2Ccat/BRB+zT0dfliY640PF6MQg2R3KC5ZCl5VhX5GvsJx0YleAzTCsZp7anUnYo4AaXGqXHtRJf0e0wX06GC2Teyt90wjMDIrd7i5YkILYJOLAy5aF5qo8iSzhGKNCjM9dehHQatG8K/FWgiWeS0QOs0PMXZYhNeA/ObrXcw9LTaJkxI1gHmv/VHDXfGgYS2tHeOd3FaZ4lud53OXe4D6RU9O7TRILp/oCXKSgR6kdPs5Lt+4FTdtUHXxNyAG3SPOCVrqmF9SADTaLY8RjvYDtZszqXUn"
+            }
+          ],
+          "metrics": {
+            "input_tokens": 1868,
+            "output_tokens": 32,
+            "total_tokens": 1900,
+            "reasoning_tokens": 210,
+            "duration": 2.5991989000012836
+          },
+          "created_at": 1794454441
+        },
+        {
+          "id": "1e58d4fc-1b97-44c5-b87d-d9d95c086fee",
+          "content": "{\"status\": \"ok\", \"codigo\": \"6203-1/00\", \"descricao\": \"DESENVOLVIMENTO E LICENCIAMENTO DE PROGRAMAS DE COMPUTADOR NÃO CUSTOMIZÁVEIS\", \"hierarquia\": {\"secao\": \"J - INFORMAÇÃO E COMUNICAÇÃO\", \"divisao\": \"62 - ATIVIDADES DOS SERVIÇOS DE TECNOLOGIA DA INFORMAÇÃO\", \"grupo\": \"620 - ATIVIDADES DOS SERVIÇOS DE TECNOLOGIA DA INFORMAÇÃO\", \"classe\": \"62031 - DESENVOLVIMENTO E LICENCIAMENTO DE PROGRAMAS DE COMPUTADOR NÃO CUSTOMIZÁVEIS\"}, \"observacoes\": [\"Esta subclasse compreende - o desenvolvimento de sistemas ou programas de computador que não permitem customizações (adaptações às necessidades específicas de um cliente ou mercado particular). Esses programas são, em geral, adquiridos no comércio, embora possam ser também obtidos diretamente da empresa que os desenvolveu ou através de seus distribuidores e representantes, como, por exemplo: #- sistemas operacionais #- aplicativos para empresas e para outras finalidades #- jogos de computador para todas as plataformas\", \"Esta subclasse compreende ainda - o licenciamento ou a outorga de autorização de uso dos programas de computador não-customizáveis - os distribuidores autorizados de programas de computador não-customizáveis, que são responsáveis pela concessão e regularização de licenças para uso, treinamento, etc.\", \"Esta subclasse NÃO compreende - a reprodução de programas de computador (software) em qualquer suporte (1830-0/03) - o comércio varejista de programas de computador não-customizáveis (4751-2/00) - o desenvolvimento de programas de computador sob encomenda (6201-5/00) - o desenvolvimento e licenciamento de programas de computador customizáveis (6202-3/00) - o acesso a programas de computador pela internet (6319-4/00)\"], \"evidencia\": {\"fonte\": \"API CNAE do IBGE (servicodados.ibge.gov.br)\", \"url\": \"https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6203100\", \"consultado_em\": \"2026-11-12T03:34:04+00:00\"}}",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "tool",
+          "tool_call_id": "call_8694900860581152753",
+          "tool_name": "consultar_cnae_ibge",
+          "tool_args": {
+            "codigo_cnae": "6203-1/00"
+          },
+          "tool_call_error": false,
+          "created_at": 1794454445
+        },
+        {
+          "id": "a8bb6737-ff9a-4a2c-a827-2ca1da8e17f5",
+          "content": "> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.\n\n## Resultado\nA sua afirmação **confere**. O CNAE 6203-1/00 é oficialmente denominado \"DESENVOLVIMENTO E LICENCIAMENTO DE PROGRAMAS DE COMPUTADOR NÃO CUSTOMIZÁVEIS\".\n\n## Em linguagem simples\nO CNAE (Classificação Nacional de Atividades Econômicas) é o código padronizado utilizado para identificar quais atividades uma empresa exerce. A informação que você possui está inteiramente correta: a subclasse 6203-1/00 abrange o desenvolvimento e a cessão de licenças de programas de computador padronizados (ou seja, aqueles prontos que não passam por adaptações ou customizações específicas para cada cliente). Como próximo passo, é recomendável conversar com seu contador para confirmar se este código corresponde ao modelo operacional do seu negócio.\n\n## Por que chegamos nisso\nA verificação foi realizada diretamente na base oficial do IBGE para a subclasse 6203-1/00. A descrição do código abrange explicitamente:\n- O desenvolvimento de programas de computador que não permitem customizações;\n- O licenciamento ou outorga de autorização de uso desses softwares não customizáveis;\n- Os distribuidores autorizados responsáveis pela concessão e regularização dessas licenças.\n\n## Onde conferir\n- **Fonte oficial do IBGE:** [https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6203100](https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6203100) (consulta realizada em 2026-11-12T03:34:04+00:00).",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "assistant",
+          "provider_data": {
+            "thought_signature": "EsQhCsEhAWkUfRMUEw1gE34HEnoGJ78UR7AEDaz7CHOL5bNWMHSEapjOoPb9YJ54qEuTIf/VHm3U/gog4FROEHnPOAIhRVKPfcFVWs5xYBI7aFTbGFYoJEAeG/IG1Gw+FE+o1tFGWG4rIzwwcrrJo50YxcqPc9vkiI4Zjrss0J8vs4Y/Vq7yGYoi+kiDukmNOrdJwHHRSDJPkb6vBD3qucWQNI0BVz3y2U9poqo6cGRfcdiHu26mMuBBpDRZHJY2ped7IvVh1cipWpWTjbsf2nTj7THaaZiJPB3Q1odwIMZStRwPoDcpicNm1sP6zgPDqycfCfGGzrcqeG+RIK+W2/ZeaVgy0NniY8jz5A0/cQpG0uOEuA6NZJaEwIWxxfeRQ7ssHRehBoczimh9B4ijNiIYUkN3/ilDnHEs+ieQBbV18Uidh2oA2xdnylV7T8ooQcR0HIz+tgqxJLirlB39HD+4/Mb5kpuhf5urwK6I5bA/D/v+3lik55CR4m7dzi+GDip6EplNy6n0UtYrdKCKTYrfHXfsuS2mgZoTYSh2AmJgS183HvFZE30aQdNUBAIQ1QWb2EvCCz+VtHMnh/xQYYE0q/8OtvKEa/W6Kfm32CkyTi6jkdPKEAOmP+oiRsYLPDQXrPmC7sCoGcr+T7gUvJ3NodL46pCan0PvD5fMH73u+AS6nA2KD5UhUJ8R0TsKnhjniq8wgPqK+tD/Gj1jl3CBqoQjZ16T5YJB5sGdxingBfEjJYGLavlT8VC7hIxO0K5DnjxS9QdNTavK02gLD4l8tP6mxGxvVrMQXGNzVlGBeWhfG9ET77wEsRntXx8gLt8Cp6xC2BQGgsHDJRcOgB74O7dFAljLEgs1tuOgazqLIZo1RWGOGSSHWrdxc+LZ9d3UKoQlHfvLcF6SEl4dcDDnOCnEWa0cNMKfF84YPpw7IPwylxC7QQUUD7ItGizYSGmFzi1SCOjwHmmoLrnZ4jnThO+0j0mhpUMwX+II0vduY1R/MrcrOI5nqwyYY0HZRqFrivspvI7skk+uKUF99JXgyOIaeaeDkGd6+OdoF4EH1FTo5LPRnGGRylLG5lF2rOzANGBIQjApuXV+XE4ecZ4qQ4hmTz2eYALD6kQjavi/4CXZg6nC9Fks2Pz+jLNGINDgp8ZAYpjWQ/LI7fyEjKjZBpCrHvW6eUVNBCLUgjDGXf52jLnSFdm5ftMTM2M9V9UwVOH48zzzO/pkqbEXuQzP3IACBMomsfV3MHURs4QHEEnKdFypxTnTwRGzp/L3Ye34c3lQ/VZyTYnxHP1sTLbQB3PAF8MPUBjpNiKD3VfRcBGK+JT+BbzZSTQJIzLdxw8pEq4D6Qj0ErN5J24egRQ91zxJC9tZz38TDNt2vNTJgZQvgLlXFJCzdyvb5t/3nRUXBcWygzeX61BmEkmO8H1d097RGOVMf41ubQGXVOwvD5Wm/KdqxlFYEc85R3bGmM7aibYFRAlmtHlURKXQl0foykmV1YNm9JcYIecYCn90FySluxV2ooUItZTLmN7PCOiDvLVbQYezj6GRdNzVEAQyL9MIIEtHp4N0NFkUgkzsEzzf/s7cq9GSKPExkUIb11EHM6E9skOWHPMtERFUCCKiA3REBEgKwkbmhD9hw/M1RVF4Z5Br64kmszW+SvouGr1rB3KbUqMABjUryzVOQwa8MIVUcmAl1qcAZi38bjPtnstenwcxZrC1hblqkVHQBTcam4YEN9NOIsRt8BJ5zSshC14gP7Pxd9h0ZS/4Jjg53v1Np4EhbHLvEIznASJJtPvRix1Yss+11P3PMwAaepryA3t/qHf/4IMsLgt9s8TikFW179vCVoREPX2CvaMb1hfSnF6N3akPuYm/vbeI6FYJ0U79NeKS6Cxq1r5ku1xK+jkpciu/sRN5Uhflk8tmhvmz6UO2ILEuuU8c6OGQOdJld07xzFP/9oKwQk8k0cKLY9ptJLui1YIDqsQUv9CqByiu2MXF5wIxUxZz9DTu7esQqkA3M/9Jn9Cw4foVznluk1uBMzsa7eVzwdJSuLJX5TGLtAAOaT3sidFNcedNTof5c/9GeqTqlRpmad0Pun7P/cHao4b9ZyOjWupiBG9+M3qXbou/X4RR3YbRzt6rHXyGX7vQcM89wEAmHznuMDgIkkcwdNKOk9sPOkGxus16qGyfztNQw0U27lXIwcngTvI/x/SnMGbQQOPWTzBH0rZQqtqSIDOYh4fdpgFAaPp6r7+XPu5yrHFNBsTP6g0ZOfgI/NVTLeQNm/UKoPsfnjJO7tCAHB5/BKgZcaSwttgtDXVcY2FSeE8D5TAoZurxM9+emCyuk2xqZKtri39J7JrTmTB39aZriH5FR5JCx5/QZ/cHxRAaa12KBhrY6a6m89n21KEAZ/lmq7Yf6+r3XxwRinzhX5RALHEqvuQ4eNy5AtAViUe+Ry4xEuuKC6dMczwhN3c6F38EuqUDXmi2JQOwgBi/2iFLjCwO/zDCFVS0fCOkXXSfIBzG2uS945Tnp/mCbEobWauUmPEb/9dlWjECBhP8sFpq2gwof17IXfU2E57+6ddrdr58URxTdawq5qH0xzxvdiI3Gy1BiGFDwXbtKedGKAZ50tlumWp5kjAblw5EGDgfgQyH14hpRjHG3dDSUlmpxRNtSZGDukWsNZWMLXBckd5Bbl9+GhZztyPqnGllrQ2l6IYxEOuNVsFbLgPQi7MQzE+0XkTRMOeH25903Uu/AscGaFd6CPq9Zd0e2+Cks7VA5+T9p6XSuRhnaVD3L2ncF/qfU9nI7bQPNe4eukUv4eMx5E0OgL/DMj0enHJ/802F+gec8b58a5F5sK7Ya8TfgqbbuBVleIkQOABU2BfDUN3oHZI2rm4XnSf5WL8YfZf7sVMtapQZ/flTJLuIWfBlmtfDYFNZGmrAer5aCorj2/Z/0h+uYx7dcqMwmz4rfwGzcT7b04Ptzp878omgCX77UBLh8JGsbu849tgYP11YJtuFXA1dngb/Q8uAK04hrgcCmJheh9HrjVBKhHlR9kFO6O3gbXgjCv/eEAQ9Z/XAEfmNyne0s0pLS3aJvyvy4fafjnG9hvVyqtU/h+C9uB/nU2ulQ8jQxFHXbjHgzeqTczMvV8d9NgDwoGs+kjsNbGfBZZB5bmIYlPCFIbyF5jszgIDKbbYLWFdp9HevlpnkRz8uRDZnicz6uhtaTrkD/7ueFSPFbTo+Ptjel+6nzS4U7XEjFyOpWW/2VLfgvBhf36xdgZMy2Jpt0ajdLXnJzUYawHpmF7po4TXM/zynpUUIYItzF27HLSTZpBsP9SiZuwrDwsxLAEemX8advr6qAbISoRT7cM1L28kS+Z1FzAJQcWh81ypAcngoyvRRJjKF78VPwO7q3tkDzI4UZBaXP51PBGQwRkBGXHdxYxiXcpQ2jyaUEHRO7UDVgOmTolqSPtvLGuguqQ8Ftz9KC/V53Hn7Ka0dMQlZ6DHOsGinUEHYx2ytHlz9IpKvpTbYgtBn2khaJ1MgLHeNZEAjGYqCZ6LfAf0+2VHvl3811qtgV/vUIBQBsiGWMulGejmq0ULPIraGREy8GNaCOvJeJyFefn2cmKsckFYMJ2cv0F+EtXFKtKhhbv4c9Jmxy0UVjgpnA+gHS6kNmjzsaBpHq3hpwx4DVJz8oul6c1PGd2ZKsbnJmLJS50/K/U5S8am5U5FysBRs+QWiBk01gRcxhqHnHg4yjW8OTeMQziUFLrulTJrXXYgxDyb5YvkI61O7wtrJYg7iLWbgUSmXb5QX5ViUbM7j6n94VCQV+7Vk0UXDa9bC0zU+CyP6B9GKFL/JxfEtclOtBAJ3Dpgv7oGfly1JALuLKq5/uxPKyfO0Mc38KK84Ncn6WYBWhkqvry2brZ9wDAo7Fx4+aotBpXJeuX94RaiV2yg52tUKOv6vh4BEHP7QFJ+wg9WYByzc8s/IKfMnUYDDgbMT/u8ww1qg1JhV4PzGV2oOyyb3NXXj5Khcv29/Ulo/2E7dwPIu9eSjfbBbjaZ53cIj1eSwHlhw1K/1g3FIZ38msMnM8/1XwmqkLfuxW4d701Lqt/A4VPBeCRy3awPXNmCoJgPyt7v/LBj41FzhhRvdIVcEEoBHRQWbMrVoN1JTBBag6VIetM76mDdJbblEqjj55epb72J6QVQmYp+7km9V0jqQcARRtSxLpVx0Od5iyUQ7uYOZG2syGprbVe2zoRNOLBt4/WT2aViJSlB/FRJRSpMbLqsG+TMYP6NAC1N2ppauX6aKm1B9H29ud1VbWKH73ChYxiCG4T52/JDrc3MouBxscELey51dDSDVaEKistp8MANQnOQE79WU9dCC9R2BQ1imhDAHstW8zQLluRSeA0nr7IQSujMsK/DqlczOi4JmugzzBSBZ7ZeoxlDGjRGMDSGJZfsNDPaga1Ow42W4j/P65HcvbVlGy//PADgfXm/LIjJfYQXGjbVj+ByM72anmlUpJtF93VQnlMRWLCH5VmKBE4UJn/tspUO0DLh/16RuG0nn7ZKrnoApr0eDJsuHIjDDik+LmEZFcBPt5eoWxWP3Qmoj1R1LAHjKOnmTRtscgTUBtXNO1JhnAwxi0PFvpuaUCs0g6pFgwbMjugcHPHSmBsNGGXKxuT7afepkhpOi/yGJSWgk8Ek0sObVzBMTZvPhapcKJWFxy83MxbUeVwHd7lNuH8DxCCCGuk3or9Haf1PbPpooSV3E4NHGh1o3VUMfw2rAaA8d8TmP+ig97FLoukZYh172lEb+QJx7lFkHEmp8CaSabQiebWMl0Dw9Y84j/P7Z+6PgNYokhy2Ed39whuJYpxZOwIpj7sy1say0vS9eXQEgtxDn0efDs5+MT/zpTiPheiDNJkWFH2XmefDXSFbFctwlJhT68bU8m6IUY1Sqe6gOTn+OM7CpzZtYJ698A3GUJorqhhHmGUPtSDx0zfUTdvPWHbVcrIY3TmPgCS2APpqWllGkWs85chBLjwzv8jUNINksQzoYoX/zjijbapJinlsCO0weZhTXdyAM1g19EM0bKMWZvTjRXuf/Jr9LnVBGlxnrr0GvFor/eFhA5cXrEEz5a8dZsWjLUCzveBFybn3aij4beSKdO/dCz/cSsTtu98BhSo+d2EwUNYdInaEkCuelySPA+lI3nuVO7m36SZY5PPOd8tAOBJUWNoMVGA7KbYEs//+vybgRf1S1Hgt2z1ZnEnCCQD87L1w0VmLZQTDvRygBCtHXV1fFbfkR/pE5yZQCZk9KoeOm/+PT8U2f3AOWxrNYGpNv72In4gtHF81Mak1D9J1oEEXP61BTqVamtWF/Qa6MpxJwKMQTr4VYMVq9fp23ChuPhpboMHfxV2G4nuZt/Ssm9aFko3ovCLWPPKlPkOO7HqexmJ6Qgqrz+6OFzPuXlMRduswwyH9tEw4mL9l7odHmttkjJczYdb7CUWFPkXRyk0KaTfVN89LDNTX0GPBwuHr1cJcpGPsDnplGPkijH5itTRdUt6mH8gRFxRlmxv1OwBNEmBmL/OR1DhmP2rPw67p4Pdh3n1N/zw/hfIlSf3DUcdl/ACgKyGlEk3QKl7L85+WLJet4J9DsVn+FTBmVZYtBrpbBDwiGL66X+I4vf3dmaltCN9alHYEwO9zb8HFLj4jeq/5OE8eXQz0/cL7Ost/R35A4/HcvR3BmKFsJVyfJ4z1Slr8/6FzM+0hd8gitV3+8jJ8wNnBWW1iTbIRO/Ag="
+          },
+          "metrics": {
+            "input_tokens": 2662,
+            "output_tokens": 398,
+            "total_tokens": 3060,
+            "reasoning_tokens": 1106,
+            "duration": 7.535223400000177,
+            "time_to_first_token": 7.535223400000177
+          },
+          "created_at": 1794454445
+        }
+      ],
+      "tools": [
+        {
+          "tool_call_id": "call_8694900860581152753",
+          "tool_name": "consultar_cnae_ibge",
+          "tool_args": {
+            "codigo_cnae": "6203-1/00"
+          },
+          "tool_call_error": false,
+          "result": "{\"status\": \"ok\", \"codigo\": \"6203-1/00\", \"descricao\": \"DESENVOLVIMENTO E LICENCIAMENTO DE PROGRAMAS DE COMPUTADOR NÃO CUSTOMIZÁVEIS\", \"hierarquia\": {\"secao\": \"J - INFORMAÇÃO E COMUNICAÇÃO\", \"divisao\": \"62 - ATIVIDADES DOS SERVIÇOS DE TECNOLOGIA DA INFORMAÇÃO\", \"grupo\": \"620 - ATIVIDADES DOS SERVIÇOS DE TECNOLOGIA DA INFORMAÇÃO\", \"classe\": \"62031 - DESENVOLVIMENTO E LICENCIAMENTO DE PROGRAMAS DE COMPUTADOR NÃO CUSTOMIZÁVEIS\"}, \"observacoes\": [\"Esta subclasse compreende - o desenvolvimento de sistemas ou programas de computador que não permitem customizações (adaptações às necessidades específicas de um cliente ou mercado particular). Esses programas são, em geral, adquiridos no comércio, embora possam ser também obtidos diretamente da empresa que os desenvolveu ou através de seus distribuidores e representantes, como, por exemplo: #- sistemas operacionais #- aplicativos para empresas e para outras finalidades #- jogos de computador para todas as plataformas\", \"Esta subclasse compreende ainda - o licenciamento ou a outorga de autorização de uso dos programas de computador não-customizáveis - os distribuidores autorizados de programas de computador não-customizáveis, que são responsáveis pela concessão e regularização de licenças para uso, treinamento, etc.\", \"Esta subclasse NÃO compreende - a reprodução de programas de computador (software) em qualquer suporte (1830-0/03) - o comércio varejista de programas de computador não-customizáveis (4751-2/00) - o desenvolvimento de programas de computador sob encomenda (6201-5/00) - o desenvolvimento e licenciamento de programas de computador customizáveis (6202-3/00) - o acesso a programas de computador pela internet (6319-4/00)\"], \"evidencia\": {\"fonte\": \"API CNAE do IBGE (servicodados.ibge.gov.br)\", \"url\": \"https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6203100\", \"consultado_em\": \"2026-11-12T03:34:04+00:00\"}}",
+          "metrics": {
+            "start_time": 1794454444.06338,
+            "end_time": 1794454445.506271,
+            "duration": 1.4428908999998384
+          },
+          "child_run_id": null,
+          "stop_after_tool_call": false,
+          "created_at": 1794454445,
+          "requires_confirmation": null,
+          "confirmed": null,
+          "confirmation_note": null,
+          "requires_user_input": null,
+          "user_input_schema": null,
+          "user_feedback_schema": null,
+          "answered": null,
+          "external_execution_required": null,
+          "external_execution_silent": null,
+          "approval_type": null,
+          "approval_id": null,
+          "parent_tool_call_id": null
+        }
+      ],
+      "input": {
+        "input_content": "O CNAE 6203-1/00 é de licenciamento de programas de computador não customizáveis? Confira na fonte oficial e mostre a evidência."
+      }
+    }
+  }
+}

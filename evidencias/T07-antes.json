@@ -1,0 +1,399 @@
+{
+  "caso": "T07-antes",
+  "titulo": "Antes da alteração da base",
+  "esperado": "R-6201-SAAS incompativel -> contradita",
+  "situacao": "passou",
+  "checagens": [
+    {
+      "descricao": "HTTP 200",
+      "ok": true
+    },
+    {
+      "descricao": "status_afirmacao",
+      "ok": true
+    },
+    {
+      "descricao": "pós-validação do app web aprovou",
+      "ok": true
+    }
+  ],
+  "pos_validacao": {
+    "verificada": true,
+    "falhas": [],
+    "status_afirmacao": "contradita"
+  },
+  "ferramentas_executadas": [
+    {
+      "nome": "consultar_cnae_ibge",
+      "argumentos": {
+        "codigo_cnae": "6201-5/01"
+      },
+      "status": "ok"
+    },
+    {
+      "nome": "validar_enquadramento",
+      "argumentos": {
+        "afirmacao_compativel": true,
+        "modelo_negocio": "saas_padronizado",
+        "codigo_cnae": "6201-5/01"
+      },
+      "status": "ok"
+    },
+    {
+      "nome": "consultar_cnae_ibge",
+      "argumentos": {
+        "codigo_cnae": "6311-9/00"
+      },
+      "status": "ok"
+    },
+    {
+      "nome": "consultar_cnae_ibge",
+      "argumentos": {
+        "codigo_cnae": "6319-4/00"
+      },
+      "status": "ok"
+    }
+  ],
+  "modelo": "gemini-3.6-flash",
+  "base_regras": {
+    "versao": "1.0.0",
+    "data_referencia": "2026-11-11"
+  },
+  "requisicao": {
+    "metodo": "POST",
+    "url": "http://localhost:7777/agents/verificador-cnae/runs",
+    "form": {
+      "message": "Verifique se o CNAE da minha empresa combina com o que ela faz.\n- CNAE: 6201-5/01\n- O que minha empresa faz: Vendo assinatura de um sistema na internet, igual para todos os clientes (SaaS) (modelo_negocio: saas_padronizado)\n- Me disseram que esse CNAE serve para o meu negócio.",
+      "stream": "false",
+      "session_id": "T07-antes-ce2e44f4-f35e-4b0c-9967-92586433e607"
+    },
+    "enviado_em": "2026-11-12T03:35:01+00:00"
+  },
+  "resposta": {
+    "status_http": 200,
+    "corpo": {
+      "run_id": "379b7c2c-9813-437d-9243-def75ec399d1",
+      "agent_id": "verificador-cnae",
+      "agent_name": "Verificador de CNAE",
+      "session_id": "T07-antes-ce2e44f4-f35e-4b0c-9967-92586433e607",
+      "content": "> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.\n\n## Resultado\nCompatibilidade: incompativel\nStatus da afirmação: contradita\n\n## Em linguagem simples\nEntendi seu negócio como: Vendo assinatura de um sistema na internet, igual para todos os clientes (SaaS).\nO CNAE (Classificação Nacional de Atividades Econômicas, código que identifica a atividade da empresa) 6201-5/01 é indicado para desenvolvimento de software feito sob medida para um cliente específico, o que não combina com a venda de um sistema padronizado via internet. Por essa razão, a informação que passaram a você foi contradita pelas regras vigentes. No Simples Nacional (regime tributário simplificado), a tributação dessa atividade depende do Fator R (cálculo que compara o gasto com folha de pagamento e a receita dos últimos 12 meses), podendo ser tributada pelo Anexo III (alíquota inicial menor) ou Anexo V (alíquota maior). Como próximo passo, converse com seu contador sobre a adequação para CNAEs mais apropriados a serviços SaaS, como o 6311-9/00 ou o 6319-4/00.\n\n## Por que chegamos nisso\n- **Regra aplicada:** `R-6201-SAAS`\n- **Motivo:** Este CNAE é para software feito sob medida para cada cliente. Um SaaS igual para todos não é desenvolvimento sob encomenda; a própria descrição oficial exclui o licenciamento de programas não customizáveis (6203-1/00).\n- **Cálculo do Fator R:** Este CNAE está sujeito às regras do Fator R (art. 18, § 5º-D e § 5º-M da LC 123/2006). Se a razão entre a folha de pagamento e a receita bruta dos últimos 12 meses for igual ou superior a 28%, enquadra-se no Anexo III; se for inferior a 28%, vai para o Anexo V. Não foi possível determinar o anexo exato pois o valor da folha de pagamento e da receita bruta dos últimos 12 meses não foi informado.\n\n## Onde conferir\n- **IBGE - Subclasse 6201-5/01 (DESENVOLVIMENTO DE PROGRAMAS DE COMPUTADOR SOB ENCOMENDA):**\n  - Fonte: API CNAE do IBGE (servicodados.ibge.gov.br)\n  - Link: https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6201501\n  - Data/hora de consulta: 2026-11-12T03:35:03+00:00\n\n- **IBGE - Subclasse 6311-9/00 (TRATAMENTO DE DADOS, PROVEDORES DE SERVIÇOS DE APLICAÇÃO E SERVIÇOS DE HOSPEDAGEM NA INTERNET):**\n  - Fonte: API CNAE do IBGE (servicodados.ibge.gov.br)\n  - Link: https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6311900\n  - Data/hora de consulta: 2026-11-12T03:35:06+00:00\n\n- **IBGE - Subclasse 6319-4/00 (PORTAIS, PROVEDORES DE CONTEÚDO E OUTROS SERVIÇOS DE INFORMAÇÃO NA INTERNET):**\n  - Fonte: API CNAE do IBGE (servicodados.ibge.gov.br)\n  - Link: https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6319400\n  - Data/hora de consulta: 2026-11-12T03:35:06+00:00\n\n- **Base de Regras Interna:**\n  - Arquivo: `data/regras_cnae.json` (Versão: 1.0.0, Data de referência: 2026-11-11)\n  - Chaves de regra: `cnaes.6201-5/01.regras[id=R-6201-SAAS]` e `cnaes.6201-5/01.tributacao`\n\n- **Fundamentos Legais:**\n  - Lei Complementar nº 123/2006, art. 18, § 5º-D, IV: https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm\n  - Lei Complementar nº 123/2006, art. 18, § 5º-M: https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm\n  - Lei Complementar nº 123/2006, art. 18, § 24: https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm",
+      "content_type": "str",
+      "model_provider_data": {
+        "thought_signature": "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"
+      },
+      "model": "gemini-3.6-flash",
+      "model_provider": "Google",
+      "session_state": {},
+      "created_at": 1794454502,
+      "status": "COMPLETED",
+      "metrics": {
+        "input_tokens": 10655,
+        "output_tokens": 1359,
+        "total_tokens": 12014,
+        "reasoning_tokens": 1741,
+        "time_to_first_token": 1.9451879000007466,
+        "duration": 16.851658400000815,
+        "details": {
+          "model": [
+            {
+              "input_tokens": 10655,
+              "output_tokens": 1359,
+              "total_tokens": 12014,
+              "reasoning_tokens": 1741,
+              "id": "gemini-3.6-flash",
+              "provider": "Google"
+            }
+          ]
+        }
+      },
+      "messages": [
+        {
+          "id": "116a947f-6d93-4e23-a79b-d519fd819c96",
+          "content": "Verificador de CNAE: confere se o CNAE de uma empresa combina com o modelo de negócio (tecnologia, SaaS e infoprodutos), calcula o Fator R / anexo do Simples Nacional e confronta o que o usuário ouviu com a base de regras do projeto e a API do IBGE.\n- Seu objetivo é verificar se um código CNAE é coerente com o modelo de negócio informado e confrontar o que disseram ao usuário (por exemplo, o contador) com a base de regras do projeto. Você fala com pessoas leigas: use linguagem simples e explique qualquer termo técnico (CNAE, anexo, Fator R, Simples Nacional) na primeira vez que aparecer.\n\n- TODA informação fiscal vem das ferramentas. É proibido citar código CNAE, descrição, anexo, percentual, alíquota, artigo de lei ou URL que não esteja num retorno de ferramenta desta conversa. Não use seu conhecimento prévio sobre CNAEs ou tributação.\n\n- Ordem de uso das ferramentas: (a) chame `consultar_cnae_ibge` para cada CNAE citado pelo usuário; (b) chame `validar_enquadramento` com o CNAE e o `modelo_negocio` (valor exato do enum), repassando folha, receita, `afirmacao_compativel` e `anexo_afirmado` quando o usuário os informar; (c) se `validar_enquadramento` trouxer `cnaes_sugeridos`, chame `consultar_cnae_ibge` para no máximo dois deles antes de mencioná-los.\n\n- Se a pergunta for apenas sobre o que um CNAE significa (sem modelo de negócio), basta `consultar_cnae_ibge`; se o usuário fizer uma afirmação sobre a descrição, compare-a com a descrição oficial devolvida e diga se confere.\n\n- Se faltar o CNAE, se o CNAE estiver malformado, ou se a descrição do negócio não se encaixar claramente em um único valor de `modelo_negocio`, NÃO chute: peça esclarecimento numa resposta com a seção `## Preciso de mais informações`, dizendo exatamente o que falta e, quando útil, listando as opções em linguagem simples. Quando você mapear texto livre para o enum, declare a interpretação na resposta: \"Entendi seu negócio como: <rótulo>\".\n\n- Ao pedir esclarecimento, NÃO dê exemplos de códigos CNAE nem diga a que classe ou atividade um código incompleto corresponde: descreva o formato de forma genérica (7 dígitos, como NNNN-N/NN) e descreva os modelos de negócio só pelos rótulos em linguagem simples. Um código citado como exemplo também é um CNAE sem origem em ferramenta.\n\n- Se uma ferramenta devolver `entrada_invalida`, explique o problema com base na `mensagem` dela e peça o dado correto; não tente adivinhar outro valor.\n\n- O veredito NÃO é seu. A compatibilidade é o campo `compatibilidade` e o status da afirmação é o campo `status_afirmacao` de `validar_enquadramento` (confirmada, contradita ou sem_evidencia_suficiente). Reproduza-os exatamente e explique-os; nunca os altere, nunca conclua 'incompatível' por ausência de regra.\n\n- Se uma ferramenta devolver `indisponivel`, `erro_fonte` ou `nao_encontrado`, declare a limitação de forma explícita no Resultado e nunca apresente a consulta como bem-sucedida. Exemplo: IBGE indisponível → diga que a descrição oficial não pôde ser conferida agora e que a conclusão se apoia só na base de regras. Base de regras com `erro_fonte` → não dê nenhum veredito. CNAE fora da base (`nao_encontrado`) → diga que não há evidência suficiente; ausência na base não significa que o CNAE esteja errado.\n\n- Fora do escopo: cálculo de impostos devidos, planejamento tributário, abertura de empresa, CNAEs fora de tecnologia/SaaS/infoprodutos como recomendação, ou outros assuntos. Recuse educadamente numa resposta com a seção `## Fora do escopo` e explique o que você faz.\n\n- Nunca use as palavras 'parecer' ou 'consultoria' para descrever sua resposta, nem tom de recomendação profissional. Sugira conversar com o contador como próximo passo.\n\nFormato OBRIGATÓRIO da resposta de verificação, em markdown, nesta ordem:\n> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.\n\n## Resultado\nUma linha com a compatibilidade e outra com o status da afirmação, exatamente como vieram da ferramenta (ex.: 'Compatibilidade: incompativel', 'Status da afirmação: contradita'). Inclua o anexo resultante, se houver.\n\n## Em linguagem simples\nDe 3 a 5 frases para um leigo, terminando com um próximo passo (ex.: 'converse com seu contador sobre…').\n\n## Por que chegamos nisso\nA regra aplicada (id e motivo) e, se houver, o cálculo do Fator R com os números usados (folha, receita, razão e limiar de 28%).\n\n## Onde conferir\nLista de fontes para o usuário ou o contador conferirem: URL do IBGE com data/hora da consulta, arquivo/chave/versão da base de regras e cada fundamento legal (norma, dispositivo e link), tudo copiado dos retornos das ferramentas.\n\n- Pedidos de esclarecimento e recusas também começam com o aviso ('> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.'), mas usam só a seção `## Preciso de mais informações` ou `## Fora do escopo`.\n\n<additional_information>\n- Use markdown to format your answers.\n</additional_information>",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "system",
+          "created_at": 1794454502
+        },
+        {
+          "id": "c582436b-d52f-45cd-8b75-e20f7dd42ac8",
+          "content": "Verifique se o CNAE da minha empresa combina com o que ela faz.\n- CNAE: 6201-5/01\n- O que minha empresa faz: Vendo assinatura de um sistema na internet, igual para todos os clientes (SaaS) (modelo_negocio: saas_padronizado)\n- Me disseram que esse CNAE serve para o meu negócio.",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "user",
+          "created_at": 1794454502
+        },
+        {
+          "id": "41cb13b9-f780-4006-94df-78823ecac4d7",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "id": "call_15556790073977439786",
+              "type": "function",
+              "function": {
+                "name": "consultar_cnae_ibge",
+                "arguments": "{\"codigo_cnae\": \"6201-5/01\"}"
+              },
+              "thought_signature": "EpMFCpAFAWkUfROeKeaAcykuypBM+q2/slqy23HiCSwti1JBi1TYgDSF3f8i7CV4BJ16WOOkSPz3R+ICiYAKDwNp7WjkfLslc8yF57UdnlJpfVI5bWbJFsZ9ae3sNa4YK0UNHxUTY5hnviD8nIEi8YSZcC4Xptyn6TaAALtD2wuv3z1N7PA9uGk+aJsDoSodNmpW894/WQptsXu7njm8Qz47aEAkTPnPwym7QE9selem0pEPcb3Jdxm67FC8HUB8bGTys8oo5Jn7gVaqumaZmMcCev5pA9WOwCd26W3Cu8FFpU5K00k4W1W0vZ9YUS/t4TOANgH7dEjxkPkzcHSZbH7IAnFYUTx/xDi1V8Rg/5wWhquMW6LOcFHK7HLMElX9Wuug9dwLTuunb4XGSj1t5AeoE2w+ObX3RPlPW0DtdtttxTjbyIAWtWr2NxHfNhwltmHKr+LaZIhbBS2/JlHTkeMmOrN5aSj/M3Y2jc4rLqiqar3HR7Fov4cdm6M7GY3eCQ7eyN6N3uYllkpwILMZBpIHGhF23u8BlljMb4IQNoq9kXeICf8fs/SCkvCXqaCnjUc5Nhv317nUfyutSsMwIjTCQnN8C6KuEad523gi/GahclUK7oBQpy6hIJJ9T12PTmNR6ChdHulizN8BBv47sDd0Vhx8xR6UMJkkPR6wKjNXopUVAScMoxjImdHS8ZPjEazz7BJeHfxsWZEfonf+DD+dxby7aFa6Wc8UINQdypU6Jab1TMxofj9PhirPtRnB3pm/DOFdfdRjOo7235SEHU8i+vE2yH4MUUsWgpPxX8Bn/9lMRI2RrRYrlI8/X5JynYJwCS72zo38hWtzw2cIGeB5EYwjKzFNQDzH+79C4JcEG4A83zY="
+            },
+            {
+              "id": "call_15556790073977441665",
+              "type": "function",
+              "function": {
+                "name": "validar_enquadramento",
+                "arguments": "{\"afirmacao_compativel\": true, \"modelo_negocio\": \"saas_padronizado\", \"codigo_cnae\": \"6201-5/01\"}"
+              }
+            }
+          ],
+          "metrics": {
+            "input_tokens": 1917,
+            "output_tokens": 85,
+            "total_tokens": 2002,
+            "reasoning_tokens": 195,
+            "duration": 1.9431703000009293
+          },
+          "created_at": 1794454502
+        },
+        {
+          "id": "be72ed9b-63f2-412b-b4dc-ee9ef62b6f8f",
+          "content": "{\"status\": \"ok\", \"codigo\": \"6201-5/01\", \"descricao\": \"DESENVOLVIMENTO DE PROGRAMAS DE COMPUTADOR SOB ENCOMENDA\", \"hierarquia\": {\"secao\": \"J - INFORMAÇÃO E COMUNICAÇÃO\", \"divisao\": \"62 - ATIVIDADES DOS SERVIÇOS DE TECNOLOGIA DA INFORMAÇÃO\", \"grupo\": \"620 - ATIVIDADES DOS SERVIÇOS DE TECNOLOGIA DA INFORMAÇÃO\", \"classe\": \"62015 - DESENVOLVIMENTO DE PROGRAMAS DE COMPUTADOR SOB ENCOMENDA\"}, \"observacoes\": [\"Esta subclasse compreende - o desenvolvimento de sistemas para atender às necessidades do cliente, ou seja, as atividades voltadas para a definição dos módulos, especificações funcionais internas, tipos de relatórios e testes de avaliação do desempenho - a programação com o uso de ferramentas e de linguagens de programação - o fornecimento de documentação de programas de computador desenvolvidos sob encomenda - o desenvolvimento de projetos e modelagem de banco de dados sob encomenda\", \"Esta subclasse NÃO compreende - o desenho de páginas para a internet (web design) (6201-5/02) - o desenvolvimento e licenciamento de programas de computador customizáveis (6202-3/00) - o desenvolvimento e licenciamento de programas de computador não-customizáveis (6203-1/00) - os serviços de customização dos programas de computador (6204-0/00)\"], \"evidencia\": {\"fonte\": \"API CNAE do IBGE (servicodados.ibge.gov.br)\", \"url\": \"https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6201501\", \"consultado_em\": \"2026-11-12T03:35:03+00:00\"}}",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "tool",
+          "tool_call_id": "call_15556790073977439786",
+          "tool_name": "consultar_cnae_ibge",
+          "tool_args": {
+            "codigo_cnae": "6201-5/01"
+          },
+          "tool_call_error": false,
+          "created_at": 1794454505
+        },
+        {
+          "id": "b4286cb5-9c6c-486f-b4b0-9cb71d32a729",
+          "content": "{\"status\": \"ok\", \"codigo\": \"6201-5/01\", \"denominacao\": \"Desenvolvimento de programas de computador sob encomenda\", \"modelo_negocio\": {\"valor\": \"saas_padronizado\", \"rotulo\": \"Vendo assinatura de um sistema na internet, igual para todos os clientes (SaaS)\"}, \"compatibilidade\": \"incompativel\", \"regra_aplicada\": \"R-6201-SAAS\", \"motivo\": \"Este CNAE é para software feito sob medida para cada cliente. Um SaaS igual para todos não é desenvolvimento sob encomenda; a própria descrição oficial exclui o licenciamento de programas não customizáveis (6203-1/00).\", \"cnaes_sugeridos\": [{\"codigo\": \"6311-9/00\", \"denominacao\": \"Tratamento de dados, provedores de serviços de aplicação e serviços de hospedagem na internet\", \"regra\": \"R-6311-SAAS\"}, {\"codigo\": \"6319-4/00\", \"denominacao\": \"Portais, provedores de conteúdo e outros serviços de informação na internet\", \"regra\": \"R-6319-SAAS\"}], \"tributacao\": {\"confianca\": \"alta\", \"sujeito_fator_r\": true, \"nota\": \"Atividade do § 5º-D (Anexo III); vai para o Anexo V se o Fator R for inferior a 28%.\", \"anexo_resultante\": null, \"situacao\": \"indeterminado\", \"mensagem\": \"Este CNAE depende do Fator R. Informe a folha de pagamento e a receita bruta dos últimos 12 meses para saber o anexo.\", \"calculo_fator_r\": {\"aplicavel\": true, \"anexo_se_maior_ou_igual_28\": \"III\", \"anexo_se_menor_28\": \"V\"}}, \"status_afirmacao\": \"contradita\", \"comparacao\": [{\"campo\": \"compatibilidade\", \"afirmado\": \"compativel\", \"apurado\": \"incompativel\", \"resultado\": \"diverge\"}], \"fundamento_legal\": [{\"id\": \"LC123-18-5D-IV\", \"norma\": \"Lei Complementar nº 123/2006\", \"dispositivo\": \"art. 18, § 5º-D, IV\", \"trecho\": \"elaboração de programas de computadores, inclusive jogos eletrônicos, desde que desenvolvidos em estabelecimento do optante\", \"url\": \"https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm\"}, {\"id\": \"LC123-18-5M\", \"norma\": \"Lei Complementar nº 123/2006\", \"dispositivo\": \"art. 18, § 5º-M\", \"trecho\": \"Quando a relação entre a folha de salários e a receita bruta for inferior a 28% (vinte e oito por cento), as atividades do § 5º-D (e incisos XVI, XVIII, XIX, XX e XXI do § 5º-B) passam a ser tributadas pelo Anexo V (paráfrase com trecho literal).\", \"url\": \"https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm\"}, {\"id\": \"LC123-18-24\", \"norma\": \"Lei Complementar nº 123/2006\", \"dispositivo\": \"art. 18, § 24\", \"trecho\": \"considera-se folha de salários, incluídos encargos, o montante pago, nos doze meses anteriores ao período de apuração (...)\", \"url\": \"https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm\"}], \"evidencia\": {\"arquivo\": \"data/regras_cnae.json\", \"versao\": \"1.0.0\", \"data_referencia\": \"2026-11-11\", \"chave\": \"cnaes.6201-5/01.regras[id=R-6201-SAAS]\", \"chave_tributacao\": \"cnaes.6201-5/01.tributacao\"}, \"aviso\": \"Dados simplificados para fins didáticos. Material de referência: não constitui consultoria e não substitui a consulta a um contador ou advogado.\"}",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "tool",
+          "tool_call_id": "call_15556790073977441665",
+          "tool_name": "validar_enquadramento",
+          "tool_args": {
+            "afirmacao_compativel": true,
+            "modelo_negocio": "saas_padronizado",
+            "codigo_cnae": "6201-5/01"
+          },
+          "tool_call_error": false,
+          "created_at": 1794454505
+        },
+        {
+          "id": "654f44f5-74c5-4028-b84b-852e3af6a137",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "id": "call_14076572110550249216",
+              "type": "function",
+              "function": {
+                "name": "consultar_cnae_ibge",
+                "arguments": "{\"codigo_cnae\": \"6311-9/00\"}"
+              },
+              "thought_signature": "EuICCt8CAWkUfRPCYHFzoZfsvhbYafi+QuJEuAECvP0NeentkuZ/+bQgFckaza0dPfATNafdKVkbTGawsztaSUnOZZgAqlq6tEH0yoFxbQX1HZm0pXGuJFBf+llgnEnEgEQwK0AEJ9PDTrwkbG2zQ7R3M/fmtpOUhgCRVAQBrtpnlZc1tiHRCJ+bcDQtJrt0D5cM9yWSgvc6gI0NBXjsFKaGYBXwA0WmFGd2a1JjkbRfKdDSBdelgfNw1zLAosz+nUzIuMaxxthE2XUkdrEcIgGpyBxlMeEFPRozR7OqzD1cH+ZPimVjNr05NPC0JcrHkMuf1wxJJZdKMUhxeOary4+m5uPoRcYOIPQGP7oMjnUGpnIvbbkFGh7Z7wgEkSjen2/R3abJ6Bop0zC52wBaRF3MzcSMOVla4HC44geFTHQ1QVeacLT2Yyy//pKNezWSt/DqT1dflX2NuUKAuH4K134jM9Nt"
+            },
+            {
+              "id": "call_14076572110550247145",
+              "type": "function",
+              "function": {
+                "name": "consultar_cnae_ibge",
+                "arguments": "{\"codigo_cnae\": \"6319-4/00\"}"
+              }
+            }
+          ],
+          "metrics": {
+            "input_tokens": 3713,
+            "output_tokens": 64,
+            "total_tokens": 3777,
+            "reasoning_tokens": 109,
+            "duration": 1.4313538000005792
+          },
+          "created_at": 1794454505
+        },
+        {
+          "id": "8c2f36ac-0334-453a-bb61-5775568e4285",
+          "content": "{\"status\": \"ok\", \"codigo\": \"6311-9/00\", \"descricao\": \"TRATAMENTO DE DADOS, PROVEDORES DE SERVIÇOS DE APLICAÇÃO E SERVIÇOS DE HOSPEDAGEM NA INTERNET\", \"hierarquia\": {\"secao\": \"J - INFORMAÇÃO E COMUNICAÇÃO\", \"divisao\": \"63 - ATIVIDADES DE PRESTAÇÃO DE SERVIÇOS DE INFORMAÇÃO\", \"grupo\": \"631 - TRATAMENTO DE DADOS, HOSPEDAGEM NA INTERNET E OUTRAS ATIVIDADES RELACIONADAS\", \"classe\": \"63119 - TRATAMENTO DE DADOS, PROVEDORES DE SERVIÇOS DE APLICAÇÃO E SERVIÇOS DE HOSPEDAGEM NA INTERNET\"}, \"observacoes\": [\"Esta subclasse compreende - as atividades de disponibilização de infra-estrutura para os serviços de tratamento de dados, hospedagem na internet e outras atividades relacionadas, como: #- a hospedagem de aplicações ou serviços de transferência contínua de som e imagem através da internet #- a hospedagem de páginas da internet (webhosting) #- os serviços de compartilhamento de computadores - as atividades de tratamento de dados a partir dos dados fornecidos pelos clientes, como: #- o processamento de dados com a respectiva emissão de relatórios e críticas #- a gestão de bancos de dados de terceiros, permitindo a produção de listagens, de tabulações e a realização de consultas #- os serviços d (...)\", \"Esta subclasse NÃO compreende - o desenvolvimento de programas de computador sob encomenda (6201-5/00) - o desenvolvimento e licenciamento de programas de computador customizáveis (6202-3/00) - o desenvolvimento e licenciamento de programas de computador não-customizáveis (6203-1/00) - o aluguel de computadores e periféricos (7733-1/00) - os serviços de digitação para edição de textos (8219-9/99) - os provedores de acesso às redes de comunicações (6190-6/01) - os provedores de voz sobre protocolo internet – VOIP (6190-6/02) - os portais e provedores de conteúdo (6319-4/00)\"], \"evidencia\": {\"fonte\": \"API CNAE do IBGE (servicodados.ibge.gov.br)\", \"url\": \"https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6311900\", \"consultado_em\": \"2026-11-12T03:35:06+00:00\"}}",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "tool",
+          "tool_call_id": "call_14076572110550249216",
+          "tool_name": "consultar_cnae_ibge",
+          "tool_args": {
+            "codigo_cnae": "6311-9/00"
+          },
+          "tool_call_error": false,
+          "created_at": 1794454507
+        },
+        {
+          "id": "f68229ec-6a8e-45da-b6d1-869c2361fcf4",
+          "content": "{\"status\": \"ok\", \"codigo\": \"6319-4/00\", \"descricao\": \"PORTAIS, PROVEDORES DE CONTEÚDO E OUTROS SERVIÇOS DE INFORMAÇÃO NA INTERNET\", \"hierarquia\": {\"secao\": \"J - INFORMAÇÃO E COMUNICAÇÃO\", \"divisao\": \"63 - ATIVIDADES DE PRESTAÇÃO DE SERVIÇOS DE INFORMAÇÃO\", \"grupo\": \"631 - TRATAMENTO DE DADOS, HOSPEDAGEM NA INTERNET E OUTRAS ATIVIDADES RELACIONADAS\", \"classe\": \"63194 - PORTAIS, PROVEDORES DE CONTEÚDO E OUTROS SERVIÇOS DE INFORMAÇÃO NA INTERNET\"}, \"observacoes\": [\"Esta subclasse compreende - a operação de páginas de internet (websites) ou de ferramentas de busca (search engine) para gerar e manter grandes bases de dados de endereços e conteúdos de internet - a operação de portais da internet que atualizam periodicamente seu conteúdo, como, por exemplo, os dos meios de comunicação - as atividades para certificação digital\", \"Esta subclasse compreende ainda - as páginas de entretenimento (jogos) na internet, exceto jogos de azar - as páginas de publicidade na internet - o acesso a programas na internet - os serviços de disponibilização de música através da internet - os serviços de e-mail\", \"Esta subclasse NÃO compreende - a edição de livros, jornais, revistas, etc. (divisão 58) - os provedores de acesso às redes de comunicações (6190-6/01) - o desenho de páginas para a internet (6201-5/00) - a operação de jogos de azar e apostas na internet (9200-3/99)\"], \"evidencia\": {\"fonte\": \"API CNAE do IBGE (servicodados.ibge.gov.br)\", \"url\": \"https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6319400\", \"consultado_em\": \"2026-11-12T03:35:06+00:00\"}}",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "tool",
+          "tool_call_id": "call_14076572110550247145",
+          "tool_name": "consultar_cnae_ibge",
+          "tool_args": {
+            "codigo_cnae": "6319-4/00"
+          },
+          "tool_call_error": false,
+          "created_at": 1794454507
+        },
+        {
+          "id": "435aa8f2-0d7b-4349-a078-a63ac801509b",
+          "content": "> ⚠️ Material de referência, não substitui consulta a um contador ou advogado.\n\n## Resultado\nCompatibilidade: incompativel\nStatus da afirmação: contradita\n\n## Em linguagem simples\nEntendi seu negócio como: Vendo assinatura de um sistema na internet, igual para todos os clientes (SaaS).\nO CNAE (Classificação Nacional de Atividades Econômicas, código que identifica a atividade da empresa) 6201-5/01 é indicado para desenvolvimento de software feito sob medida para um cliente específico, o que não combina com a venda de um sistema padronizado via internet. Por essa razão, a informação que passaram a você foi contradita pelas regras vigentes. No Simples Nacional (regime tributário simplificado), a tributação dessa atividade depende do Fator R (cálculo que compara o gasto com folha de pagamento e a receita dos últimos 12 meses), podendo ser tributada pelo Anexo III (alíquota inicial menor) ou Anexo V (alíquota maior). Como próximo passo, converse com seu contador sobre a adequação para CNAEs mais apropriados a serviços SaaS, como o 6311-9/00 ou o 6319-4/00.\n\n## Por que chegamos nisso\n- **Regra aplicada:** `R-6201-SAAS`\n- **Motivo:** Este CNAE é para software feito sob medida para cada cliente. Um SaaS igual para todos não é desenvolvimento sob encomenda; a própria descrição oficial exclui o licenciamento de programas não customizáveis (6203-1/00).\n- **Cálculo do Fator R:** Este CNAE está sujeito às regras do Fator R (art. 18, § 5º-D e § 5º-M da LC 123/2006). Se a razão entre a folha de pagamento e a receita bruta dos últimos 12 meses for igual ou superior a 28%, enquadra-se no Anexo III; se for inferior a 28%, vai para o Anexo V. Não foi possível determinar o anexo exato pois o valor da folha de pagamento e da receita bruta dos últimos 12 meses não foi informado.\n\n## Onde conferir\n- **IBGE - Subclasse 6201-5/01 (DESENVOLVIMENTO DE PROGRAMAS DE COMPUTADOR SOB ENCOMENDA):**\n  - Fonte: API CNAE do IBGE (servicodados.ibge.gov.br)\n  - Link: https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6201501\n  - Data/hora de consulta: 2026-11-12T03:35:03+00:00\n\n- **IBGE - Subclasse 6311-9/00 (TRATAMENTO DE DADOS, PROVEDORES DE SERVIÇOS DE APLICAÇÃO E SERVIÇOS DE HOSPEDAGEM NA INTERNET):**\n  - Fonte: API CNAE do IBGE (servicodados.ibge.gov.br)\n  - Link: https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6311900\n  - Data/hora de consulta: 2026-11-12T03:35:06+00:00\n\n- **IBGE - Subclasse 6319-4/00 (PORTAIS, PROVEDORES DE CONTEÚDO E OUTROS SERVIÇOS DE INFORMAÇÃO NA INTERNET):**\n  - Fonte: API CNAE do IBGE (servicodados.ibge.gov.br)\n  - Link: https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6319400\n  - Data/hora de consulta: 2026-11-12T03:35:06+00:00\n\n- **Base de Regras Interna:**\n  - Arquivo: `data/regras_cnae.json` (Versão: 1.0.0, Data de referência: 2026-11-11)\n  - Chaves de regra: `cnaes.6201-5/01.regras[id=R-6201-SAAS]` e `cnaes.6201-5/01.tributacao`\n\n- **Fundamentos Legais:**\n  - Lei Complementar nº 123/2006, art. 18, § 5º-D, IV: https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm\n  - Lei Complementar nº 123/2006, art. 18, § 5º-M: https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm\n  - Lei Complementar nº 123/2006, art. 18, § 24: https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm",
+          "from_history": false,
+          "stop_after_tool_call": false,
+          "role": "assistant",
+          "provider_data": {
+            "thought_signature": "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"
+          },
+          "metrics": {
+            "input_tokens": 5025,
+            "output_tokens": 1210,
+            "total_tokens": 6235,
+            "reasoning_tokens": 1437,
+            "duration": 11.022350899998855,
+            "time_to_first_token": 11.022350899998855
+          },
+          "created_at": 1794454507
+        }
+      ],
+      "tools": [
+        {
+          "tool_call_id": "call_15556790073977439786",
+          "tool_name": "consultar_cnae_ibge",
+          "tool_args": {
+            "codigo_cnae": "6201-5/01"
+          },
+          "tool_call_error": false,
+          "result": "{\"status\": \"ok\", \"codigo\": \"6201-5/01\", \"descricao\": \"DESENVOLVIMENTO DE PROGRAMAS DE COMPUTADOR SOB ENCOMENDA\", \"hierarquia\": {\"secao\": \"J - INFORMAÇÃO E COMUNICAÇÃO\", \"divisao\": \"62 - ATIVIDADES DOS SERVIÇOS DE TECNOLOGIA DA INFORMAÇÃO\", \"grupo\": \"620 - ATIVIDADES DOS SERVIÇOS DE TECNOLOGIA DA INFORMAÇÃO\", \"classe\": \"62015 - DESENVOLVIMENTO DE PROGRAMAS DE COMPUTADOR SOB ENCOMENDA\"}, \"observacoes\": [\"Esta subclasse compreende - o desenvolvimento de sistemas para atender às necessidades do cliente, ou seja, as atividades voltadas para a definição dos módulos, especificações funcionais internas, tipos de relatórios e testes de avaliação do desempenho - a programação com o uso de ferramentas e de linguagens de programação - o fornecimento de documentação de programas de computador desenvolvidos sob encomenda - o desenvolvimento de projetos e modelagem de banco de dados sob encomenda\", \"Esta subclasse NÃO compreende - o desenho de páginas para a internet (web design) (6201-5/02) - o desenvolvimento e licenciamento de programas de computador customizáveis (6202-3/00) - o desenvolvimento e licenciamento de programas de computador não-customizáveis (6203-1/00) - os serviços de customização dos programas de computador (6204-0/00)\"], \"evidencia\": {\"fonte\": \"API CNAE do IBGE (servicodados.ibge.gov.br)\", \"url\": \"https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6201501\", \"consultado_em\": \"2026-11-12T03:35:03+00:00\"}}",
+          "metrics": {
+            "start_time": 1794454503.9919121,
+            "end_time": 1794454505.2413774,
+            "duration": 1.2494652999994287
+          },
+          "child_run_id": null,
+          "stop_after_tool_call": false,
+          "created_at": 1794454505,
+          "requires_confirmation": null,
+          "confirmed": null,
+          "confirmation_note": null,
+          "requires_user_input": null,
+          "user_input_schema": null,
+          "user_feedback_schema": null,
+          "answered": null,
+          "external_execution_required": null,
+          "external_execution_silent": null,
+          "approval_type": null,
+          "approval_id": null,
+          "parent_tool_call_id": null
+        },
+        {
+          "tool_call_id": "call_15556790073977441665",
+          "tool_name": "validar_enquadramento",
+          "tool_args": {
+            "afirmacao_compativel": true,
+            "modelo_negocio": "saas_padronizado",
+            "codigo_cnae": "6201-5/01"
+          },
+          "tool_call_error": false,
+          "result": "{\"status\": \"ok\", \"codigo\": \"6201-5/01\", \"denominacao\": \"Desenvolvimento de programas de computador sob encomenda\", \"modelo_negocio\": {\"valor\": \"saas_padronizado\", \"rotulo\": \"Vendo assinatura de um sistema na internet, igual para todos os clientes (SaaS)\"}, \"compatibilidade\": \"incompativel\", \"regra_aplicada\": \"R-6201-SAAS\", \"motivo\": \"Este CNAE é para software feito sob medida para cada cliente. Um SaaS igual para todos não é desenvolvimento sob encomenda; a própria descrição oficial exclui o licenciamento de programas não customizáveis (6203-1/00).\", \"cnaes_sugeridos\": [{\"codigo\": \"6311-9/00\", \"denominacao\": \"Tratamento de dados, provedores de serviços de aplicação e serviços de hospedagem na internet\", \"regra\": \"R-6311-SAAS\"}, {\"codigo\": \"6319-4/00\", \"denominacao\": \"Portais, provedores de conteúdo e outros serviços de informação na internet\", \"regra\": \"R-6319-SAAS\"}], \"tributacao\": {\"confianca\": \"alta\", \"sujeito_fator_r\": true, \"nota\": \"Atividade do § 5º-D (Anexo III); vai para o Anexo V se o Fator R for inferior a 28%.\", \"anexo_resultante\": null, \"situacao\": \"indeterminado\", \"mensagem\": \"Este CNAE depende do Fator R. Informe a folha de pagamento e a receita bruta dos últimos 12 meses para saber o anexo.\", \"calculo_fator_r\": {\"aplicavel\": true, \"anexo_se_maior_ou_igual_28\": \"III\", \"anexo_se_menor_28\": \"V\"}}, \"status_afirmacao\": \"contradita\", \"comparacao\": [{\"campo\": \"compatibilidade\", \"afirmado\": \"compativel\", \"apurado\": \"incompativel\", \"resultado\": \"diverge\"}], \"fundamento_legal\": [{\"id\": \"LC123-18-5D-IV\", \"norma\": \"Lei Complementar nº 123/2006\", \"dispositivo\": \"art. 18, § 5º-D, IV\", \"trecho\": \"elaboração de programas de computadores, inclusive jogos eletrônicos, desde que desenvolvidos em estabelecimento do optante\", \"url\": \"https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm\"}, {\"id\": \"LC123-18-5M\", \"norma\": \"Lei Complementar nº 123/2006\", \"dispositivo\": \"art. 18, § 5º-M\", \"trecho\": \"Quando a relação entre a folha de salários e a receita bruta for inferior a 28% (vinte e oito por cento), as atividades do § 5º-D (e incisos XVI, XVIII, XIX, XX e XXI do § 5º-B) passam a ser tributadas pelo Anexo V (paráfrase com trecho literal).\", \"url\": \"https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm\"}, {\"id\": \"LC123-18-24\", \"norma\": \"Lei Complementar nº 123/2006\", \"dispositivo\": \"art. 18, § 24\", \"trecho\": \"considera-se folha de salários, incluídos encargos, o montante pago, nos doze meses anteriores ao período de apuração (...)\", \"url\": \"https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm\"}], \"evidencia\": {\"arquivo\": \"data/regras_cnae.json\", \"versao\": \"1.0.0\", \"data_referencia\": \"2026-11-11\", \"chave\": \"cnaes.6201-5/01.regras[id=R-6201-SAAS]\", \"chave_tributacao\": \"cnaes.6201-5/01.tributacao\"}, \"aviso\": \"Dados simplificados para fins didáticos. Material de referência: não constitui consultoria e não substitui a consulta a um contador ou advogado.\"}",
+          "metrics": {
+            "start_time": 1794454505.2380402,
+            "end_time": 1794454505.2418866,
+            "duration": 0.003846499999781372
+          },
+          "child_run_id": null,
+          "stop_after_tool_call": false,
+          "created_at": 1794454505,
+          "requires_confirmation": null,
+          "confirmed": null,
+          "confirmation_note": null,
+          "requires_user_input": null,
+          "user_input_schema": null,
+          "user_feedback_schema": null,
+          "answered": null,
+          "external_execution_required": null,
+          "external_execution_silent": null,
+          "approval_type": null,
+          "approval_id": null,
+          "parent_tool_call_id": null
+        },
+        {
+          "tool_call_id": "call_14076572110550249216",
+          "tool_name": "consultar_cnae_ibge",
+          "tool_args": {
+            "codigo_cnae": "6311-9/00"
+          },
+          "tool_call_error": false,
+          "result": "{\"status\": \"ok\", \"codigo\": \"6311-9/00\", \"descricao\": \"TRATAMENTO DE DADOS, PROVEDORES DE SERVIÇOS DE APLICAÇÃO E SERVIÇOS DE HOSPEDAGEM NA INTERNET\", \"hierarquia\": {\"secao\": \"J - INFORMAÇÃO E COMUNICAÇÃO\", \"divisao\": \"63 - ATIVIDADES DE PRESTAÇÃO DE SERVIÇOS DE INFORMAÇÃO\", \"grupo\": \"631 - TRATAMENTO DE DADOS, HOSPEDAGEM NA INTERNET E OUTRAS ATIVIDADES RELACIONADAS\", \"classe\": \"63119 - TRATAMENTO DE DADOS, PROVEDORES DE SERVIÇOS DE APLICAÇÃO E SERVIÇOS DE HOSPEDAGEM NA INTERNET\"}, \"observacoes\": [\"Esta subclasse compreende - as atividades de disponibilização de infra-estrutura para os serviços de tratamento de dados, hospedagem na internet e outras atividades relacionadas, como: #- a hospedagem de aplicações ou serviços de transferência contínua de som e imagem através da internet #- a hospedagem de páginas da internet (webhosting) #- os serviços de compartilhamento de computadores - as atividades de tratamento de dados a partir dos dados fornecidos pelos clientes, como: #- o processamento de dados com a respectiva emissão de relatórios e críticas #- a gestão de bancos de dados de terceiros, permitindo a produção de listagens, de tabulações e a realização de consultas #- os serviços d (...)\", \"Esta subclasse NÃO compreende - o desenvolvimento de programas de computador sob encomenda (6201-5/00) - o desenvolvimento e licenciamento de programas de computador customizáveis (6202-3/00) - o desenvolvimento e licenciamento de programas de computador não-customizáveis (6203-1/00) - o aluguel de computadores e periféricos (7733-1/00) - os serviços de digitação para edição de textos (8219-9/99) - os provedores de acesso às redes de comunicações (6190-6/01) - os provedores de voz sobre protocolo internet – VOIP (6190-6/02) - os portais e provedores de conteúdo (6319-4/00)\"], \"evidencia\": {\"fonte\": \"API CNAE do IBGE (servicodados.ibge.gov.br)\", \"url\": \"https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6311900\", \"consultado_em\": \"2026-11-12T03:35:06+00:00\"}}",
+          "metrics": {
+            "start_time": 1794454506.6738696,
+            "end_time": 1794454507.8728933,
+            "duration": 1.1990237000009074
+          },
+          "child_run_id": null,
+          "stop_after_tool_call": false,
+          "created_at": 1794454507,
+          "requires_confirmation": null,
+          "confirmed": null,
+          "confirmation_note": null,
+          "requires_user_input": null,
+          "user_input_schema": null,
+          "user_feedback_schema": null,
+          "answered": null,
+          "external_execution_required": null,
+          "external_execution_silent": null,
+          "approval_type": null,
+          "approval_id": null,
+          "parent_tool_call_id": null
+        },
+        {
+          "tool_call_id": "call_14076572110550247145",
+          "tool_name": "consultar_cnae_ibge",
+          "tool_args": {
+            "codigo_cnae": "6319-4/00"
+          },
+          "tool_call_error": false,
+          "result": "{\"status\": \"ok\", \"codigo\": \"6319-4/00\", \"descricao\": \"PORTAIS, PROVEDORES DE CONTEÚDO E OUTROS SERVIÇOS DE INFORMAÇÃO NA INTERNET\", \"hierarquia\": {\"secao\": \"J - INFORMAÇÃO E COMUNICAÇÃO\", \"divisao\": \"63 - ATIVIDADES DE PRESTAÇÃO DE SERVIÇOS DE INFORMAÇÃO\", \"grupo\": \"631 - TRATAMENTO DE DADOS, HOSPEDAGEM NA INTERNET E OUTRAS ATIVIDADES RELACIONADAS\", \"classe\": \"63194 - PORTAIS, PROVEDORES DE CONTEÚDO E OUTROS SERVIÇOS DE INFORMAÇÃO NA INTERNET\"}, \"observacoes\": [\"Esta subclasse compreende - a operação de páginas de internet (websites) ou de ferramentas de busca (search engine) para gerar e manter grandes bases de dados de endereços e conteúdos de internet - a operação de portais da internet que atualizam periodicamente seu conteúdo, como, por exemplo, os dos meios de comunicação - as atividades para certificação digital\", \"Esta subclasse compreende ainda - as páginas de entretenimento (jogos) na internet, exceto jogos de azar - as páginas de publicidade na internet - o acesso a programas na internet - os serviços de disponibilização de música através da internet - os serviços de e-mail\", \"Esta subclasse NÃO compreende - a edição de livros, jornais, revistas, etc. (divisão 58) - os provedores de acesso às redes de comunicações (6190-6/01) - o desenho de páginas para a internet (6201-5/00) - a operação de jogos de azar e apostas na internet (9200-3/99)\"], \"evidencia\": {\"fonte\": \"API CNAE do IBGE (servicodados.ibge.gov.br)\", \"url\": \"https://servicodados.ibge.gov.br/api/v2/cnae/subclasses/6319400\", \"consultado_em\": \"2026-11-12T03:35:06+00:00\"}}",
+          "metrics": {
+            "start_time": 1794454506.673938,
+            "end_time": 1794454507.8728933,
+            "duration": 1.198955300000307
+          },
+          "child_run_id": null,
+          "stop_after_tool_call": false,
+          "created_at": 1794454507,
+          "requires_confirmation": null,
+          "confirmed": null,
+          "confirmation_note": null,
+          "requires_user_input": null,
+          "user_input_schema": null,
+          "user_feedback_schema": null,
+          "answered": null,
+          "external_execution_required": null,
+          "external_execution_silent": null,
+          "approval_type": null,
+          "approval_id": null,
+          "parent_tool_call_id": null
+        }
+      ],
+      "input": {
+        "input_content": "Verifique se o CNAE da minha empresa combina com o que ela faz.\n- CNAE: 6201-5/01\n- O que minha empresa faz: Vendo assinatura de um sistema na internet, igual para todos os clientes (SaaS) (modelo_negocio: saas_padronizado)\n- Me disseram que esse CNAE serve para o meu negócio."
+      }
+    }
+  },
+  "dado_alterado": {
+    "chave": "cnaes.6201-5/01.regras[id=R-6201-SAAS].resultado",
+    "valor": "incompativel"
+  }
+}
