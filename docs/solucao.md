@@ -23,7 +23,7 @@ Erros desse tipo são comuns em startups de tecnologia: o CNAE de **desenvolvime
 ## 3. Escopo da v1
 
 **Dentro:**
-- Cerca de 13 CNAEs do recorte tecnologia, SaaS e infoprodutos (seção 7.3).
+- 12 CNAEs do recorte tecnologia, SaaS e infoprodutos (seção 7.3).
 - Verificação de compatibilidade CNAE × modelo de negócio.
 - Fator R e anexo do Simples Nacional resultante.
 - Confronto de uma afirmação do usuário com a base.
@@ -112,17 +112,17 @@ A base é o motor de verdade do projeto. Ela é relida a cada chamada, sem cache
   "versao": "1.0.0",
   "data_referencia": "2026-11-11",
   "aviso": "Dados simplificados para fins didáticos. Material de referência; não substitui consulta profissional.",
-  "fontes_legais": { "LC123-18-5D-IV": { "norma": "LC 123/2006", "dispositivo": "art. 18, §5º-D, IV", "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm" } },
+  "fontes_legais": { "LC123-18-5D-IV": { "norma": "Lei Complementar nº 123/2006", "dispositivo": "art. 18, § 5º-D, IV", "trecho": "elaboração de programas de computadores (...)", "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm" } },
   "modelos_negocio": {
-    "saas_padronizado": { "rotulo": "Vendo assinatura de um sistema igual para todos os clientes" }
+    "saas_padronizado": { "rotulo": "Vendo assinatura de um sistema na internet, igual para todos os clientes (SaaS)" }
   },
   "cnaes": {
     "6201-5/01": {
       "denominacao": "Desenvolvimento de programas de computador sob encomenda",
-      "tributacao": { "anexo_base": "III", "sujeito_fator_r": true, "anexo_se_fator_r_baixo": "V", "fundamentos": ["LC123-18-5D-IV", "LC123-18-5M"] },
+      "tributacao": { "sujeito_fator_r": true, "anexo_fator_r_alto": "III", "anexo_fator_r_baixo": "V", "confianca": "alta",
+                      "fundamentos": ["LC123-18-5D-IV", "LC123-18-5M", "LC123-18-24"], "nota": "…" },
       "regras": [
-        { "id": "R-6201-SAAS", "modelo_negocio": "saas_padronizado", "resultado": "incompativel",
-          "motivo": "…", "cnaes_sugeridos": ["6203-1/00", "6311-9/00"], "fundamentos": ["CONCLA-6201501"] }
+        { "id": "R-6201-SAAS", "modelo_negocio": "saas_padronizado", "resultado": "incompativel", "motivo": "…" }
       ]
     }
   }
@@ -131,25 +131,31 @@ A base é o motor de verdade do projeto. Ela é relida a cada chamada, sem cache
 
 ### 7.3. Recorte de CNAEs e base legal
 
-As descrições abaixo foram conferidas na API do IBGE em 11/11/2026. A coluna **"Anexo"** traz o enquadramento *preliminar*. Cada linha será conferida no texto da LC 123/2006 e no Anexo VI da Resolução CGSN 140/2018 durante a etapa de dados. As linhas marcadas com "a verificar" ainda não foram conferidas.
+São 12 CNAEs. As descrições foram conferidas na API do IBGE e os dispositivos no texto da LC 123/2006 (Planalto), ambos em 11/11/2026. O anexo sai do **art. 18 da LC 123/2006**. A Resolução CGSN 140/2018 não traz uma tabela CNAE → anexo: os Anexos VI e VII dela listam CNAEs *impeditivos* e *ambíguos*.
 
-| CNAE | Descrição oficial (IBGE) | Anexo (preliminar) |
-| --- | --- | --- |
-| 6201-5/01 | Desenvolvimento de programas de computador sob encomenda | III; V se Fator R < 28% (LC 123, art. 18, §5º-D, IV + §5º-M) |
-| 6202-3/00 | Desenvolvimento e licenciamento de programas de computador customizáveis | III; V se Fator R < 28% (§5º-D, IV/V + §5º-M) |
-| 6203-1/00 | Desenvolvimento e licenciamento de programas de computador não customizáveis | III; V se Fator R < 28% (§5º-D, V + §5º-M) |
-| 6204-0/00 | Consultoria em tecnologia da informação | V; III se Fator R ≥ 28% (§5º-I, IX + §5º-J) |
-| 6209-1/00 | Suporte técnico, manutenção e outros serviços em TI | a verificar |
-| 6311-9/00 | Tratamento de dados, provedores de serviços de aplicação e hospedagem na internet | a verificar |
-| 6319-4/00 | Portais, provedores de conteúdo e outros serviços de informação na internet | III/V por Fator R (§5º-D, VI + §5º-M), a verificar |
-| 8599-6/04 | Treinamento em desenvolvimento profissional e gerencial | a verificar |
-| 8599-6/99 | Outras atividades de ensino não especificadas anteriormente | a verificar |
-| 5811-5/00 | Edição de livros | a verificar |
-| 7490-1/04 | Intermediação e agenciamento de serviços e negócios em geral, exceto imobiliários | V; III se Fator R ≥ 28% (§5º-I, VII + §5º-J), a verificar |
-| 7319-0/02 | Promoção de vendas (contraexemplo) | a verificar |
-| 4751-2/01 | Comércio varejista de equipamentos e suprimentos de informática (contraexemplo) | I, a verificar |
+| CNAE | Descrição oficial (IBGE) | Anexo na base | Confiança |
+| --- | --- | --- | --- |
+| 6201-5/01 | Desenvolvimento de programas de computador sob encomenda | III; V se Fator R < 28% (§5º-D, IV + §5º-M) | alta |
+| 6202-3/00 | Desenvolvimento e licenciamento de programas customizáveis | III; V se Fator R < 28% (§5º-D, IV/V + §5º-M) | alta |
+| 6203-1/00 | Desenvolvimento e licenciamento de programas não customizáveis | III; V se Fator R < 28% (§5º-D, V + §5º-M) | alta |
+| 6204-0/00 | Consultoria em tecnologia da informação | V; III se Fator R ≥ 28% (§5º-I, IX + §5º-J) | alta |
+| 7490-1/04 | Intermediação e agenciamento de serviços e negócios | V; III se Fator R ≥ 28% (§5º-I, VII + §5º-J) | alta |
+| 8599-6/04 | Treinamento em desenvolvimento profissional e gerencial | III, sem Fator R (§5º-B, I: "gerenciais") | alta |
+| 8599-6/99 | Outras atividades de ensino | III, sem Fator R (§5º-B, I: "escolas livres") | média |
+| 4751-2/01 | Comércio varejista de equipamentos de informática (contraexemplo) | I (§4º, I) | alta |
+| 6209-1/00 | Suporte técnico, manutenção e outros serviços em TI | **não definido**: §5º-F (III) × §5º-I (V/III) | indeterminada |
+| 6311-9/00 | Tratamento de dados, provedores de aplicação, hospedagem | **não definido**: §5º-F (III) × §5º-D, V (III/V) | indeterminada |
+| 6319-4/00 | Portais, provedores de conteúdo e outros serviços de informação | **não definido**: §5º-F (III) × §5º-D, V (III/V) | indeterminada |
+| 7319-0/02 | Promoção de vendas (contraexemplo) | **não definido**: §5º-I, X (V/III) × §5º-F (III) | indeterminada |
 
-Um CNAE só entra na base se o enquadramento puder ser fundamentado com segurança. Caso contrário, ele sai do recorte e isso é registrado em `docs/dados.md`.
+Quando a confiança é **indeterminada**, a base não escolhe um anexo. A ferramenta devolve `anexo_resultante: null` com uma nota explicando as duas leituras, e qualquer afirmação sobre o anexo fica como "sem evidência suficiente". A ferramenta não inventa o anexo.
+
+**Achado importante para SaaS:** segundo o CONCLA/IBGE, o 6203-1/00 "NÃO compreende o acesso a programas de computador pela internet (6319-4/00)", e o 6319-4/00 "compreende ainda o acesso a programas na internet". Por isso, na base:
+- SaaS × 6319-4/00 e SaaS × 6311-9/00 ("provedores de serviços de aplicação") são **compatíveis**;
+- SaaS × 6203-1/00 é **zona cinzenta**, porque é um uso comum na prática mas contraria a nota oficial;
+- SaaS × 6201-5/01 é **incompatível**.
+
+**Fora do recorte:** `5811-5/00` (edição de livros), porque não foi possível fundamentar o anexo com segurança, e `5819-1/00`, que trata de cadastros e listas e não de e-books. Detalhes em [`dados.md`](dados.md).
 
 ### 7.4. Enum `modelo_negocio`
 
@@ -180,7 +186,8 @@ As duas são **autorais**. As tabelas completas exigidas no item 2.2 da atividad
 - **Regras (determinísticas):**
   - **Compatibilidade:** existe regra para (CNAE, modelo)? Se existe, vale o `resultado` dela (`compativel` ou `incompativel`). Se não existe, o resultado é `indeterminado` (ausência ≠ incompatível). CNAE fora da base resulta em `nao_encontrado`.
   - **Fator R** (se o CNAE é sujeito): `razao = folha_12m / receita_bruta_12m`. Se `razao ≥ 0,28`, vale o anexo da faixa ≥ 28%; se for menor, o da faixa < 28% (LC 123, art. 18, §§ 5º-J e 5º-M). Sem folha ou receita, o anexo fica `indeterminado` com a mensagem "informe folha e receita".
-  - **`status_afirmacao`:** compara campo a campo o que foi afirmado com o resultado calculado. Se tudo que foi afirmado e é determinável coincide, `confirmada`. Se algum campo diverge, `contradita`. Se nada foi afirmado, ou se o resultado relevante é `indeterminado`, `sem_evidencia_suficiente`.
+  - **`status_afirmacao`:** compara campo a campo o que foi afirmado (compatibilidade e anexo) com o resultado calculado. Se algum campo diverge, `contradita`. Se todos os campos afirmados conferem, `confirmada`. Nos demais casos, `sem_evidencia_suficiente`: nada foi afirmado, ou algum campo afirmado ficou `indeterminado`. A regra é conservadora: só confirma o que a base permite confirmar por inteiro.
+  - **CNAEs sugeridos:** são calculados, não armazenados. São todos os CNAEs da base com regra `compativel` para o mesmo modelo de negócio.
 - **Saída:** `status`, `compatibilidade`, `regra_aplicada` (id), `motivo`, `cnaes_sugeridos`, `tributacao` (anexo, sujeição ao Fator R, `calculo_fator_r: {folha_12m, receita_bruta_12m, razao, limiar: 0.28, anexo_resultante}`), `status_afirmacao`, `comparacao` (por campo: afirmado × apurado), `fundamento_legal` (lista de dispositivos com URL) e `evidencia: {arquivo: "data/regras_cnae.json", chave: "cnaes.<código>.regras[<id>]", versao, data_referencia}`.
 - **Falhas:** arquivo ausente ou JSON inválido resultam em `erro_fonte`, sem veredito.
 
@@ -228,8 +235,8 @@ Os casos T01–T07 rodam via HTTP com `scripts/run_casos.py`. As respostas bruta
 | Caso | Entrada | Esperado |
 | --- | --- | --- |
 | T01 | "O CNAE 6203-1/00 é de licenciamento de software não customizável?" | `consultar_cnae_ibge` confirma a descrição oficial (afirmação conhecida **confirmada**) e mostra URL + timestamp |
-| T02 | CNAE 6203-1/00, `saas_padronizado`, folha 30.000, receita 100.000, "me disseram Anexo III" | `validar_enquadramento`: compatível, Fator R 30% ≥ 28% → Anexo III, afirmação **confirmada** |
-| T03 | "Vendo SaaS padronizado a R$ 99/mês e meu contador disse que posso usar o 6201-5/01" | Afirmação **contradita**, regra `R-6201-SAAS`, sugestão de 6203-1/00 / 6311-9/00 consultados no IBGE |
+| T02 | CNAE 6203-1/00, `licenciamento_nao_customizavel`, folha 30.000, receita 100.000, "me disseram Anexo III" | `validar_enquadramento`: compatível (`R-6203-LIC-NAO-CUSTOM`), Fator R 30% ≥ 28% → Anexo III, afirmação **confirmada** |
+| T03 | "Vendo SaaS padronizado a R$ 99/mês e meu contador disse que posso usar o 6201-5/01" | Afirmação **contradita** pela regra `R-6201-SAAS`, com sugestão de 6311-9/00 / 6319-4/00 consultados no IBGE |
 | T04 | CNAE real fora da base (ex.: 4711-3/02, supermercados) | IBGE encontra a descrição; a base responde `nao_encontrado`, o resultado é **sem evidência suficiente** e nada é inventado |
 | T05 | "Posso usar o CNAE de desenvolvimento?" + variante com código malformado `62015` | Pedido de esclarecimento / `entrada_invalida` vinda do código |
 | T06 | `IBGE_BASE_URL` apontando para host inválido (6a); `data/regras_cnae.json` ausente (6b) | 6a: IBGE `indisponivel`, ressalva explícita, conclusão só pela base. 6b: nenhum veredito, erro declarado |
@@ -259,5 +266,7 @@ Os casos T01–T07 rodam via HTTP com `scripts/run_casos.py`. As respostas bruta
 - O script de sincronização esperava uma lista. A API do IBGE devolve um objeto e, para código inexistente, `[]` com HTTP 200, não 404.
 - `6202-3/00` estava descrito como "consultoria" e `6203-1/00` como "customizável". As descrições corretas estão na seção 7.3.
 - `6201`/`6202`/`6203` estavam como "Anexo V sujeito a Fator R". Pela LC 123, eles estão no §5º-D (Anexo III) e só passam ao V pelo §5º-M.
-- A base não tinha o `6203-1/00`, embora o rascunho o indicasse como o CNAE correto para SaaS.
+- A base não tinha o `6203-1/00`, embora o rascunho o indicasse como o CNAE correto para SaaS. Além disso, a nota oficial do CONCLA remete o SaaS ao `6319-4/00`, não ao `6203-1/00` (seção 7.3).
+- O `6311-9/00` estava como "Anexo III sem Fator R" e o `7319-0/02` como "Anexo III", sem fundamento. Os dois têm leituras divergentes e a base agora os marca como indeterminados.
+- A especificação inicial citava o "Anexo VI da Resolução CGSN 140/2018" como tabela CNAE → anexo. Esse anexo lista CNAEs impeditivos, e a fonte correta é o art. 18 da LC 123/2006.
 - O vocabulário de modelos de negócio era inconsistente (`saas_puro`, `saas_padronizado`, `saas_massificado`…).

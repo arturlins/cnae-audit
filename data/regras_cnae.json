@@ -1,0 +1,541 @@
+{
+  "versao": "1.0.0",
+  "data_referencia": "2026-11-11",
+  "aviso": "Dados simplificados para fins didáticos. Material de referência: não constitui consultoria e não substitui a consulta a um contador ou advogado.",
+  "descricao": "Base de regras do Verificador de CNAE: compatibilidade entre CNAE e modelo de negócio (recorte tecnologia, SaaS e infoprodutos) e enquadramento no Simples Nacional. Descrições conferidas na API CNAE do IBGE; fundamentos conferidos no texto da LC 123/2006 (Planalto) em 2026-11-11.",
+  "fontes_legais": {
+    "LC123-18-4-I": {
+      "norma": "Lei Complementar nº 123/2006",
+      "dispositivo": "art. 18, § 4º, I",
+      "trecho": "revenda de mercadorias, que serão tributadas na forma do Anexo I desta Lei Complementar",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"
+    },
+    "LC123-18-5B-I": {
+      "norma": "Lei Complementar nº 123/2006",
+      "dispositivo": "art. 18, § 5º-B, I",
+      "trecho": "(...) gerenciais e escolas livres, exceto as previstas nos incisos II e III do § 5º-D deste artigo",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"
+    },
+    "LC123-18-5D-IV": {
+      "norma": "Lei Complementar nº 123/2006",
+      "dispositivo": "art. 18, § 5º-D, IV",
+      "trecho": "elaboração de programas de computadores, inclusive jogos eletrônicos, desde que desenvolvidos em estabelecimento do optante",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"
+    },
+    "LC123-18-5D-V": {
+      "norma": "Lei Complementar nº 123/2006",
+      "dispositivo": "art. 18, § 5º-D, V",
+      "trecho": "licenciamento ou cessão de direito de uso de programas de computação",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"
+    },
+    "LC123-18-5F": {
+      "norma": "Lei Complementar nº 123/2006",
+      "dispositivo": "art. 18, § 5º-F",
+      "trecho": "(...) serão tributadas na forma do Anexo III desta Lei Complementar, salvo se, para alguma dessas atividades, houver previsão expressa de tributação na forma dos Anexos IV ou V",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"
+    },
+    "LC123-18-5I-VII": {
+      "norma": "Lei Complementar nº 123/2006",
+      "dispositivo": "art. 18, § 5º-I, VII",
+      "trecho": "representação comercial e demais atividades de intermediação de negócios e serviços de terceiros",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"
+    },
+    "LC123-18-5I-IX": {
+      "norma": "Lei Complementar nº 123/2006",
+      "dispositivo": "art. 18, § 5º-I, IX",
+      "trecho": "auditoria, economia, consultoria, gestão, organização, controle e administração",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"
+    },
+    "LC123-18-5I-X": {
+      "norma": "Lei Complementar nº 123/2006",
+      "dispositivo": "art. 18, § 5º-I, X",
+      "trecho": "jornalismo e publicidade",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"
+    },
+    "LC123-18-5J": {
+      "norma": "Lei Complementar nº 123/2006",
+      "dispositivo": "art. 18, § 5º-J",
+      "trecho": "Quando a relação entre a folha de salários e a receita bruta da ME ou EPP for igual ou superior a 28% (vinte e oito por cento), as atividades do § 5º-I passam a ser tributadas pelo Anexo III (paráfrase com trecho literal).",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"
+    },
+    "LC123-18-5M": {
+      "norma": "Lei Complementar nº 123/2006",
+      "dispositivo": "art. 18, § 5º-M",
+      "trecho": "Quando a relação entre a folha de salários e a receita bruta for inferior a 28% (vinte e oito por cento), as atividades do § 5º-D (e incisos XVI, XVIII, XIX, XX e XXI do § 5º-B) passam a ser tributadas pelo Anexo V (paráfrase com trecho literal).",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"
+    },
+    "LC123-18-24": {
+      "norma": "Lei Complementar nº 123/2006",
+      "dispositivo": "art. 18, § 24",
+      "trecho": "considera-se folha de salários, incluídos encargos, o montante pago, nos doze meses anteriores ao período de apuração (...)",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"
+    }
+  },
+  "modelos_negocio": {
+    "saas_padronizado": {
+      "rotulo": "Vendo assinatura de um sistema na internet, igual para todos os clientes (SaaS)"
+    },
+    "desenvolvimento_sob_encomenda": {
+      "rotulo": "Desenvolvo sistemas sob medida para cada cliente"
+    },
+    "licenciamento_customizavel": {
+      "rotulo": "Vendo licenças de um sistema meu que é adaptado para cada cliente (ex.: ERP)"
+    },
+    "licenciamento_nao_customizavel": {
+      "rotulo": "Vendo licenças de um programa pronto, que o cliente instala e usa como está"
+    },
+    "consultoria_ti": {
+      "rotulo": "Dou consultoria em tecnologia (análise, arquitetura, escolha de sistemas)"
+    },
+    "suporte_tecnico": {
+      "rotulo": "Presto suporte técnico, help-desk ou manutenção de sistemas"
+    },
+    "hospedagem_infraestrutura": {
+      "rotulo": "Hospedo sites, aplicações ou dados de outras empresas"
+    },
+    "portal_conteudo": {
+      "rotulo": "Mantenho um portal ou site de conteúdo na internet"
+    },
+    "curso_online_gravado": {
+      "rotulo": "Vendo cursos online gravados (infoproduto)"
+    },
+    "mentoria_treinamento_ao_vivo": {
+      "rotulo": "Dou mentorias, treinamentos ou aulas ao vivo"
+    },
+    "ebook_publicacao_digital": {
+      "rotulo": "Vendo e-books ou outras publicações digitais"
+    },
+    "marketplace_intermediacao": {
+      "rotulo": "Ganho comissão divulgando ou intermediando produtos e serviços de outros (afiliado, marketplace)"
+    },
+    "revenda_hardware": {
+      "rotulo": "Revendo computadores, peças ou equipamentos de informática"
+    },
+    "promocao_vendas": {
+      "rotulo": "Faço promoção de vendas e ações promocionais em pontos de venda"
+    }
+  },
+  "cnaes": {
+    "6201-5/01": {
+      "denominacao": "Desenvolvimento de programas de computador sob encomenda",
+      "tributacao": {
+        "sujeito_fator_r": true,
+        "anexo_fator_r_alto": "III",
+        "anexo_fator_r_baixo": "V",
+        "confianca": "alta",
+        "fundamentos": ["LC123-18-5D-IV", "LC123-18-5M", "LC123-18-24"],
+        "nota": "Atividade do § 5º-D (Anexo III); vai para o Anexo V se o Fator R for inferior a 28%."
+      },
+      "regras": [
+        {
+          "id": "R-6201-ENCOMENDA",
+          "modelo_negocio": "desenvolvimento_sob_encomenda",
+          "resultado": "compativel",
+          "motivo": "A descrição oficial cobre o desenvolvimento de sistemas para atender às necessidades de cada cliente."
+        },
+        {
+          "id": "R-6201-SAAS",
+          "modelo_negocio": "saas_padronizado",
+          "resultado": "incompativel",
+          "motivo": "Este CNAE é para software feito sob medida para cada cliente. Um SaaS igual para todos não é desenvolvimento sob encomenda; a própria descrição oficial exclui o licenciamento de programas não customizáveis (6203-1/00)."
+        },
+        {
+          "id": "R-6201-LIC-NAO-CUSTOM",
+          "modelo_negocio": "licenciamento_nao_customizavel",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial deste CNAE exclui expressamente o desenvolvimento e licenciamento de programas não customizáveis (6203-1/00)."
+        },
+        {
+          "id": "R-6201-LIC-CUSTOM",
+          "modelo_negocio": "licenciamento_customizavel",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial deste CNAE exclui expressamente o desenvolvimento e licenciamento de programas customizáveis (6202-3/00)."
+        },
+        {
+          "id": "R-6201-CONSULTORIA",
+          "modelo_negocio": "consultoria_ti",
+          "resultado": "incompativel",
+          "motivo": "Consultoria e customização de programas pertencem ao 6204-0/00, que a descrição oficial deste CNAE exclui."
+        }
+      ]
+    },
+    "6202-3/00": {
+      "denominacao": "Desenvolvimento e licenciamento de programas de computador customizáveis",
+      "tributacao": {
+        "sujeito_fator_r": true,
+        "anexo_fator_r_alto": "III",
+        "anexo_fator_r_baixo": "V",
+        "confianca": "alta",
+        "fundamentos": ["LC123-18-5D-IV", "LC123-18-5D-V", "LC123-18-5M", "LC123-18-24"],
+        "nota": "Atividade do § 5º-D (Anexo III); vai para o Anexo V se o Fator R for inferior a 28%."
+      },
+      "regras": [
+        {
+          "id": "R-6202-LIC-CUSTOM",
+          "modelo_negocio": "licenciamento_customizavel",
+          "resultado": "compativel",
+          "motivo": "A descrição oficial cobre o desenvolvimento e o licenciamento de programas que permitem adaptações para cada cliente."
+        },
+        {
+          "id": "R-6202-SAAS",
+          "modelo_negocio": "saas_padronizado",
+          "resultado": "incompativel",
+          "motivo": "Este CNAE é para programas customizáveis. Um SaaS igual para todos não é customizável, e a descrição oficial exclui programas não customizáveis (6203-1/00)."
+        },
+        {
+          "id": "R-6202-ENCOMENDA",
+          "modelo_negocio": "desenvolvimento_sob_encomenda",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial deste CNAE exclui a produção de programas sob encomenda (6201-5/01)."
+        },
+        {
+          "id": "R-6202-LIC-NAO-CUSTOM",
+          "modelo_negocio": "licenciamento_nao_customizavel",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial deste CNAE exclui programas não customizáveis (6203-1/00)."
+        }
+      ]
+    },
+    "6203-1/00": {
+      "denominacao": "Desenvolvimento e licenciamento de programas de computador não customizáveis",
+      "tributacao": {
+        "sujeito_fator_r": true,
+        "anexo_fator_r_alto": "III",
+        "anexo_fator_r_baixo": "V",
+        "confianca": "alta",
+        "fundamentos": ["LC123-18-5D-V", "LC123-18-5M", "LC123-18-24"],
+        "nota": "Atividade do § 5º-D (Anexo III); vai para o Anexo V se o Fator R for inferior a 28%."
+      },
+      "regras": [
+        {
+          "id": "R-6203-LIC-NAO-CUSTOM",
+          "modelo_negocio": "licenciamento_nao_customizavel",
+          "resultado": "compativel",
+          "motivo": "A descrição oficial cobre o desenvolvimento e o licenciamento de programas prontos, que não permitem adaptações para cada cliente."
+        },
+        {
+          "id": "R-6203-SAAS",
+          "modelo_negocio": "saas_padronizado",
+          "resultado": "indeterminado",
+          "motivo": "Zona cinzenta: muitos SaaS são registrados neste CNAE por ser software não customizável, mas a descrição oficial diz que ele NÃO compreende o acesso a programas de computador pela internet, que remete ao 6319-4/00. Vale conversar com o contador."
+        },
+        {
+          "id": "R-6203-ENCOMENDA",
+          "modelo_negocio": "desenvolvimento_sob_encomenda",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial deste CNAE exclui o desenvolvimento de programas sob encomenda (6201-5/01)."
+        },
+        {
+          "id": "R-6203-LIC-CUSTOM",
+          "modelo_negocio": "licenciamento_customizavel",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial deste CNAE exclui programas customizáveis (6202-3/00)."
+        }
+      ]
+    },
+    "6204-0/00": {
+      "denominacao": "Consultoria em tecnologia da informação",
+      "tributacao": {
+        "sujeito_fator_r": true,
+        "anexo_fator_r_alto": "III",
+        "anexo_fator_r_baixo": "V",
+        "confianca": "alta",
+        "fundamentos": ["LC123-18-5I-IX", "LC123-18-5J", "LC123-18-24"],
+        "nota": "Consultoria é atividade do § 5º-I (Anexo V); passa ao Anexo III se o Fator R for igual ou superior a 28%."
+      },
+      "regras": [
+        {
+          "id": "R-6204-CONSULTORIA",
+          "modelo_negocio": "consultoria_ti",
+          "resultado": "compativel",
+          "motivo": "A descrição oficial cobre análise de necessidades, assessoria na escolha de sistemas e equipamentos e acompanhamento de projetos de informática."
+        },
+        {
+          "id": "R-6204-SAAS",
+          "modelo_negocio": "saas_padronizado",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial cobre análise e assessoria, não o fornecimento de um software por assinatura."
+        },
+        {
+          "id": "R-6204-ENCOMENDA",
+          "modelo_negocio": "desenvolvimento_sob_encomenda",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial deste CNAE exclui o desenvolvimento de programas sob encomenda (6201-5/01)."
+        }
+      ]
+    },
+    "6209-1/00": {
+      "denominacao": "Suporte técnico, manutenção e outros serviços em tecnologia da informação",
+      "tributacao": {
+        "sujeito_fator_r": null,
+        "confianca": "indeterminada",
+        "fundamentos": ["LC123-18-5F", "LC123-18-5I-IX"],
+        "nota": "Há leituras divergentes: Anexo III pela regra residual (§ 5º-F) ou Anexo V/III pelo Fator R se o serviço for tratado como atividade intelectual/técnica (§ 5º-I). A base não define o anexo; confirme com o contador."
+      },
+      "regras": [
+        {
+          "id": "R-6209-SUPORTE",
+          "modelo_negocio": "suporte_tecnico",
+          "resultado": "compativel",
+          "motivo": "A descrição oficial cobre help-desk, recuperação de panes, instalação de programas e manutenção de sistemas."
+        },
+        {
+          "id": "R-6209-REVENDA",
+          "modelo_negocio": "revenda_hardware",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial exclui a assessoria associada à venda de computadores e periféricos (47.51-2)."
+        },
+        {
+          "id": "R-6209-ENCOMENDA",
+          "modelo_negocio": "desenvolvimento_sob_encomenda",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial deste CNAE exclui o desenvolvimento de programas sob encomenda (6201-5/01)."
+        }
+      ]
+    },
+    "6311-9/00": {
+      "denominacao": "Tratamento de dados, provedores de serviços de aplicação e serviços de hospedagem na internet",
+      "tributacao": {
+        "sujeito_fator_r": null,
+        "confianca": "indeterminada",
+        "fundamentos": ["LC123-18-5F", "LC123-18-5D-V"],
+        "nota": "Há leituras divergentes: Anexo III pela regra residual (§ 5º-F) ou Anexo III/V pelo Fator R se a receita for tratada como licenciamento de programas (§ 5º-D, V). A base não define o anexo; confirme com o contador."
+      },
+      "regras": [
+        {
+          "id": "R-6311-HOSPEDAGEM",
+          "modelo_negocio": "hospedagem_infraestrutura",
+          "resultado": "compativel",
+          "motivo": "A descrição oficial cobre hospedagem de aplicações e páginas, compartilhamento de computadores e tratamento de dados de clientes."
+        },
+        {
+          "id": "R-6311-SAAS",
+          "modelo_negocio": "saas_padronizado",
+          "resultado": "compativel",
+          "motivo": "A denominação oficial inclui provedores de serviços de aplicação, o que abrange aplicações disponibilizadas pela internet."
+        },
+        {
+          "id": "R-6311-ENCOMENDA",
+          "modelo_negocio": "desenvolvimento_sob_encomenda",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial deste CNAE exclui o desenvolvimento de programas sob encomenda (6201-5/01)."
+        },
+        {
+          "id": "R-6311-LIC-NAO-CUSTOM",
+          "modelo_negocio": "licenciamento_nao_customizavel",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial deste CNAE exclui o desenvolvimento e licenciamento de programas não customizáveis (6203-1/00)."
+        },
+        {
+          "id": "R-6311-PORTAL",
+          "modelo_negocio": "portal_conteudo",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial deste CNAE exclui portais e provedores de conteúdo (6319-4/00)."
+        }
+      ]
+    },
+    "6319-4/00": {
+      "denominacao": "Portais, provedores de conteúdo e outros serviços de informação na internet",
+      "tributacao": {
+        "sujeito_fator_r": null,
+        "confianca": "indeterminada",
+        "fundamentos": ["LC123-18-5F", "LC123-18-5D-V"],
+        "nota": "Há leituras divergentes: Anexo III pela regra residual (§ 5º-F) ou Anexo III/V pelo Fator R se a receita for tratada como licenciamento de programas (§ 5º-D, V). A base não define o anexo; confirme com o contador."
+      },
+      "regras": [
+        {
+          "id": "R-6319-PORTAL",
+          "modelo_negocio": "portal_conteudo",
+          "resultado": "compativel",
+          "motivo": "A descrição oficial cobre a operação de portais e sites que mantêm e atualizam conteúdo na internet."
+        },
+        {
+          "id": "R-6319-SAAS",
+          "modelo_negocio": "saas_padronizado",
+          "resultado": "compativel",
+          "motivo": "A descrição oficial inclui expressamente o acesso a programas na internet."
+        },
+        {
+          "id": "R-6319-CURSO",
+          "modelo_negocio": "curso_online_gravado",
+          "resultado": "indeterminado",
+          "motivo": "Zona cinzenta: a descrição oficial inclui a distribuição online de conteúdo, mas cursos costumam ser enquadrados como atividade de ensino (85.99). Vale conversar com o contador."
+        },
+        {
+          "id": "R-6319-EBOOK",
+          "modelo_negocio": "ebook_publicacao_digital",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial deste CNAE exclui a edição de livros, jornais e revistas (divisão 58). A edição de livros não faz parte do recorte desta base."
+        },
+        {
+          "id": "R-6319-ENCOMENDA",
+          "modelo_negocio": "desenvolvimento_sob_encomenda",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial deste CNAE exclui o desenho de páginas e o desenvolvimento sob encomenda (6201-5)."
+        }
+      ]
+    },
+    "8599-6/04": {
+      "denominacao": "Treinamento em desenvolvimento profissional e gerencial",
+      "tributacao": {
+        "sujeito_fator_r": false,
+        "anexo": "III",
+        "confianca": "alta",
+        "fundamentos": ["LC123-18-5B-I"],
+        "nota": "Ensino gerencial está no § 5º-B, I (Anexo III), que não depende do Fator R."
+      },
+      "regras": [
+        {
+          "id": "R-859904-MENTORIA",
+          "modelo_negocio": "mentoria_treinamento_ao_vivo",
+          "resultado": "compativel",
+          "motivo": "A descrição oficial cobre capacitação e treinamento profissional e gerencial, presencial ou a distância, inclusive palestras."
+        },
+        {
+          "id": "R-859904-CURSO",
+          "modelo_negocio": "curso_online_gravado",
+          "resultado": "compativel",
+          "motivo": "As atividades oficiais incluem curso de treinamento profissional e gerencial com acesso à internet. Vale para cursos de tema profissional ou gerencial; outros temas tendem ao 8599-6/99."
+        },
+        {
+          "id": "R-859904-SAAS",
+          "modelo_negocio": "saas_padronizado",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial cobre atividades de ensino e treinamento, não o fornecimento de software."
+        }
+      ]
+    },
+    "8599-6/99": {
+      "denominacao": "Outras atividades de ensino não especificadas anteriormente",
+      "tributacao": {
+        "sujeito_fator_r": false,
+        "anexo": "III",
+        "confianca": "media",
+        "fundamentos": ["LC123-18-5B-I"],
+        "nota": "Escolas livres estão no § 5º-B, I (Anexo III), sem Fator R. Há discussão sobre o enquadramento de cursos 100% online como escola livre."
+      },
+      "regras": [
+        {
+          "id": "R-859999-CURSO",
+          "modelo_negocio": "curso_online_gravado",
+          "resultado": "compativel",
+          "motivo": "A descrição oficial cobre cursos livres de duração variável e as atividades oficiais incluem, por exemplo, curso de marketing, inclusive digital."
+        },
+        {
+          "id": "R-859999-MENTORIA",
+          "modelo_negocio": "mentoria_treinamento_ao_vivo",
+          "resultado": "compativel",
+          "motivo": "A descrição oficial cobre professores autônomos e aulas particulares em temas não especificados em outros CNAEs de ensino."
+        },
+        {
+          "id": "R-859999-SAAS",
+          "modelo_negocio": "saas_padronizado",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial cobre atividades de ensino, não o fornecimento de software."
+        }
+      ]
+    },
+    "7490-1/04": {
+      "denominacao": "Atividades de intermediação e agenciamento de serviços e negócios em geral, exceto imobiliários",
+      "tributacao": {
+        "sujeito_fator_r": true,
+        "anexo_fator_r_alto": "III",
+        "anexo_fator_r_baixo": "V",
+        "confianca": "alta",
+        "fundamentos": ["LC123-18-5I-VII", "LC123-18-5J", "LC123-18-24"],
+        "nota": "Intermediação de negócios é atividade do § 5º-I (Anexo V); passa ao Anexo III se o Fator R for igual ou superior a 28%."
+      },
+      "regras": [
+        {
+          "id": "R-7490-AFILIADO",
+          "modelo_negocio": "marketplace_intermediacao",
+          "resultado": "compativel",
+          "motivo": "As atividades oficiais incluem divulgação de serviços na internet (afiliados digitais) e intermediação na venda de cursos online."
+        },
+        {
+          "id": "R-7490-CURSO",
+          "modelo_negocio": "curso_online_gravado",
+          "resultado": "incompativel",
+          "motivo": "Este CNAE é para quem intermedeia a venda de produtos de terceiros, não para quem produz e vende o próprio curso."
+        },
+        {
+          "id": "R-7490-SAAS",
+          "modelo_negocio": "saas_padronizado",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial cobre intermediação de negócios de terceiros, não o fornecimento do próprio software."
+        }
+      ]
+    },
+    "7319-0/02": {
+      "denominacao": "Promoção de vendas",
+      "tributacao": {
+        "sujeito_fator_r": null,
+        "confianca": "indeterminada",
+        "fundamentos": ["LC123-18-5I-X", "LC123-18-5F"],
+        "nota": "Há leituras divergentes: Anexo V/III pelo Fator R se tratada como publicidade (§ 5º-I, X) ou Anexo III pela regra residual (§ 5º-F). A base não define o anexo; confirme com o contador."
+      },
+      "regras": [
+        {
+          "id": "R-7319-PROMOCAO",
+          "modelo_negocio": "promocao_vendas",
+          "resultado": "compativel",
+          "motivo": "A descrição oficial cobre a promoção de vendas e a publicidade no local da venda."
+        },
+        {
+          "id": "R-7319-AFILIADO",
+          "modelo_negocio": "marketplace_intermediacao",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial cobre promoção no ponto de venda e distribuição de material publicitário; a divulgação como afiliado digital está listada no 7490-1/04."
+        },
+        {
+          "id": "R-7319-CURSO",
+          "modelo_negocio": "curso_online_gravado",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial cobre promoção de vendas, não a produção e venda de cursos."
+        },
+        {
+          "id": "R-7319-SAAS",
+          "modelo_negocio": "saas_padronizado",
+          "resultado": "incompativel",
+          "motivo": "A descrição oficial cobre promoção de vendas, não o fornecimento de software."
+        }
+      ]
+    },
+    "4751-2/01": {
+      "denominacao": "Comércio varejista especializado de equipamentos e suprimentos de informática",
+      "tributacao": {
+        "sujeito_fator_r": false,
+        "anexo": "I",
+        "confianca": "alta",
+        "fundamentos": ["LC123-18-4-I"],
+        "nota": "Revenda de mercadorias é tributada pelo Anexo I."
+      },
+      "regras": [
+        {
+          "id": "R-4751-REVENDA",
+          "modelo_negocio": "revenda_hardware",
+          "resultado": "compativel",
+          "motivo": "A descrição oficial cobre o comércio varejista de computadores, periféricos, suprimentos e peças de informática."
+        },
+        {
+          "id": "R-4751-SAAS",
+          "modelo_negocio": "saas_padronizado",
+          "resultado": "incompativel",
+          "motivo": "Este CNAE é de comércio de mercadorias. Assinatura de software na internet é prestação de serviço, não revenda."
+        },
+        {
+          "id": "R-4751-ENCOMENDA",
+          "modelo_negocio": "desenvolvimento_sob_encomenda",
+          "resultado": "incompativel",
+          "motivo": "Este CNAE é de comércio de mercadorias e não cobre o desenvolvimento de software para clientes."
+        },
+        {
+          "id": "R-4751-CONSULTORIA",
+          "modelo_negocio": "consultoria_ti",
+          "resultado": "incompativel",
+          "motivo": "Este CNAE cobre apenas a assessoria associada à venda de equipamentos; consultoria em TI independente é 6204-0/00."
+        }
+      ]
+    }
+  }
+}
