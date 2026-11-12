@@ -108,7 +108,7 @@ Se aparecer algum processo, veja [Porta ocupada](#porta-ocupada).
 ## 1. Obter o código
 
 ```bash
-git clone <URL-do-repositório> cnae-audit
+git clone https://github.com/arturlins/cnae-audit.git cnae-audit
 cd cnae-audit
 git checkout v1.1-atividade
 ```
@@ -913,7 +913,7 @@ Os mesmos comandos, sem explicação. As linhas marcadas `[T1]` e `[T2]` rodam e
 # 0-1. pré-requisitos e código
 git --version; uv --version; curl.exe --version
 Get-NetTCPConnection -LocalPort 7777,8000 -State Listen -ErrorAction SilentlyContinue   # nenhuma linha
-git clone <URL-do-repositório> cnae-audit
+git clone https://github.com/arturlins/cnae-audit.git cnae-audit
 cd cnae-audit
 git checkout v1.1-atividade
 
@@ -966,7 +966,7 @@ git status --short
 # 0-1. pré-requisitos e código
 git --version; uv --version; curl --version
 lsof -nP -iTCP:7777 -iTCP:8000 -sTCP:LISTEN          # nenhuma linha (Git Bash: netstat -ano | grep -E ':(7777|8000) .*LISTEN')
-git clone <URL-do-repositório> cnae-audit
+git clone https://github.com/arturlins/cnae-audit.git cnae-audit
 cd cnae-audit
 git checkout v1.1-atividade
 
