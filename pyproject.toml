@@ -12,7 +12,8 @@ dependencies = [
     "jinja2",
     "python-multipart",
     "python-dotenv",
-    "sqlalchemy",
+    "sqlalchemy[asyncio]",
+    "markdown>=3.11.3",
 ]
 
 [dependency-groups]

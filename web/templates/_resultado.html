@@ -1,0 +1,40 @@
+<div class="cartao resultado">
+  <div class="aviso">
+    ⚠️ <strong>Material de referência</strong>, não substitui consulta a um contador ou advogado.
+  </div>
+
+  {% if v.verificada %}
+    {% if v.tipo == "verificacao" %}
+      {% if v.selo %}
+      <p class="selo selo-{{ v.status_afirmacao }}">{{ v.selo }}</p>
+      {% elif v.sem_veredito %}
+      <p class="selo selo-sem_evidencia_suficiente">Sem veredito: {{ v.sem_veredito }}</p>
+      {% endif %}
+    {% endif %}
+    <div class="resposta">{{ conteudo | md }}</div>
+  {% else %}
+    <p class="selo selo-nao_verificada">Resposta não verificada</p>
+    <p>A resposta do agente não passou na checagem automática, por isso mostramos só os dados
+       que as ferramentas devolveram:</p>
+    <ul>{% for f in v.falhas %}<li>{{ f }}</li>{% endfor %}</ul>
+    {% if v.status_afirmacao %}
+    <p>Status da afirmação devolvido pela base de regras: <strong>{{ v.status_afirmacao }}</strong></p>
+    {% endif %}
+  {% endif %}
+
+  <details class="ferramentas" {% if not v.verificada %}open{% endif %}>
+    <summary>Ferramentas executadas ({{ v.ferramentas | length }})</summary>
+    {% for f in v.ferramentas %}
+    <div class="ferramenta">
+      <p><code>{{ f.nome }}</code> → status <strong>{{ f.status or "desconhecido" }}</strong></p>
+      <p>Argumentos:</p>
+      <pre>{{ f.argumentos | tojson_pretty }}</pre>
+      <p>Retorno:</p>
+      <pre>{% if f.resultado %}{{ f.resultado | tojson_pretty }}{% else %}{{ f.resultado_bruto }}{% endif %}</pre>
+    </div>
+    {% else %}
+    <p>Nenhuma ferramenta foi chamada.</p>
+    {% endfor %}
+    <p class="meta">run_id: <code>{{ run_id }}</code></p>
+  </details>
+</div>

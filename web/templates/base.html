@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verificador de CNAE</title>
+  <link rel="stylesheet" href="/static/estilo.css">
+  <script src="https://unpkg.com/htmx.org@2.0.4/dist/htmx.min.js"
+          integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
+          crossorigin="anonymous"></script>
+</head>
+<body>
+  <header class="topo">
+    <div class="conteudo">
+      <h1>Verificador de CNAE</h1>
+      <p>Confira se o CNAE da sua empresa combina com o que ela faz.</p>
+    </div>
+  </header>
+  <main class="conteudo">
+    {% block main %}{% endblock %}
+  </main>
+  <footer class="conteudo rodape">
+    Material de referência, não substitui consulta a um contador ou advogado.
+    Fontes: API CNAE do IBGE e base de regras do projeto (<code>data/regras_cnae.json</code>).
+  </footer>
+</body>
+</html>

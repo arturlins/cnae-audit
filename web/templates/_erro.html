@@ -1,0 +1,8 @@
+<div class="cartao erro" role="alert">
+  <h2>{{ titulo }}</h2>
+  <p>{{ mensagem }}</p>
+  {% if tentar_novamente %}
+  <p>Nenhum resultado foi gerado. Tente novamente em instantes.</p>
+  <button type="button" onclick="htmx.trigger(document.querySelector('form'), 'submit')">Tentar novamente</button>
+  {% endif %}
+</div>

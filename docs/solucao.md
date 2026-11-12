@@ -72,10 +72,11 @@ O app web e o AgentOS são **processos separados**. O app web é um cliente fino
 | --- | --- |
 | ID no AgentOS | `verificador-cnae` |
 | Framework | Agno 3.1.x + AgentOS |
-| Modelo | Google Gemini (`agno.models.google.Gemini`). O id vem de `GEMINI_MODEL_ID`, e o padrão é o Flash estável vigente, registrado em `docs/testes.md` na execução |
+| Modelo | Google Gemini (`agno.models.google.Gemini`, chave em `GOOGLE_API_KEY`). O id vem de `GEMINI_MODEL_ID`; o padrão é `gemini-3.7-flash` (o padrão do Agno 3.1.12), e o id efetivamente usado fica registrado em `docs/testes.md` |
 | Temperatura | 0 |
 | Limite de ferramentas | `tool_call_limit=6` (o T03 usa até 4) |
-| Sessões | `SqliteDb` em `tmp/agentos.db` (só sessões; **não** é fonte de dados do domínio) |
+| Sessões | `SqliteDb` em `tmp/agentos.db` (só sessões; **não** é fonte de dados do domínio). Histórico das 3 últimas execuções da sessão, para responder a pedidos de esclarecimento |
+| Retorno das ferramentas | As ferramentas devolvem `dict`; o agente as recebe envolvidas por `como_json` (`agente/agente.py`), que serializa em JSON. Sem isso o Agno usaria `str(dict)` (repr de Python), ilegível para o pós-validador |
 | Timeouts | IBGE 5 s (`IBGE_TIMEOUT_S`); app web → AgentOS 90 s (`AGENTOS_TIMEOUT_S`) |
 
 ### 6.1. Instruções (resumo; texto integral em `agente/instrucoes.py`)
@@ -86,10 +87,10 @@ O app web e o AgentOS são **processos separados**. O app web é um cliente fino
    1. `consultar_cnae_ibge` para cada CNAE citado.
    2. `validar_enquadramento` com o `modelo_negocio` do enum.
    3. Se sugerir outro CNAE, consultar esse CNAE no IBGE também.
-4. **Ambiguidade:** sem CNAE, com CNAE malformado, ou com descrição de negócio que não se encaixe claramente em um valor do enum, o agente **pede esclarecimento** e não chuta. Quando mapeia texto livre para o enum, declara a interpretação ("Entendi seu negócio como: …").
+4. **Ambiguidade:** sem CNAE, com CNAE malformado, ou com descrição de negócio que não se encaixe claramente em um valor do enum, o agente **pede esclarecimento** (seção `## Preciso de mais informações`) e não chuta. Quando mapeia texto livre para o enum, declara a interpretação ("Entendi seu negócio como: …").
 5. **O veredito não é do modelo.** O status da afirmação é o `status_afirmacao` devolvido pela ferramenta. O agente explica, mas não altera.
 6. **Falhas:** se uma ferramenta devolver `indisponivel`, `erro_fonte` ou `nao_encontrado`, o agente declara a limitação e nunca apresenta a consulta como bem-sucedida.
-7. **Fora do escopo** (cálculo de impostos devidos, planejamento tributário, abertura de empresa, outros assuntos): recusa educadamente e explica o que a ferramenta faz.
+7. **Fora do escopo** (cálculo de impostos devidos, planejamento tributário, abertura de empresa, outros assuntos): recusa educadamente (seção `## Fora do escopo`) e explica o que a ferramenta faz.
 8. **Linguagem simples**, sem "parecer" ou "consultoria". Aviso de material de referência no topo.
 9. **Template fixo de resposta:** `## Resultado`, `## Em linguagem simples`, `## Por que chegamos nisso`, `## Onde conferir`.
 
@@ -205,10 +206,12 @@ Seção 6.1: só usar dados vindos de ferramentas, pedir esclarecimento quando h
 
 ### 9.3. No app web (pós-validação em código, `web/verificacao.py`)
 Antes de exibir o resultado, o backend confere quatro coisas:
-1. A execução teve pelo menos uma chamada de ferramenta bem-sucedida, exceto nos pedidos de esclarecimento.
+1. A execução teve pelo menos uma chamada de ferramenta bem-sucedida, exceto nos pedidos de esclarecimento e nas recusas (reconhecidos pelas seções `## Preciso de mais informações` e `## Fora do escopo`).
 2. As seções obrigatórias do template estão presentes.
 3. Todo código CNAE citado no texto (regex `\d{4}-?\d/?\d{2}`) aparece nos argumentos ou retornos das ferramentas.
-4. O selo exibido vem do `status_afirmacao` da ferramenta, nunca do texto.
+4. O selo exibido vem do `status_afirmacao` da última chamada de `validar_enquadramento`, nunca do texto. Se a base devolveu `erro_fonte` ou não foi consultada, a tela mostra "Sem veredito".
+
+As tool calls são lidas do campo `tools` da resposta do AgentOS (`tool_name`, `tool_args`, `result`).
 
 Se alguma checagem falhar, a tela mostra **"Resposta não verificada"** e exibe só os dados brutos das ferramentas.
 
@@ -260,6 +263,7 @@ Os casos T01–T07 rodam via HTTP com `scripts/run_casos.py`. As respostas bruta
 | Enum fechado de modelos de negócio + rótulos em linguagem simples | Regra determinística; o T05 fica natural; o leigo não precisa conhecer o jargão |
 | Resposta em markdown + tool calls da API (sem `output_schema`) | Combinar `output_schema` com tool calling no Gemini é instável. As evidências vêm dos retornos reais |
 | App web separado do AgentOS | Fronteira "projeto → API" nítida; facilita a migração para React |
+| Ferramentas expostas ao agente como JSON (`como_json`) | O Agno converte `dict` com `str()`; JSON deixa o retorno legível para o modelo e para a pós-validação, e as funções originais seguem devolvendo `dict` nos testes |
 | Linguagem simples, sem "parecer" | Evita que o usuário confunda a ferramenta com consultoria |
 
 ### 13.1. Erros encontrados nos rascunhos (gerados por IA) e corrigidos

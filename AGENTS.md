@@ -66,6 +66,7 @@ web/
   main.py              # rotas FastAPI
   agentos_client.py    # única camada que chama a API do AgentOS
   verificacao.py       # checagem em código da resposta do agente (pós-validação)
+  mensagem.py          # monta a mensagem ao agente a partir do formulário
   templates/ static/
 data/regras_cnae.json  # base de regras
 scripts/run_casos.py   # casos de teste via HTTP + gravação de evidências

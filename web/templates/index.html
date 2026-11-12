@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block main %}
+<div class="aviso">
+  ⚠️ <strong>Material de referência</strong>, não substitui consulta a um contador ou advogado.
+</div>
+
+<form class="cartao" hx-post="/verificar" hx-target="#resultado" hx-swap="innerHTML"
+      hx-indicator="#processando" hx-disabled-elt="find button[type=submit]">
+  <input type="hidden" name="session_id" value="{{ session_id }}">
+
+  <label for="cnae">CNAE registrado ou sugerido</label>
+  <input id="cnae" name="cnae" required placeholder="ex.: 6201-5/01" autocomplete="off">
+  <small>Aceita 6201-5/01, 6201501 ou 62.01-5-01. Está no cartão CNPJ da empresa.</small>
+
+  <label for="modelo_negocio">O que sua empresa faz?</label>
+  <select id="modelo_negocio" name="modelo_negocio" required
+          onchange="document.getElementById('bloco-livre').hidden = this.value !== 'outro'">
+    <option value="" disabled selected>Escolha a opção mais parecida</option>
+    {% for valor, rotulo in rotulos.items() %}
+    <option value="{{ valor }}">{{ rotulo }}</option>
+    {% endfor %}
+    <option value="outro">Não sei / outro</option>
+  </select>
+  <div id="bloco-livre" hidden>
+    <label for="descricao_livre">Descreva com suas palavras</label>
+    <textarea id="descricao_livre" name="descricao_livre" rows="2"
+              placeholder="ex.: vendo planilhas prontas pela internet"></textarea>
+  </div>
+
+  <fieldset>
+    <legend>O que te disseram (opcional)</legend>
+    <label for="afirmacao_compativel">Esse CNAE serve para o meu negócio?</label>
+    <select id="afirmacao_compativel" name="afirmacao_compativel">
+      <option value="nao_sei">Não sei / ninguém disse</option>
+      <option value="sim">Disseram que sim</option>
+      <option value="nao">Disseram que não</option>
+    </select>
+    <label for="anexo_afirmado">Anexo do Simples Nacional que te informaram</label>
+    <select id="anexo_afirmado" name="anexo_afirmado">
+      <option value="">Não sei</option>
+      {% for a in ["I", "II", "III", "IV", "V"] %}<option value="{{ a }}">Anexo {{ a }}</option>{% endfor %}
+    </select>
+  </fieldset>
+
+  <fieldset>
+    <legend>Últimos 12 meses (opcional, para o Fator R)</legend>
+    <small>O Fator R é a folha de pagamento dividida pela receita; ele decide o anexo de alguns CNAEs.</small>
+    <label for="folha_12m">Folha de pagamento, com pró-labore (R$)</label>
+    <input id="folha_12m" name="folha_12m" inputmode="decimal" placeholder="ex.: 30.000,00">
+    <label for="receita_bruta_12m">Receita bruta (R$)</label>
+    <input id="receita_bruta_12m" name="receita_bruta_12m" inputmode="decimal" placeholder="ex.: 100.000,00">
+  </fieldset>
+
+  <button type="submit">Verificar</button>
+  <span id="processando" class="htmx-indicator">Verificando… isso pode levar alguns segundos.</span>
+</form>
+
+<section id="resultado" aria-live="polite"></section>
+{% endblock %}
