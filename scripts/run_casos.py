@@ -350,15 +350,36 @@ def _sanitizar(texto: str) -> str:
     return texto
 
 
+# O plano gratuito do Gemini aceita poucas requisições por minuto e cada caso faz de 3 a 4
+# chamadas ao modelo; a pausa entre casos evita que um 429 de cota contamine o caso seguinte.
+PAUSA_ENTRE_CASOS_S = float(os.getenv("CASOS_PAUSA_S", "60"))
+_ultimo_envio: float | None = None
+
+
+def _aguardar_cota() -> None:
+    global _ultimo_envio
+    if _ultimo_envio is not None:
+        restante = PAUSA_ENTRE_CASOS_S - (time.monotonic() - _ultimo_envio)
+        if restante > 0:
+            print(f"         (pausa de {restante:.0f} s pela cota do modelo)")
+            time.sleep(restante)
+    _ultimo_envio = time.monotonic()
+
+
 def executar(caso_id: str, mensagem: str) -> tuple[dict, dict]:
+    _aguardar_cota()
     url = f"{config.agentos_url()}/agents/{config.AGENT_ID}/runs"
     form = {"message": mensagem, "stream": "false", "session_id": f"{caso_id}-{uuid.uuid4()}"}
     headers = {}
     if config.os_security_key():
         headers["Authorization"] = f"Bearer {config.os_security_key()}"
     inicio = datetime.now(UTC).isoformat(timespec="seconds")
-    resposta = httpx.post(url, data=form, headers=headers, timeout=config.agentos_timeout_s())
     requisicao = {"metodo": "POST", "url": url, "form": form, "enviado_em": inicio}
+    try:
+        resposta = httpx.post(url, data=form, headers=headers, timeout=config.agentos_timeout_s())
+    except httpx.HTTPError as exc:
+        # Registra o caso como falho em vez de abortar a bateria inteira.
+        return requisicao, {"status_http": None, "corpo": {"erro_http": repr(exc)}}
     try:
         corpo = resposta.json()
     except ValueError:

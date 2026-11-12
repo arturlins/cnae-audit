@@ -12,11 +12,12 @@ load_dotenv(PROJECT_ROOT / ".env", override=False)
 
 DEFAULT_IBGE_BASE_URL = "https://servicodados.ibge.gov.br/api/v2/cnae"
 DEFAULT_REGRAS_PATH = PROJECT_ROOT / "data" / "regras_cnae.json"
-DEFAULT_GEMINI_MODEL_ID = "gemini-3.7-flash"
+DEFAULT_GEMINI_MODEL_ID = "gemini-3.6-flash"
 DEFAULT_AGENTOS_DB = PROJECT_ROOT / "tmp" / "agentos.db"
 
 AGENT_ID = "verificador-cnae"
 TOOL_CALL_LIMIT = 6
+GEMINI_RETRIES = 2
 
 
 def ibge_base_url() -> str:
@@ -39,6 +40,11 @@ def gemini_model_id() -> str:
     return os.getenv("GEMINI_MODEL_ID", DEFAULT_GEMINI_MODEL_ID)
 
 
+def gemini_timeout_s() -> float:
+    """Timeout de cada requisição ao Gemini (o SDK sem timeout pode passar de 90 s sob 503)."""
+    return float(os.getenv("GEMINI_TIMEOUT_S", "30"))
+
+
 def agentos_db_path() -> Path:
     raw = os.getenv("AGENTOS_DB")
     if not raw:
@@ -56,7 +62,7 @@ def agentos_url() -> str:
 
 
 def agentos_timeout_s() -> float:
-    return float(os.getenv("AGENTOS_TIMEOUT_S", "90"))
+    return float(os.getenv("AGENTOS_TIMEOUT_S", "120"))
 
 
 def os_security_key() -> str | None:

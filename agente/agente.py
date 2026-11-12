@@ -35,7 +35,16 @@ def criar_agente() -> Agent:
         id=config.AGENT_ID,
         name="Verificador de CNAE",
         description=DESCRICAO,
-        model=Gemini(id=config.gemini_model_id(), temperature=0),
+        model=Gemini(
+            id=config.gemini_model_id(),
+            temperature=0,
+            timeout=config.gemini_timeout_s(),
+            # 429 (cota por minuto) e 503/504 (sobrecarga) são transitórios: o Agno repete
+            # a chamada ao modelo com espera exponencial (8 s, 16 s).
+            retries=config.GEMINI_RETRIES,
+            delay_between_retries=8,
+            exponential_backoff=True,
+        ),
         instructions=INSTRUCOES,
         tools=[como_json(consultar_cnae_ibge), como_json(validar_enquadramento)],
         tool_call_limit=config.TOOL_CALL_LIMIT,

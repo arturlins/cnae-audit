@@ -54,6 +54,13 @@ INSTRUCOES = [
         'declare a interpretação na resposta: "Entendi seu negócio como: <rótulo>".'
     ),
     (
+        "Ao pedir esclarecimento, NÃO dê exemplos de códigos CNAE nem diga a que classe ou "
+        "atividade um código incompleto corresponde: descreva o formato de forma genérica "
+        "(7 dígitos, como NNNN-N/NN) e descreva os modelos de negócio só pelos rótulos em "
+        "linguagem simples. Um código citado como exemplo também é um CNAE sem origem em "
+        "ferramenta."
+    ),
+    (
         "Se uma ferramenta devolver `entrada_invalida`, explique o problema com base na `mensagem` "
         "dela e peça o dado correto; não tente adivinhar outro valor."
     ),

@@ -72,12 +72,12 @@ O app web e o AgentOS são **processos separados**. O app web é um cliente fino
 | --- | --- |
 | ID no AgentOS | `verificador-cnae` |
 | Framework | Agno 3.1.x + AgentOS |
-| Modelo | Google Gemini (`agno.models.google.Gemini`, chave em `GOOGLE_API_KEY`). O id vem de `GEMINI_MODEL_ID`; o padrão é `gemini-3.7-flash` (o padrão do Agno 3.1.12), e o id efetivamente usado fica registrado em `docs/testes.md` |
+| Modelo | Google Gemini (`agno.models.google.Gemini`, chave em `GOOGLE_API_KEY`). O id vem de `GEMINI_MODEL_ID`; o padrão é `gemini-3.6-flash`, o id usado nos testes registrados em `docs/testes.md`. O `gemini-3.7-flash` (padrão do Agno 3.1.12) existe na API, mas em 12/11/2026 respondia 503/504 por sobrecarga |
 | Temperatura | 0 |
 | Limite de ferramentas | `tool_call_limit=6` (o T03 usa até 4) |
 | Sessões | `SqliteDb` em `tmp/agentos.db` (só sessões; **não** é fonte de dados do domínio). Histórico das 3 últimas execuções da sessão, para responder a pedidos de esclarecimento |
 | Retorno das ferramentas | As ferramentas devolvem `dict`; o agente as recebe envolvidas por `como_json` (`agente/agente.py`), que serializa em JSON. Sem isso o Agno usaria `str(dict)` (repr de Python), ilegível para o pós-validador |
-| Timeouts | IBGE 5 s (`IBGE_TIMEOUT_S`); app web → AgentOS 90 s (`AGENTOS_TIMEOUT_S`) |
+| Timeouts e novas tentativas | IBGE 5 s (`IBGE_TIMEOUT_S`); cada requisição ao Gemini 30 s (`GEMINI_TIMEOUT_S`), com até 2 novas tentativas em 429/5xx (espera de 8 s e 16 s); app web → AgentOS 120 s (`AGENTOS_TIMEOUT_S`) |
 
 ### 6.1. Instruções (resumo; texto integral em `agente/instrucoes.py`)
 
