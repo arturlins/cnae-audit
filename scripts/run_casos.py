@@ -8,6 +8,10 @@ O script sobe o próprio AgentOS (`python -m agente.servidor`) em um subprocesso
 precisa reiniciar o serviço com variáveis de ambiente alteradas. A porta 7777 (ou AGENTOS_PORT)
 precisa estar livre. O resultado esperado de cada caso foi definido pela inspeção de
 `data/regras_cnae.json` e da API do IBGE, não pela resposta do modelo (docs/testes.md).
+
+Código de saída: 0 se todos os casos executados passaram, 1 se algum falhou, 2 se faltou
+configuração (GOOGLE_API_KEY) ou se sobrou `data/regras_cnae.json.bak` de um T07 interrompido.
+Passo a passo completo em docs/reproducao.md.
 """
 
 import json
@@ -443,7 +447,7 @@ def _regra_t07(base: dict) -> dict:
     return next(r for r in base["cnaes"]["6201-5/01"]["regras"] if r["id"] == REGRA_T07)
 
 
-def executar_t07() -> dict:
+def executar_t07() -> list[dict]:
     """Altera a regra R-6201-SAAS (incompativel -> compativel), repete a consulta em nova
     sessão e restaura a base. Sem cache: a ferramenta relê o JSON a cada chamada."""
     mensagem = _msg_form(
@@ -492,7 +496,7 @@ def executar_t07() -> dict:
         shutil.move(REGRAS_BAK, REGRAS)
     restaurada = _regra_t07(json.loads(REGRAS.read_text(encoding="utf-8")))["resultado"]
     print(f"         base restaurada: {REGRA_T07}.resultado = {restaurada}")
-    return {"antes": r1["situacao"], "depois": r2["situacao"], "restaurado": restaurada}
+    return [r1, r2]
 
 
 def main(filtro: list[str]) -> int:
@@ -505,6 +509,15 @@ def main(filtro: list[str]) -> int:
     def quer(caso_id: str) -> bool:
         return not filtro or any(caso_id.startswith(f) for f in filtro)
 
+    if quer("T07") and REGRAS_BAK.exists():
+        # Sobra de um T07 interrompido: a base pode estar alterada, e um novo backup
+        # sobrescreveria o original. Restaure antes (docs/reproducao.md, solução de problemas).
+        print(f"{REGRAS_BAK.relative_to(ROOT)} existe: um T07 anterior foi interrompido.")
+        print(
+            "Restaure a base (git checkout -- data/regras_cnae.json), apague o .bak e rode de novo."
+        )
+        return 2
+
     resumo = []
     normais = [c for c in casos if not c.env and quer(c.id)]
     if normais or quer("T07"):
@@ -513,7 +526,7 @@ def main(filtro: list[str]) -> int:
                 req, resp = executar(c.id, c.mensagem)
                 resumo.append(registrar(c.id, c.titulo, c.esperado, req, resp, c.checar))
             if quer("T07"):
-                executar_t07()
+                resumo.extend(executar_t07())
     for c in (c for c in casos if c.env and quer(c.id)):
         with AgentOS(c.env, c.id):
             req, resp = executar(c.id, c.mensagem)
