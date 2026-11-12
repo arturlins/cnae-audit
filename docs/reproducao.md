@@ -11,7 +11,9 @@ Quando os dois shells usam o mesmo comando (`uv run …`, `git …`), ele aparec
 
 > ⚠️ O Verificador de CNAE é material de referência e não substitui consulta a um contador ou advogado.
 
-Validado em 12/11/2026, num clone limpo da tag `v1.0-atividade`, no Windows 11 (PowerShell 7.6 e Git Bash), com uv 0.13.7 e `gemini-3.6-flash`.
+A tag da entrega é **`v1.1-atividade`**. Ela é a `v1.0-atividade` mais este guia e uma correção no `scripts/run_casos.py`: o T07 passou a contar no código de saída, e o script recusa rodar se sobrar um `.bak`. O agente, as ferramentas, a base e as evidências são os mesmos.
+
+Validado em 12/11/2026, num clone limpo, no Windows 11 (PowerShell 7.6 e Git Bash), com uv 0.13.7 e `gemini-3.6-flash`.
 
 **Quanto custa em chamadas ao modelo.** Os passos 0 a 5 não chamam o Gemini. Cada consulta ao agente faz de 3 a 4 requisições ao modelo:
 
@@ -102,13 +104,13 @@ Se aparecer algum processo, veja [Porta ocupada](#porta-ocupada).
 ```bash
 git clone <URL-do-repositório> cnae-audit
 cd cnae-audit
-git checkout v1.0-atividade
+git checkout v1.1-atividade
 ```
 
 Saída esperada do `checkout`:
 
 ```text
-Note: switching to 'v1.0-atividade'.
+Note: switching to 'v1.1-atividade'.
 You are in 'detached HEAD' state. (…)
 HEAD is now at <commit> <mensagem do commit da tag>
 ```
@@ -116,7 +118,7 @@ HEAD is now at <commit> <mensagem do commit da tag>
 O aviso de *detached HEAD* é normal, porque uma tag não é um ramo. Para confirmar onde você está:
 
 ```bash
-git describe --tags      # v1.0-atividade
+git describe --tags      # v1.1-atividade
 git status --short       # nenhuma linha: árvore limpa
 ```
 
@@ -907,7 +909,7 @@ git --version; uv --version; curl.exe --version
 Get-NetTCPConnection -LocalPort 7777,8000 -State Listen -ErrorAction SilentlyContinue   # nenhuma linha
 git clone <URL-do-repositório> cnae-audit
 cd cnae-audit
-git checkout v1.0-atividade
+git checkout v1.1-atividade
 
 # 2-3. instalar e configurar
 uv sync --frozen
@@ -960,7 +962,7 @@ git --version; uv --version; curl --version
 lsof -nP -iTCP:7777 -iTCP:8000 -sTCP:LISTEN          # nenhuma linha (Git Bash: netstat -ano | grep -E ':(7777|8000) .*LISTEN')
 git clone <URL-do-repositório> cnae-audit
 cd cnae-audit
-git checkout v1.0-atividade
+git checkout v1.1-atividade
 
 # 2-3. instalar e configurar
 uv sync --frozen
