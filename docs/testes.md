@@ -9,7 +9,7 @@
 | Versões | Python 3.12, Agno 3.1.12, google-genai 3.2.0, FastAPI 0.162.5 (todas fixadas em `uv.lock`) |
 | Base de regras | `data/regras_cnae.json`, versão `1.0.0`, data de referência `2026-11-11` |
 | Fonte externa | API CNAE do IBGE (`https://servicodados.ibge.gov.br/api/v2/cnae`), consultada ao vivo |
-| Como reproduzir | T01–T07: `uv run python scripts/run_casos.py`. T08: passo a passo no [README](../README.md#jornada-no-projeto-t08-passo-a-passo) |
+| Como reproduzir | T01–T07: `uv run python scripts/run_casos.py`. T08: passo a passo no [README](../README.md#jornada-no-projeto-t08-passo-a-passo). Guia completo, com saídas esperadas: [`reproducao.md`](reproducao.md) |
 
 Os casos T01 a T07 passam pela **API HTTP do AgentOS** (`POST /agents/verificador-cnae/runs`, `stream=false`). Cada caso usa uma sessão nova (`session_id` único). O script `scripts/run_casos.py`:
 

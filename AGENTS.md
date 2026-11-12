@@ -73,7 +73,7 @@ data/regras_cnae.json  # base de regras
 scripts/run_casos.py   # casos de teste via HTTP + gravação de evidências
 tests/                 # pytest
 evidencias/            # respostas HTTP brutas dos casos (versionadas)
-docs/                  # solucao.md, ferramentas.md, dados.md, testes.md, uso-de-ia.md
+docs/                  # solucao.md, ferramentas.md, dados.md, testes.md, reproducao.md, uso-de-ia.md
 ```
 
 ## Convenções de código

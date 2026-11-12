@@ -27,7 +27,7 @@ Usuário ← tela com selo, explicação e "Onde conferir" ← pós-validação 
 | 1. Código do agente, das ferramentas, da API e da integração | Agente: [`agente/agente.py`](agente/agente.py) e [`agente/instrucoes.py`](agente/instrucoes.py). Ferramentas: [`agente/ferramentas/`](agente/ferramentas/). AgentOS: [`agente/servidor.py`](agente/servidor.py). Integração: [`web/`](web/), com a chamada à API em [`web/agentos_client.py`](web/agentos_client.py) |
 | 2. Dados de demonstração | [`data/regras_cnae.json`](data/regras_cnae.json), documentado em [`docs/dados.md`](docs/dados.md). A API do IBGE é pública e não exige carga |
 | 3. Dependências e configuração | [`pyproject.toml`](pyproject.toml) + [`uv.lock`](uv.lock) (versões fixadas), [`.python-version`](.python-version) (3.12) e [`.env.example`](.env.example) |
-| 4. README de execução | Este arquivo |
+| 4. README de execução | Este arquivo (resumo) e [`docs/reproducao.md`](docs/reproducao.md) (guia de reprodução passo a passo, com comandos para PowerShell e bash e a saída esperada de cada passo) |
 | 5. Documentação da solução | [`docs/solucao.md`](docs/solucao.md) (objetivo, arquitetura, agente, validação), [`docs/ferramentas.md`](docs/ferramentas.md) (contratos) e [`docs/dados.md`](docs/dados.md) (fontes) |
 | 6. Relatório dos oito casos de teste | [`docs/testes.md`](docs/testes.md), com evidências em [`evidencias/`](evidencias/) |
 | 7. Participantes, contribuições e uso de IA | Seção [Participante](#participante) abaixo e [`docs/uso-de-ia.md`](docs/uso-de-ia.md) |
@@ -174,7 +174,7 @@ uv run ruff check .                    # lint
 uv run python scripts/run_casos.py     # casos T01–T07 pela API, com o modelo real; grava evidencias/
 ```
 
-O `run_casos.py` sobe o próprio AgentOS, então a porta 7777 precisa estar livre. No T06 ele reinicia o serviço com o IBGE ou a base indisponíveis. No T07 ele altera e depois restaura uma regra da base. A pausa entre os casos é de 5 s (`CASOS_PAUSA_S`). No plano gratuito do Gemini (5 requisições/min, 20/dia), use `CASOS_PAUSA_S=60`, e a bateria completa não cabe na cota de um dia. Relatório em [`docs/testes.md`](docs/testes.md).
+O `run_casos.py` sobe o próprio AgentOS, então a porta 7777 precisa estar livre. No T06 ele reinicia o serviço com o IBGE ou a base indisponíveis. No T07 ele altera e depois restaura uma regra da base. A pausa entre os casos é de 5 s (`CASOS_PAUSA_S`). No plano gratuito do Gemini (5 requisições/min, 20/dia), use `CASOS_PAUSA_S=60`, e a bateria completa não cabe na cota de um dia. Relatório em [`docs/testes.md`](docs/testes.md). O passo a passo completo, com a saída esperada de cada comando, como conferir as evidências e a solução de problemas, está em [`docs/reproducao.md`](docs/reproducao.md).
 
 ## Participante
 
