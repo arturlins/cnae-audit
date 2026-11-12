@@ -1,0 +1,144 @@
+{
+"versao_schema": "2.0",
+"descricao": "Base de conhecimento de CNAEs para auditoria regulatória e fiscal multissetorial com ênfase em Tecnologia e Startups.",
+"cnaes": {
+"6311-9/00": {
+"codigo": "6311-9/00",
+"denominacao": "Tratamento de dados, provedores de serviços de aplicação e serviços de hospedagem na internet",
+"setor": "Tecnologia / SaaS",
+"natureza_operacao": "saas_massificado",
+"modelos_compativeis": [
+"saas_puro",
+"plataforma_cloud",
+"hospedagem_aplicacao",
+"software_como_servico"
+],
+"modelos_incompativeis": [
+"desenvolvimento_sob_encomenda",
+"venda_hardware",
+"prestacao_servicos_presenciais"
+],
+"tributacao": {
+"regime_simples": "Anexo III",
+"sujeito_fator_r": false,
+"tributacao_iss": true,
+"tributacao_icms": false
+},
+"risco_fiscal": "Baixo para SaaS. Alto se a empresa utilizar este CNAE para faturar projetos de desenvolvimento customizado sob encomenda."
+},
+"6201-5/01": {
+"codigo": "6201-5/01",
+"denominacao": "Desenvolvimento de programas de computador sob encomenda",
+"setor": "Tecnologia / Serviços",
+"natureza_operacao": "servico_sob_encomenda",
+"modelos_compativeis": [
+"software_house",
+"desenvolvimento_customizado",
+"outsourcing_ti",
+"fabrica_de_software"
+],
+"modelos_incompativeis": [
+"saas_puro",
+"comercio_varejista",
+"distribuicao_licencas_massificadas"
+],
+"tributacao": {
+"regime_simples": "Anexo V (sujeito ao Fator R -> Anexo III)",
+"sujeito_fator_r": true,
+"tributacao_iss": true,
+"tributacao_icms": false
+},
+"risco_fiscal": "Alto risco de desenquadramento se utilizado para comercialização massificada de licenças SaaS sem cessão de código-fonte."
+},
+"6202-3/00": {
+"codigo": "6202-3/00",
+"denominacao": "Desenvolvimento e licenciamento de programas de computador customizáveis",
+"setor": "Tecnologia / Licenciamento",
+"natureza_operacao": "licenciamento_customizavel",
+"modelos_compativeis": [
+"software_empresarial_customizavel",
+"licenciamento_erp",
+"software_customizavel"
+],
+"modelos_incompativeis": [
+"saas_puro",
+"comercio_hardware"
+],
+"tributacao": {
+"regime_simples": "Anexo V (sujeito ao Fator R -> Anexo III)",
+"sujeito_fator_r": true,
+"tributacao_iss": true,
+"tributacao_icms": false
+},
+"risco_fiscal": "Médio. Exige diferenciação clara entre serviços de parametrização e cessão de licenças de software."
+},
+"6204-0/00": {
+"codigo": "6204-0/00",
+"denominacao": "Consultoria em tecnologia da informação",
+"setor": "Tecnologia / Consultoria",
+"natureza_operacao": "consultoria_tecnica",
+"modelos_compativeis": [
+"consultoria_ti",
+"auditoria_sistemas",
+"arquitetura_de_software"
+],
+"modelos_incompativeis": [
+"saas_puro",
+"venda_software_massificado",
+"comercio_equipamentos"
+],
+"tributacao": {
+"regime_simples": "Anexo V (sujeito ao Fator R -> Anexo III)",
+"sujeito_fator_r": true,
+"tributacao_iss": true,
+"tributacao_icms": false
+},
+"risco_fiscal": "Fator R obrigatório para tributação em 6% no Anexo III; se a folha for inferior a 28% do faturamento, a alíquota sobe para 15,5% (Anexo V)."
+},
+"4751-2/01": {
+"codigo": "4751-2/01",
+"denominacao": "Comércio varejista especializado de equipamentos e suprimentos de informática",
+"setor": "Comércio Varejista",
+"natureza_operacao": "venda_produtos_fisicos",
+"modelos_compativeis": [
+"e_commerce_hardware",
+"loja_informatica",
+"revenda_equipamentos"
+],
+"modelos_incompativeis": [
+"desenvolvimento_software",
+"saas_puro",
+"consultoria_ti"
+],
+"tributacao": {
+"regime_simples": "Anexo I",
+"sujeito_fator_r": false,
+"tributacao_iss": false,
+"tributacao_icms": true
+},
+"risco_fiscal": "Não permite faturamento de serviços intelectuais ou licenças de software. Exige emissão de NF-e mercantil com incidência de ICMS."
+},
+"7319-0/02": {
+"codigo": "7319-0/02",
+"denominacao": "Promoção de vendas",
+"setor": "Marketing / Serviços",
+"natureza_operacao": "intermediacao_promocao",
+"modelos_compativeis": [
+"agencia_marketing",
+"promocao_comercial",
+"afiliados_produtos"
+],
+"modelos_incompativeis": [
+"saas_puro",
+"desenvolvimento_software"
+],
+"tributacao": {
+"regime_simples": "Anexo III",
+"sujeito_fator_r": false,
+"tributacao_iss": true,
+"tributacao_icms": false
+},
+"risco_fiscal": "Risco de autuação por desvio de atividade se utilizado para simular intermediação em plataformas de software ou infoprodutos."
+}
+}
+}
