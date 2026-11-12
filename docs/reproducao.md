@@ -11,9 +11,15 @@ Quando os dois shells usam o mesmo comando (`uv run …`, `git …`), ele aparec
 
 > ⚠️ O Verificador de CNAE é material de referência e não substitui consulta a um contador ou advogado.
 
-A tag da entrega é **`v1.1-atividade`**. Ela é a `v1.0-atividade` mais este guia e uma correção no `scripts/run_casos.py`: o T07 passou a contar no código de saída, e o script recusa rodar se sobrar um `.bak`. O agente, as ferramentas, a base e as evidências são os mesmos.
+A tag da entrega é **`v1.1-atividade`**. Ela é a `v1.0-atividade` mais este guia e correções no `scripts/run_casos.py`:
 
-Validado em 12/11/2026, num clone limpo, no Windows 11 (PowerShell 7.6 e Git Bash), com uv 0.13.7 e `gemini-3.6-flash`.
+- o T07 passou a contar no código de saída;
+- o script recusa rodar se sobrar um `.bak`;
+- a checagem de texto do T04 não reprova mais uma frase que *nega* a incompatibilidade (`docs/testes.md` §3, falha 5).
+
+O agente, as ferramentas, a base e as evidências dos casos são os mesmos.
+
+Validado em 12/11/2026, num clone limpo, no Windows 11 (PowerShell 7.6 e Git Bash), com uv 0.13.7 e `gemini-3.6-flash`. A bateria completa T01–T07 levou 172 s numa conta com faturamento.
 
 **Quanto custa em chamadas ao modelo.** Os passos 0 a 5 não chamam o Gemini. Cada consulta ao agente faz de 3 a 4 requisições ao modelo:
 
@@ -202,7 +208,7 @@ A lista completa está no [README](../README.md#instalação-e-configuração). 
 | --- | --- | --- |
 | Limite observado | **5 requisições/min** e **20 requisições/dia** (a cota parece compartilhada entre os modelos Flash) | Sem limite prático para este guia |
 | `CASOS_PAUSA_S` | `60` | `5` (o padrão) |
-| Bateria T01–T07 (passo 7) | **Não cabe numa cota de um dia** (30 a 40 requisições). Rode em partes, em dias diferentes. Exemplo: `T01 T02 T03 T04` num dia, `T05 T06 T07` no outro | Cabe numa execução de ~5 min |
+| Bateria T01–T07 (passo 7) | **Não cabe numa cota de um dia** (30 a 40 requisições). Rode em partes, em dias diferentes. Exemplo: `T01 T02 T03 T04` num dia, `T05 T06 T07` no outro | Cabe numa execução de ~3 min |
 | Sintoma de cota estourada | Run com `status: ERROR` e `429 RESOURCE_EXHAUSTED` | — |
 
 A execução registrada em `docs/testes.md` usou uma conta com faturamento ativo.
@@ -220,7 +226,7 @@ uv run pytest
 Saída esperada (última linha; o tempo varia):
 
 ```text
-============================= 165 passed in 1.45s =============================
+============================= 171 passed in 1.68s =============================
 ```
 
 ```bash

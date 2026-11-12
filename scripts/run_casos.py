@@ -16,6 +16,7 @@ Passo a passo completo em docs/reproducao.md.
 
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -145,6 +146,26 @@ def checar_t03(e: Execucao) -> list[Checagem]:
     ]
 
 
+_NEGACAO = re.compile(r"\b(não|nao|nem|nunca)\b")
+
+
+def _afirma_incompatibilidade(conteudo: str) -> bool:
+    """True se a resposta chama o CNAE de incompatível.
+
+    A seção "## Resultado" não pode conter "incompat" de jeito nenhum. No resto do texto, conta
+    toda frase com "incompat" que não tenha negação: "a ausência na base não significa que seja
+    incompatível" é a explicação correta do T04, e "este CNAE é incompatível" não é.
+    """
+    texto = conteudo.lower()
+    inicio = texto.find("## resultado")
+    if inicio >= 0:
+        fim = texto.find("\n## ", inicio + 1)
+        if "incompat" in texto[inicio : fim if fim >= 0 else None]:
+            return True
+    frases = re.split(r"(?<=[.!?])\s+|\n", texto)
+    return any("incompat" in f and not _NEGACAO.search(f) for f in frases)
+
+
 def checar_t04(e: Execucao) -> list[Checagem]:
     r = e.ultima("validar_enquadramento")
     return [
@@ -154,7 +175,10 @@ def checar_t04(e: Execucao) -> list[Checagem]:
             "status_afirmacao = sem_evidencia_suficiente",
             r.get("status_afirmacao") == "sem_evidencia_suficiente",
         ),
-        ("resposta não chama o CNAE de incompatível", "incompat" not in e.conteudo.lower()),
+        (
+            "resposta não chama o CNAE de incompatível",
+            not _afirma_incompatibilidade(e.conteudo),
+        ),
     ]
 
 
